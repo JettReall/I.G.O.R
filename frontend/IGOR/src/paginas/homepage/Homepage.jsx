@@ -1,4 +1,5 @@
 import './Homepage.css';
+
 import editIcon from '../../assets/imagens/icones/edit-traco.png'
 
 function Homepage() {
