@@ -3,8 +3,10 @@ package com.example.igor.service;
 import com.example.igor.entity.Usuario;
 import com.example.igor.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -16,6 +18,9 @@ public class UsuarioService {
 
     //Criar
     public Usuario cadastrarUsuario(Usuario usuario) {
+        if(repository.existsByNome(usuario.getNome())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse nome já está em uso");
+        }
         return repository.save(usuario);
     }
 
