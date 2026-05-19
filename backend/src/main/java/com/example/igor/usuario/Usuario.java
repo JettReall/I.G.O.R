@@ -1,4 +1,4 @@
-package com.example.igor.entity;
+package com.example.igor.usuario;
 
 import jakarta.persistence.*;
 import lombok.Data;
