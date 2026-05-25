@@ -1,4 +1,4 @@
-package com.example.igor.controller;
+package com.example.igor.usuario;
 
 import java.util.List;
 
@@ -12,16 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.igor.entity.Usuario;
-import com.example.igor.repository.UsuarioRepository;
-import com.example.igor.service.UsuarioService;
-
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
-    @Autowired
-    private UsuarioRepository repository;
 
     @Autowired
     private UsuarioService usuarioService;

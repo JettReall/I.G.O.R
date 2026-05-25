@@ -1,0 +1,7 @@
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Rosana2teste",
+  "senha": "Nas Alturas"
+}
