@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
       <Route path="/" element={<Homepage/>}></Route>
-      <Route path='campanhas' element={<Campanhas/>}/>
+      <Route path='campanhas' element={<Campanhas usuario={"MiloAntraz"}/>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

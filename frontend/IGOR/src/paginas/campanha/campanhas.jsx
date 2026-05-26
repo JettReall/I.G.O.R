@@ -23,8 +23,19 @@ function BotaoAddCampanha() {
      )
 }
 
-function BotaoAbaNav() {
-     return <button className="botao-aba-nav"></button>
+function BotaoAbaNav({texto}) {
+     return (
+     <button className="botao-aba-nav" id={texto}>{texto}</button>
+     )
+}
+
+function BotaoPerfil( {foto, nomeperfil} ) {
+     return (
+          <div className="container-botao-perfil">
+               <img src={foto} alt="" className="foto-perfil" />
+               <p className="nome-perfil">Olá, {nomeperfil}</p>
+          </div>
+     )
 }
 
 function ContainerCampanhas() {
@@ -40,16 +51,29 @@ function ContainerCampanhas() {
 }
 
 
-function Campanhas() {
+function BotoesLaterais() {
+     return (
+          <div className="container-botoes-laterais">
+               <BotaoAbaNav texto={"Campanhas"}/>
+               <BotaoAbaNav texto={"Arquivos"}/>
+               <BotaoAbaNav texto={"Tutorial"}/>
+          </div>
+     )
+}
+
+function Campanhas({usuario}) {
+     if (usuario == undefined) {
+          usuario = "Usuário"
+     }
      return   (
                <div className="container-grid">
                     <header>
-                         <h1 className="texto-header">Header</h1>    
+                         <h1 className="texto-header">CAMPANHAS</h1>    
                     </header>                
                
                     <nav className="latertal">
-                         <BotaoAbaNav/>
-                         <h1>NAV</h1>
+                         <BotoesLaterais/>
+                         <BotaoPerfil nomeperfil={usuario}/>
                     </nav>
 
                     <main>
