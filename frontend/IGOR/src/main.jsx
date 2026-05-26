@@ -9,10 +9,11 @@ import Login from './paginas/Login/Login'
 import Homepage from './paginas/homepage/Homepage'
 import App from './app'
 import LoginTeste from './paginas/Login/LoginTeste'
+import Campanhas from './paginas/campanha/campanhas'
 
 const Private = ({Item})  => {
   const signed = true;
-  if (signed > 0) {
+  if (signed === true) {
     return <Item/>
   } else {
     return <Login/>
@@ -23,7 +24,8 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-  <Route path="/" element={<LoginTeste/>}></Route>
+      <Route path="/" element={<Homepage/>}></Route>
+      <Route path='campanhas' element={<Campanhas usuario={"MiloAntraz"}/>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
