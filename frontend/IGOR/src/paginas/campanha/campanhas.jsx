@@ -1,27 +1,18 @@
 import './campanhas.css'
 
-function BotaoCampanha() {
+function BotaoCampanha({aba_botao, nome_botao}) {
      return (
-          <div className="container-botao-campanha">
+          <div className="container-botao-campanha" id={aba_botao}>
                <div className="conatainer-botoes">
                     <button className="botao-altera-campanha" id="editar"></button>
                     <button className="botao-altera-campanha" id="apagar"></button>
                </div>
                <img src="" alt="" className="botao-campanha" />
-               <strong className="nome-campanha">Nome campanha</strong>  
+               <strong className="nome-campanha">{nome_botao}</strong>  
           </div>
      ) 
 }
 
-function BotaoAddCampanha() {
-     return(
-
-          <div className="container-botao-campanha" id='adicionar-campanha'>
-               <img src="" alt="" className="botao-campanha" />
-               <strong className="nome-campanha">Adicionar uma campanha</strong>  
-          </div>
-     )
-}
 
 function BotaoAbaNav({texto}) {
      return (
@@ -41,11 +32,12 @@ function BotaoPerfil( {foto, nomeperfil} ) {
 function ContainerCampanhas() {
      return (
           <div className="container-campanhas">
-               <BotaoAddCampanha/>
-               <BotaoCampanha/>
-               <BotaoCampanha/>
-               <BotaoCampanha/>
-               <BotaoCampanha/>
+               <BotaoCampanha aba_botao={"adicionar"} nome_botao={"Adicionar uma campanha"} />
+               <BotaoCampanha nome_botao={"Placeholder"}/>
+               <BotaoCampanha nome_botao={"Placeholder"}/>
+               <BotaoCampanha nome_botao={"Placeholder"}/>
+               <BotaoCampanha nome_botao={"Placeholder"}/>
+
           </div>
      )
 }

@@ -3,24 +3,17 @@ body {
      background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
-     height: 100vh;
 
-     justify-items: center;
-     align-items: center;
+     margin: 0 0 0 0;
+     position: relative;
 
 }
 
 .container-grande {
-     background-color: aqua;
+     background-color: snow;
 
-     width: auto;
-     max-width: 80vw;
-     min-width: 50vw;
-
-     height: auto;
-     max-height: 75vh;
-     min-height: 50vh;
-
+     width: 60vw;
+     height: 60vh;
 
 
      border-radius: 10px;
@@ -30,54 +23,97 @@ body {
      justify-content: center;
      align-items: center;
      padding: 20px;
-     gap: 30px;
+     gap: 50px;
+
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%,-50%); 
 }
 
 .container-logo {
-     background-color: green;
      width: auto;
      max-width: 250px;
+
+     align-items: center;
+     display: flex;
+     flex-direction: column;
+
+     scale: calc(1.25);
 }
 
 .container-dados {
-     background-color: yellow;
-
-     height: 250px;
+     height: 90%;
      width: 30vw;
 
-     container-type: inline-size;
 
      display: flex;
      flex-direction: column;
-     gap: 20px;
-     font-family: 'Courier New', Courier, monospace;
+
+
      
 }
 
 .container-dados form {
-     gap: 20px;
+     gap:20px;
      display: flex;
      flex-direction: column;
+     
+
      align-items: center;
      justify-content: center;
-     
-     background-color: pink;
-     position: absolute;
-     top: 25%;
 
-     width: 90cqi;
+     width: 100%;
+     height: 100%;
+     
 
 }
 
 .container-dados .elemento-input {
-     width: 90%;
-     background-color: bisque;
+     width: 100%;
      display: flex;
      flex-direction: column;
+     gap: 0px;
 }
 
-.container-dados .elemento-input a {
-     color: red;
-     font-family: 'Courier New', Courier, monospace;
-     font-size: 12px;
+ p {
+     margin: 05px;
+     text-align: start;
+     
+}
+
+.container-botoes {
+     width: 100%;
+
+     display: flex;
+     flex-direction: row-reverse;
+}
+
+.botao-envio {
+     height: 50px;
+     width: 100px;
+     border-radius: 10px;
+     border: 1px solid black;
+
+     font-size: 24px;
+     background-color: snow;
+     color: black;
+
+     cursor: pointer;
+
+}
+
+.container-dados .elemento-input input{
+     border-radius: 10px;
+     height: 25px;
+     border: 1px solid grey;
+     box-shadow: 2px;
+}
+
+#mensagens-erro {
+     color: crimson;
+}
+
+#input-login {
+     padding: 15px;
 }

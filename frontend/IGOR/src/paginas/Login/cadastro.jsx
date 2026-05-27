@@ -17,13 +17,15 @@ function ContainerLogo() {
 function ContainerDados() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  //Partes criadas para alteração 
+  const [senha_confirmar, setSenhaConfirmar] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Evita recarregar a página
-
+//Comando que pega os usuarios, em vez de postá-los
     setCarregando(true);
     setErro(null);
     console.log("🔄 Carregando... (fetch iniciado)");
@@ -45,14 +47,19 @@ function ContainerDados() {
       console.log("🏁 Carregamento concluído");
     }
 
-    LoginAuth(usuarios,email,senha);
 };
+//Código de senha que ainda não produzi, mas é necessário
+     const isSenhaIgual = () => {
+          if (senha === senha_confirmar && senha !== null && senha_confirmar !== null ) {
+               return true;
+          } else return false;
+     }
 
 
   return (
           <div className="container-dados">
                <form onSubmit={handleSubmit}>
-               <div className="elemento-input" id='input-login'>
+               <div className="elemento-input">
                     <p>Digite o E-mail de vinculação</p>
                     <input
                     type="text"
@@ -64,18 +71,43 @@ function ContainerDados() {
                     />
                </div>
 
-               <div className="elemento-input" id='input-login'>
+               <div className="elemento-input">
+                    <p>Digite o Nome de usuário</p>
+                    <input
+                    type="text"
+                    name="text"
+                    id="email"
+                    placeholder="Nome de usuário"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
+               </div>
+
+               <div className="elemento-input">
                     <p>Digite sua senha</p>
                     <input
-                    type="password"
+                    type="text"
                     name="password"
                     id="senha"
                     placeholder="Digite sua senha"
                     required
                     onChange={(e) => setSenha(e.target.value)}
                     />
-                    <a href="">Esqueceu sua senha?</a>
                </div>
+
+               <div className="elemento-input">
+                    <p>Confirme sua senha</p>
+                    <input
+                    type="text"
+                    name="password"
+                    id="senha"
+                    placeholder="Digite sua senha"
+                    required
+                    onChange={(e) => setSenha(e.target.value)}
+                    />
+               </div>
+               
+               <p id="mensagens-erro"></p>
 
                <div className="container-botoes">
                     <button className="botao-envio" type="submit">
@@ -101,11 +133,11 @@ function Container() {
 
 
 
-function Login() {
+function Cadastro() {
      return (
           <Container/>
      )
 }
 
 
-export default Login
+export default Cadastro
