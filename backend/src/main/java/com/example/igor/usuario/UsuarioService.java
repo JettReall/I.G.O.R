@@ -18,6 +18,9 @@ public class UsuarioService {
         if(repository.existsByNome(usuario.getNome())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse nome já está em uso");
         }
+        if(repository.existsByEmail(usuario.getEmail())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse email já está em uso");
+        }
         return repository.save(usuario);
     }
 
