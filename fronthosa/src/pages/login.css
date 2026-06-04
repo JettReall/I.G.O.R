@@ -1,0 +1,97 @@
+body {
+     /* Ajuste o caminho conforme a estrutura real das suas pastas */
+     
+     background-size: cover;
+     background-position: center;
+     background-repeat: no-repeat;
+     height: 100vh;
+     margin: 0; /* Remove margens padrões do navegador */
+
+     /* CORREÇÃO: Transformado em Flex para centralizar o container na tela */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.container-grande {
+     background-color: aqua; /* Temporário para teste */
+
+     width: auto;
+     max-width: 80vw;
+     min-width: 50vw;
+     height: auto;
+     max-height: 75vh;
+     min-height: 50vh;
+
+     border-radius: 10px;
+
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     padding: 20px;
+     gap: 30px;
+}
+
+.container-logo {
+     background-color: green; /* Temporário para teste */
+     width: auto;
+     max-width: 250px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+}
+
+.container-dados {
+     background-color: yellow; /* Temporário para teste */
+
+     height: auto; /* CORREÇÃO: Mudar para auto deixa o container crescer com o form */
+     min-height: 250px; 
+     width: 30vw;
+
+     container-type: inline-size;
+
+     display: flex;
+     flex-direction: column;
+     justify-content: center; /* Centraliza o form verticalmente */
+     gap: 20px;
+     font-family: 'Courier New', Courier, monospace;
+}
+
+.container-dados form {
+     gap: 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     
+     background-color: pink; /* Temporário para teste */
+     
+     /* CORREÇÃO: Removido o position absolute e o top. 
+        Agora o Flexbox do container-dados cuida do alinhamento */
+     width: 100%; 
+     box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+.container-dados .elemento-input {
+     width: 90%;
+     background-color: bisque; /* Temporário para teste */
+     display: flex;
+     flex-direction: column;
+     gap: 5px; /* Espaço entre o input e o link de "esqueceu a senha" */
+}
+
+/* Dica extra: Deixe seus inputs bonitos e responsivos */
+.container-dados .elemento-input input {
+     width: 100%;
+     padding: 8px;
+     box-sizing: border-box;
+}
+
+.container-dados .elemento-input a {
+     color: red;
+     font-family: 'Courier New', Courier, monospace;
+     font-size: 12px;
+     text-decoration: none;
+     align-self: flex-end; /* Alinha o "Esqueceu sua senha?" à direita do input */
+}
