@@ -30,7 +30,7 @@ createRoot(document.getElementById('root')).render(
       <Route path='/cadastro' element={<Cadastro/>}></Route>
       <Route exact path= "/" element={<Private Item={Homepage} />} />
       <Route path='*' element={<Homepage/>}/>
-      <Route path='/app' element={<App/>}></Route>
+      <Route path='/app' element={<App />}></Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
