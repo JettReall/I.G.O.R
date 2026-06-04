@@ -48,7 +48,7 @@ public class UsuarioService {
 
     //verificar
     public String loginUsuario(Usuario usuario){
-        Usuario a=repository.findByNome(usuario.getNome());
+        Usuario a=repository.findByEmail(usuario.getEmail());
         if(a==null) return "Usuario não encontrado";
         if(a.getSenha().equals(usuario.getSenha())){
             return "Login OK";
