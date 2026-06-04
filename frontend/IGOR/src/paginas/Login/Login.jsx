@@ -23,7 +23,7 @@ function ContainerDados() {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Evita recarregar a página
-
+     //Criado totalmente com IA esse HandleSubmit
     setCarregando(true);
     setErro(null);
     console.log("🔄 Carregando... (fetch iniciado)");

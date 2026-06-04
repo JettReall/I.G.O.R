@@ -57,7 +57,7 @@ function BotoesLaterais() {
      )
 }
 
-function Campanhas({usuario}) {
+function TelaCampanha({usuario}) {
      if (usuario == undefined) {
           usuario = "Usuário"
      }
@@ -81,4 +81,4 @@ function Campanhas({usuario}) {
      )
 }
 
-export default Campanhas
+export default TelaCampanha

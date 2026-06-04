@@ -117,3 +117,11 @@ body {
 #input-login {
      padding: 15px;
 }
+
+.botao-envio:disabled {
+     background-color: #6c757d;
+     border: 0px solid transparent;
+     cursor: default;
+     opacity: 0.7;
+ 
+}

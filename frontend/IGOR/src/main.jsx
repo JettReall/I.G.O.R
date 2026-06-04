@@ -31,6 +31,7 @@ createRoot(document.getElementById('root')).render(
       <Route exact path= "/" element={<Private Item={Homepage} />} />
       <Route path='*' element={<Homepage/>}/>
       <Route path='/app' element={<App />}></Route>
+  
       </Routes>
     </BrowserRouter>
   </StrictMode>,

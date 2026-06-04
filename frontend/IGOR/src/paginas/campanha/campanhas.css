@@ -108,6 +108,7 @@ main {
 
 .container-botao-campanha #editar {
      background-color: beige;
+
 }
 
 .container-botao-campanha #apagar {
@@ -165,5 +166,11 @@ main {
      height: 50px;
      border-radius: 25px;
      border: 1px solid black;
+}
+
+.nome-perfil {
+     display: flex;
+     align-items: center;
+     justify-content: center;
 }
 

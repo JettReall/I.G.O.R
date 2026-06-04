@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Login.css'
 
 
+
 function ContainerLogo() {
      return (
           <div className="container-logo">
@@ -17,48 +18,28 @@ function ContainerLogo() {
 function ContainerDados() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  //Partes criadas para alteração 
-  const [senha_confirmar, setSenhaConfirmar] = useState("");
+  const [nome, setNome] = useState("");
+  
+  //variáveis para funcionamento do form
+const [senha_confirmar, setSenhaConfirmar] = useState("");
+ const [isDisabled, setIsDisabled] = useState(true);
+  //Partes criadas para alteração, temporárias e não 
   const [usuarios, setUsuarios] = useState([]);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState(null);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Evita recarregar a página
-//Comando que pega os usuarios, em vez de postá-los
-    setCarregando(true);
-    setErro(null);
-    console.log("🔄 Carregando... (fetch iniciado)");
 
-    try {
-      const response = await fetch("api/usuarios");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log("✅ Dados recebidos:", data);
-      setUsuarios(data);
 
-    } catch (err) {
-      setErro(err.message);
-      console.error("❌ Erro no fetch:", err.message);
-    } finally {
-      setCarregando(false);
-      console.log("🏁 Carregamento concluído");
-    }
-
-};
 //Código de senha que ainda não produzi, mas é necessário
-     const isSenhaIgual = () => {
-          if (senha === senha_confirmar && senha !== null && senha_confirmar !== null ) {
-               return true;
-          } else return false;
-     }
+     useEffect(() => {
+     const senhasIguais = senha !== "" && senha_confirmar !== "" && senha === senha_confirmar;
+     setIsDisabled(!senhasIguais);
+     }, [senha, senha_confirmar]);
 
 
   return (
           <div className="container-dados">
-               <form onSubmit={handleSubmit}>
+               <form onSubmit="" id='form-cadastro'>
                <div className="elemento-input">
                     <p>Digite o E-mail de vinculação</p>
                     <input
@@ -67,7 +48,7 @@ function ContainerDados() {
                     id="email"
                     placeholder="Digite seu email"
                     required
-                    onChange={(e) => setEmail(e.target.value)}
+                    /*onChange={(e) => setEmail(e.target.value)}*/
                     />
                </div>
 
@@ -91,7 +72,7 @@ function ContainerDados() {
                     id="senha"
                     placeholder="Digite sua senha"
                     required
-                    onChange={(e) => setSenha(e.target.value)}
+                    onChange={(e) => {setSenha(e.target.value)}}
                     />
                </div>
 
@@ -102,15 +83,15 @@ function ContainerDados() {
                     name="password"
                     id="senha"
                     placeholder="Digite sua senha"
+                     onChange={(e) => {setSenhaConfirmar(e.target.value)}}
                     required
-                    onChange={(e) => setSenha(e.target.value)}
                     />
                </div>
                
                <p id="mensagens-erro"></p>
 
                <div className="container-botoes">
-                    <button className="botao-envio" type="submit">
+                    <button className="botao-envio" type="submit" id='' disabled={isDisabled}>
                     Entrar
                     </button>
                </div>
