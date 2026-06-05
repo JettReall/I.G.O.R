@@ -1,0 +1,31 @@
+
+.header-base {
+      background-image: url(../../assets/imagens/fundos/fundo-sangue.png);
+      background-size: cover;
+     background-position: center;
+
+     height: 20vh;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     grid-column: 2;
+
+     color: whitesmoke;
+}
+
+.header-de-campanha {
+     background-image: url(../../assets/imagens/fundos/fundo-sangue.png);
+      background-size: cover;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+}
+
+.header-de-campanha .header-base {
+     background: none;
+}
+
+.seletor-fichas {
+     display: flex;
+}

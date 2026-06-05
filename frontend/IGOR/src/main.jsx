@@ -8,8 +8,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './paginas/Login/Login'
 import Homepage from './paginas/homepage/Homepage'
 import App from './app'
-import Campanhas from './paginas/campanha/campanhas'
+import TelaCampanhaAgente from './paginas/campanha/TelaCampanhaAgente'
 import Cadastro from './paginas/Login/cadastro'
+
 
 const Private = ({Item})  => {
   const signed = false;
@@ -25,13 +26,13 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
       <Route path="/" element={<Homepage/>}></Route>
-      <Route path='campanhas' element={<Campanhas usuario={"MiloAntraz"}/>}/>
+      <Route path='campanhas' element={<TelaCampanhaAgente usuario={"MiloAntraz"}/>}/>
       <Route path= "/login" element={<Login/>} />
       <Route path='/cadastro' element={<Cadastro/>}></Route>
       <Route exact path= "/" element={<Private Item={Homepage} />} />
       <Route path='*' element={<Homepage/>}/>
       <Route path='/app' element={<App />}></Route>
-  
+      <Route path='/teste' element={<TelaCampanhaAgente />}> </Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
