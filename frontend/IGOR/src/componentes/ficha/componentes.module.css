@@ -1,0 +1,92 @@
+.atributo {
+ 
+     width: auto;
+     height: auto;
+
+    /* border: 2px solid purple; */
+     
+     display: flex;
+     align-items: end;
+     justify-content: center;
+     
+     font-size: 50px;
+}
+
+
+
+.atributos-container {
+     width: 600px;
+     height: 600px;
+     background-image: url(../../assets/imagens/elementos/Atributos.png);
+     background-position: center;
+     background-repeat: no-repeat;
+
+     display: grid;
+     grid-template-columns: repeat(24,25px);
+     grid-template-rows: repeat(24,25px);
+}
+
+.agi {
+     grid-row: 4 / 6;
+     grid-column: 11 / 14;
+}
+
+.for {
+     grid-row: 9 / 11;
+     grid-column: 4 / 7;
+
+}
+
+.int {
+     grid-row: 9 / 11;
+     grid-column: 19 / 21;
+
+}
+
+.vig {
+     grid-row: 18 / 20;
+     grid-column: 6 / 9;
+
+}
+
+
+.pre {
+     grid-row: 18 / 20;
+     grid-column: 16 / 19;
+
+}
+
+.afinidade {
+     font-size: 20px;
+     color: white;
+
+     display: grid;
+     grid-template-rows: repeat(8,25px);
+
+
+     grid-row: 10 / 18;
+     grid-column: 10 / 15;
+
+     text-align: center;
+}
+
+.titulo-afinidade{
+     width: 100%;
+     grid-row: 1;
+
+}
+
+.circulo-afinidade {
+     background-color: aquamarine;
+     border-radius: 100px ;
+
+
+     grid-row: 2 / 7;
+
+
+}
+
+.nome-elemento {
+     grid-row:  7;
+     align-self: end;
+}

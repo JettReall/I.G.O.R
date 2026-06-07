@@ -29,9 +29,9 @@ function Campanhas({usuario}) {
           usuario = "Usuário"
      }
      return   (
-               <div className="container-grid">
+               <div className="corpo">
                     <header>
-                         <HeaderBase titulo={"Campanhas"}/> 
+                         <HeaderBase titulo={"Campanhas"} pagina_atual={'campanhas'}/> 
                     </header>                
                
                     <nav className="latertal">

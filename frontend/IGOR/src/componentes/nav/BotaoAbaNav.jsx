@@ -1,7 +1,11 @@
 import './BotaoAbaNav.css'
-function BotaoAbaNav({texto}) {
+import { Link } from 'react-router-dom'
+
+function BotaoAbaNav({texto, caminho}) {
      return (
-     <button className="botao-aba-nav" id={texto}>{texto}</button>
+          <Link to={caminho} >
+               <button className="botao-aba-nav" id={texto}>{texto}</button>
+          </Link>
      )
 }
 

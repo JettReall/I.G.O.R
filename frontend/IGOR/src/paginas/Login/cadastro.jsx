@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Login.css'
+import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
+import {InputLogin, ErroLogin} from './input';
 
 
 
@@ -16,13 +18,26 @@ function ContainerLogo() {
 
 
 function ContainerDados() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [nome, setNome] = useState("");
-  
-  //variáveis para funcionamento do form
-const [senha_confirmar, setSenhaConfirmar] = useState("");
- const [isDisabled, setIsDisabled] = useState(true);
+
+     const [form, setForm] = useState({
+     email:  "",
+     nome_usuario: "",
+     senha: "",
+     senha_confirmar: "",
+ })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+ 
+   const todosPreenchidos = Object.values(form).every(
+    (valor) => typeof valor === "string" && valor.trim() !== ""
+  );
+
+
+
+
   //Partes criadas para alteração, temporárias e não 
   const [usuarios, setUsuarios] = useState([]);
   const [carregando, setCarregando] = useState(false);
@@ -31,69 +46,59 @@ const [senha_confirmar, setSenhaConfirmar] = useState("");
 
 
 //Código de senha que ainda não produzi, mas é necessário
-     useEffect(() => {
-     const senhasIguais = senha !== "" && senha_confirmar !== "" && senha === senha_confirmar;
-     setIsDisabled(!senhasIguais);
-     }, [senha, senha_confirmar]);
 
+
+     let cadastro_valido = (
+          todosPreenchidos && 
+          form.senha !== "" &&
+          form.senha_confirmar !== "" &&
+          form.senha === form.senha_confirmar)
 
   return (
           <div className="container-dados">
                <form onSubmit="" id='form-cadastro'>
-               <div className="elemento-input">
-                    <p>Digite o E-mail de vinculação</p>
-                    <input
-                    type="text"
-                    name="text"
-                    id="email"
-                    placeholder="Digite seu email"
-                    required
-                    /*onChange={(e) => setEmail(e.target.value)}*/
+                    <InputLogin 
+                         texto={"Digite seu email"}
+                         placeholder={"Exemplo: ElizabethWebber@ordo.com"}
+                         nome={"email"}
+                         tipo={"text"}
+                         valor={form.email}
+                         mudar={handleChange}
                     />
-               </div>
-
-               <div className="elemento-input">
-                    <p>Digite o Nome de usuário</p>
-                    <input
-                    type="text"
-                    name="text"
-                    id="email"
-                    placeholder="Nome de usuário"
-                    required
-                    onChange={(e) => setEmail(e.target.value)}
-                    />
-               </div>
-
-               <div className="elemento-input">
-                    <p>Digite sua senha</p>
-                    <input
-                    type="text"
-                    name="password"
-                    id="senha"
-                    placeholder="Digite sua senha"
-                    required
-                    onChange={(e) => {setSenha(e.target.value)}}
-                    />
-               </div>
-
-               <div className="elemento-input">
-                    <p>Confirme sua senha</p>
-                    <input
-                    type="text"
-                    name="password"
-                    id="senha"
-                    placeholder="Digite sua senha"
-                     onChange={(e) => {setSenhaConfirmar(e.target.value)}}
-                    required
-                    />
-               </div>
                
-               <p id="mensagens-erro"></p>
+
+                    <InputLogin 
+                         texto={"Digite o Nome de usuário"}
+                         nome={"nome_usuario"}
+                         tipo={"text"}
+                         valor={form.nome_usuario}
+                         placeholder={"Insira um nome de usuário"}
+                         mudar={handleChange}
+                    />
+
+                    <InputLogin 
+                         texto={"Digite sua senha"}
+                         placeholder={""}
+                         nome={"senha"}
+                         tipo={"text"}
+                         valor={form.senha}
+                         mudar={handleChange}
+                    />
+
+                    <InputLogin 
+                         texto={"Confirme sua senha"}
+                         placeholder={""}
+                         nome={"senha_confirmar"}
+                         tipo={"text"}
+                         valor={form.senha_confirmar}
+                         mudar={handleChange}
+                    />
+               
+                    <ErroLogin texto={" "}/>
 
                <div className="container-botoes">
-                    <button className="botao-envio" type="submit" id='' disabled={isDisabled}>
-                    Entrar
-                    </button>
+                    <button className="botao-envio" type="submit" id='' disabled={!cadastro_valido}>Entrar</button>
+                    <BotaoLoginCadastro texto={"Voltar para o Login"} linkBotao={"login"} corBotao={"escuro"}/>
                </div>
                </form>
                </div>

@@ -4,6 +4,7 @@ import BotaoCampanha from '../../componentes/campanha/BotaoCampanha.jsx'
 import { HeaderBase, HeaderDeCampanha } from '../../componentes/header/headers.jsx'
 import estilos from '../../componentes/campanha/BotaoCampanha.module.css'
 import clsx from 'clsx'
+import { BotaoRetorno } from '../../componentes/botoes/Botoes.jsx'
 
 
 
@@ -29,9 +30,9 @@ function TelaCampanhaAgente({usuario}) {
           usuario = "Usuário"
      }
      return   (
-               <div className="container-grid">
+               <div className="corpo">
                     <header>
-                         <HeaderDeCampanha titulo={"Campanhas"}/> 
+                         <HeaderDeCampanha titulo={"Campanhas"} botao_L={<BotaoRetorno/>}/> 
                     </header>                
                
                     <nav className="latertal">

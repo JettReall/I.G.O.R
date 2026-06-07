@@ -4,12 +4,13 @@ import './index.css'
 import './fontes.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-//import Homepage from './paginas/homepage/Homepage'
 import Login from './paginas/Login/Login'
 import Homepage from './paginas/homepage/Homepage'
 import App from './app'
+import Campanhas from './paginas/campanha/campanhas.jsx'
 import TelaCampanhaAgente from './paginas/campanha/TelaCampanhaAgente'
 import Cadastro from './paginas/Login/cadastro'
+import Ficha from './paginas/ficha/ficha.jsx'
 
 
 const Private = ({Item})  => {
@@ -25,14 +26,15 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Homepage/>}></Route>
-      <Route path='campanhas' element={<TelaCampanhaAgente usuario={"MiloAntraz"}/>}/>
+      <Route path="/" element={<Homepage/>}/>
+      <Route path='/campanhas' element={<Campanhas usuario={"MiloAntraz"}/>}/>
       <Route path= "/login" element={<Login/>} />
-      <Route path='/cadastro' element={<Cadastro/>}></Route>
+      <Route path='/cadastro' element={<Cadastro/>}/>
       <Route exact path= "/" element={<Private Item={Homepage} />} />
       <Route path='*' element={<Homepage/>}/>
-      <Route path='/app' element={<App />}></Route>
-      <Route path='/teste' element={<TelaCampanhaAgente />}> </Route>
+      <Route path='/app' element={<App />}/>
+      <Route path='/teste' element={<TelaCampanhaAgente />}/>
+      <Route path='/ficha' element={<Ficha/>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

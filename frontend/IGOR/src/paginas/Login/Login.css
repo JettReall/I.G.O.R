@@ -34,39 +34,40 @@ body {
 .container-logo {
      width: auto;
      max-width: 250px;
+     height: 100%;
+
+
 
      align-items: center;
+     justify-content: center;
      display: flex;
      flex-direction: column;
-
-     scale: calc(1.25);
 }
 
 .container-dados {
-     height: 90%;
+     height: 100%;
      width: 30vw;
 
 
      display: flex;
      flex-direction: column;
 
-
+     justify-content: center;
      
 }
 
 .container-dados form {
-     gap:20px;
+     gap:10px;
      display: flex;
      flex-direction: column;
-     
 
-     align-items: center;
      justify-content: center;
+     
 
      width: 100%;
      height: 100%;
      
-
+     position: relative;
 }
 
 .container-dados .elemento-input {
@@ -74,19 +75,21 @@ body {
      display: flex;
      flex-direction: column;
      gap: 0px;
+
 }
 
- p {
-     margin: 05px;
-     text-align: start;
-     
-}
+
 
 .container-botoes {
      width: 100%;
 
      display: flex;
      flex-direction: row-reverse;
+     gap: 10px;
+
+     position: absolute;
+     bottom: 0;
+
 }
 
 .botao-envio {
@@ -114,9 +117,7 @@ body {
      color: crimson;
 }
 
-#input-login {
-     padding: 15px;
-}
+
 
 .botao-envio:disabled {
      background-color: #6c757d;

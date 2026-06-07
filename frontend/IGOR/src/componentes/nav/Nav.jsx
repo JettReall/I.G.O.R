@@ -8,7 +8,7 @@ import './Nav.css'
 function BotoesLaterais() {
      return (
           <div className="container-botoes-laterais">
-               <BotaoAbaNav texto={"Campanhas"}/>
+               <BotaoAbaNav texto={"Campanhas"} caminho={"/campanhas"}/>
                <BotaoAbaNav texto={"Arquivos"}/>
                <BotaoAbaNav texto={"Tutorial"}/>
           </div>
