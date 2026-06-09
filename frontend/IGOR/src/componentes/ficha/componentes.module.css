@@ -21,6 +21,8 @@
      background-position: center;
      background-repeat: no-repeat;
 
+     /* VocÊ NAO VAI saber ajeitar pra deixar alinhado, só não mexa em nada do display grid e não mude nada do background*/
+
      display: grid;
      grid-template-columns: repeat(24,25px);
      grid-template-rows: repeat(24,25px);
@@ -89,4 +91,108 @@
 .nome-elemento {
      grid-row:  7;
      align-self: end;
+}
+
+.container-status {
+     height: 150px;
+     width: 100px;
+
+     display: flex;
+     flex-direction: column;
+     border: 1px solid red;
+
+     align-items: center;
+     justify-content: space-between;
+
+}
+
+.container-menor {
+     border: 1px solid aqua;
+     width: 100%;
+
+
+     display: flex;
+     flex-direction: column;
+     
+     text-align: center;
+}
+
+.up {
+     flex-direction: column;
+}
+
+.down {
+     flex-direction: column-reverse;
+}
+
+.dupla {
+     height: 48%;
+}
+
+.solo {
+     height: 100%;
+}
+
+
+.nome-status {
+     padding: 0;
+     margin: 0 0 0 0;
+
+     height: 20px;
+     width: 100%;
+     border: 1px solid pink;
+
+          align-items: center;
+     justify-content: center;
+     display: flex;
+}
+
+.valor-status {
+     border: 1px solid black;
+     width: 100px;
+     height: 75%;
+
+     align-items: center;
+     justify-content: center;
+     display: flex;
+
+     font-size: 30px;
+}
+
+.elemento-container {
+     display: flex;
+     height: 50px;
+     border: 1px solid black;
+
+     width: 100%;
+     font-size: 22px;
+     justify-content:  space-between;
+     align-items: center;
+
+     padding: 0 10px 0 10px;
+
+}
+
+.pericia-nome,
+.ataque-ritual-nome {
+     width: 35%;
+     border: 1px solid peru;
+      
+}
+
+.header {
+     font-size: 16px;
+     background-color: grey;
+     top: 0;
+}
+
+.ataque-ritual-tipo {
+     width: 25%;
+     border: 1px solid purple;
+     text-align: center;
+}
+
+.informacao-ataque-ritutal {
+     width: 30px;
+     height: 30px;
 }

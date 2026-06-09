@@ -1,5 +1,43 @@
 .corpo {
      background-color: beige;
      overflow-y: scroll; 
-     height: auto;   
+     height: auto;  
+     
+     display: grid;
+     grid-template-columns: repeat(2,1fr);
+     justify-content: center;
+     margin: 10px;
+}
+
+.container-pericias,
+.container-ataque-ritual {
+     display: flex;
+     flex-direction: column;
+     position: relative;
+     gap: 5px;
+     height: 700px;
+     width: 90%;
+}
+
+.container-ataque-ritual {
+     gap: 0;
+     height: 350px;
+     border: 1px solid saddlebrown;
+     
+}
+
+.botao-ataque-ritual {
+     height: 50px;
+     width: 20%;
+     font-size: 16px;
+}
+
+.botao-ataque-ritual:disabled {
+     color: blue;
+     font-size: 26px;
+}
+
+.container-botao-atk-ritual {
+     width: 100%;
+     display: flex;
 }
