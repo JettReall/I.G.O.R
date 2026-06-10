@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import { HeaderBase } from "../../componentes/header/headers"
 import { BotaoRetorno } from "../../componentes/botoes/Botoes"
-import { StatusContainer, Atributos, Pericia, AtaqueRitual } from "../../componentes/ficha/componentes";
+import { StatusContainer, Atributos, Pericia, AtaqueRitual, Item, InfoPersona, BotaoAumentarNex, BotaoEditarFicha } from "../../componentes/ficha/componentes";
 import estilos from './ficha.module.css'
 
 
@@ -77,7 +77,34 @@ function ContainerRituais() {
 
 }
 
+function ContainerItems() {
 
+     const HeaderItem = {
+     nome: "Nome",
+     categoria: "Cat.",
+     quantia: "Qtd",
+     carga: "Carga unit.",
+     total: "Carga total"
+     }
+
+     const ExItem = {
+     nome: "Adaga",
+     categoria: 1,
+     quantia: 2,
+     carga: 1,
+     total: 2
+     }
+
+     
+
+     return (
+          <div className={estilos['container-itens']}>
+          <Item dados_item={HeaderItem} isHeader={true}/>
+          <Item dados_item={ExItem}/>
+          </div>
+     )
+
+}
 
 function ContainerAtaqueRitual() {
 
@@ -118,21 +145,106 @@ function ContainerAtaqueRitual() {
      }
 }
 
+function ContainerAtaquesItens() {
+     return (
+               <div className={estilos['container-ataques-itens']}>
+                    <ContainerAtaqueRitual/>
+                    <strong className={estilos['titulo-inventario']}>Inventário</strong>
+                    <ContainerItems></ContainerItems>
+               </div>
+     )
+}
+
+function ElementoValAtualMax( {nome, valores}) {
+     const nomenclatura = {
+          nome_topo: nome + " Atual",
+          nome_baixo: nome + " Máximo",
+     }
+
+     return (
+          <StatusContainer nome_up={nomenclatura.nome_topo} nome_down={nomenclatura.nome_baixo} valor_up={valores.atual} valor_down={valores.maximo}/>
+     )
+
+}
+
+function ContainerValAtualMax() {
+     
+     const status_valores = {
+          atual: 0,
+          maximo: 0,
+     }
+
+     return (
+          <div className={estilos['container-triplo-status']}>
+               <ElementoValAtualMax nome={"HP"} valores={status_valores} />
+               <ElementoValAtualMax nome={"PE"} valores={status_valores} />
+               <ElementoValAtualMax nome={"SAN"} valores={status_valores} />
+
+          </div>
+     )
+}
+
+function ContainerDadosSoltos( {dados} ) {
+
+
+
+     return (
+          <div className={estilos['container-triplo-status']}>
+               <StatusContainer isDadoUnico={true} nome_up={"Defesa"} valor_up={dados.defesa}/>
+               <StatusContainer nome_up={"DESL."} valor_up={dados.deslocamento} nome_down={"Carga máx."} valor_down={dados.carga}/>
+               <StatusContainer nome_up={"NEX"} valor_up={dados.nex} nome_down={"PE / Rodada"} valor_down={dados.pe_rodada} />        
+          </div>          
+     )
+}
+
+function BotoesFicha( ) {
+     return (
+
+          <div className={estilos['botoes-header-ficha']}>
+               <BotaoAumentarNex/>
+               <BotaoEditarFicha/>
+          </div>
+     )
+}
+
+
 function Ficha() {
+
+     const info_solta = {
+          defesa: 0,
+          deslocamento: 0,
+          carga: 0,
+          nex: 0,
+          pe_rodada: 0,
+     }
+
+     const dados_persona = {
+          jogador: "Milo",
+          origem: "Trambiqueiro",
+          classe: "Especialista",
+          trilha: "Negociador"
+     }
+
 
      return (
           <>
           <header>
-               <HeaderBase titulo={"Ficha"} botao_L={<BotaoRetorno/>} pagina_atual={"ficha"}/>
+               <HeaderBase titulo={"Ficha"}
+                pagina_atual={"ficha"}
+                botao_L={<BotaoRetorno/>} 
+                botao_R={<BotoesFicha/>} />
           </header>
           <main className={estilos.corpo}>
                <Atributos/>
-               <div>
-                    <StatusContainer valor_up={3210} valor_down={210} nome_down={"HP MAX"} nome_up={"DEFESA"}/>
-                    <StatusContainer valor_up={245} nome_up={"Ataque"} isDadoUnico={true}/>
+               <div className={estilos['container-status-info-persona']}> 
+                    <InfoPersona dados_persona={dados_persona} />
+                    <ContainerValAtualMax/>
+                    <ContainerDadosSoltos dados={info_solta}/>
                </div>
                <ContainerPericias/>
-               <ContainerAtaqueRitual/>
+               <ContainerAtaquesItens/>
+
+
           </main>
      
           </>

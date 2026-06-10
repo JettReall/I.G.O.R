@@ -3,6 +3,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 
 import estilos from './componentes.module.css'
+import { Link } from 'react-router-dom';
 
 
 function AtributoValor({atr,valor}) {
@@ -131,5 +132,66 @@ function AtaqueRitual({dados_ataque_ritual, isHeader}) {
 
 }
 
+function Item({dados_item, isHeader}) {
 
-export {Atributos, StatusContainer, Pericia, AtaqueRitual}
+          let classeHeader = "";
+     if (isHeader) {
+          classeHeader = "header";
+     } else {
+          classeHeader = ""
+     }
+     return (
+          <div className={clsx(estilos['elemento-container'],estilos[classeHeader])}>
+               <strong className={estilos['item-nome']}>{dados_item.nome}</strong>
+               <strong className={estilos['item-categoria']}>{dados_item.categoria}</strong>
+               <strong className={estilos['item-quantia']}>{dados_item.quantia}</strong>
+               <strong className={estilos['item-carga']}>{dados_item.carga}</strong>
+               <strong className={estilos['item-total']}>{dados_item.total}</strong>
+               <button className={estilos['botao-item']}>
+                    <img src="..\..\assets\imagens\icones\lixo.png" alt="" />
+               </button>
+          </div>
+     )
+
+}
+
+
+function InfoPersona({dados_persona}) {
+     return (
+          <div className={estilos['container-persona']}>
+               <strong className={estilos['trilha']}>{dados_persona.trilha}</strong>
+               <strong>{dados_persona.classe}</strong>
+               <strong>{dados_persona.origem}</strong>
+               <strong>Jogador: {dados_persona.jogador}</strong>
+          </div>
+     )
+}
+
+
+function BotaoAumentarNex() {
+     return (
+          <Link to={null}>
+               <button className={estilos['aumentarNEX']}></button>
+          </Link>
+     )
+}
+
+function BotaoEditarFicha() {
+     return (
+          <Link to={null}>
+               <button className={estilos['editar-ficha']}></button>
+          </Link>
+     )
+}
+
+
+export {
+     Atributos, 
+     StatusContainer, 
+     Pericia, 
+     AtaqueRitual, 
+     Item, 
+     InfoPersona,
+     BotaoAumentarNex,
+     BotaoEditarFicha,
+}

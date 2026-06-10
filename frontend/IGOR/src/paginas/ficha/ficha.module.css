@@ -1,28 +1,44 @@
 .corpo {
-     background-color: beige;
+     background-image: none;
+     background-color: gainsboro;
+
      overflow-y: scroll; 
      height: auto;  
-     
+     width: 100%;
+
      display: grid;
      grid-template-columns: repeat(2,1fr);
-     justify-content: center;
-     margin: 10px;
+     justify-content: space-around;
+     place-items: center;
+
 }
 
 .container-pericias,
-.container-ataque-ritual {
+.container-ataque-ritual,
+.container-itens,
+.container-ataques-itens {
      display: flex;
      flex-direction: column;
      position: relative;
-     gap: 5px;
-     height: 700px;
-     width: 90%;
+     width: 95%;
 }
 
-.container-ataque-ritual {
+.container-pericias {
+          gap: 5px;
+     height: 700px;
+}
+
+.container-ataques-itens {
+     gap: 5px;
+}
+
+
+.container-ataque-ritual,
+.container-itens {
      gap: 0;
      height: 350px;
-     border: 1px solid saddlebrown;
+     width: 90%;
+
      
 }
 
@@ -30,14 +46,54 @@
      height: 50px;
      width: 20%;
      font-size: 16px;
+
+     border-top-left-radius: 10px;
+     border-top-right-radius: 10px;
+
+     background-color: rgb(46, 4, 13);
+     color: snow;
 }
 
 .botao-ataque-ritual:disabled {
-     color: blue;
+     background-color: crimson;
      font-size: 26px;
+     opacity: 0.9;
 }
 
 .container-botao-atk-ritual {
      width: 100%;
      display: flex;
+}
+
+.titulo-inventario {
+     font-size: 24px;
+     width: 100%;
+     text-align: center;
+}
+
+.container-triplo-status {
+     display: flex;
+     width: 600px;
+     height: 150px;
+
+     justify-content: space-evenly;
+
+     background-color: whitesmoke;
+     border-radius: 10px;
+}
+
+.container-status-info-persona {
+
+     display: flex;
+     flex-direction: column;
+     justify-content: space-evenly;
+
+      gap: 10px;
+     width: 600px;
+}
+
+.botoes-header-ficha {
+     display: flex;
+     flex-direction: row;
+     gap: 10px;
 }

@@ -7,7 +7,7 @@
      flex-direction: row;
 
      align-items: center;
-     justify-content: space-between;
+     justify-content: space-around;
 
      color: whitesmoke;
 
@@ -15,7 +15,7 @@
 }
 
 .header-base h1 {
-  flex: 1;
+  width: 75%;
   text-align: center;
 }
 

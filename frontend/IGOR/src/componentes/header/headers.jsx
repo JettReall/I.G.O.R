@@ -14,10 +14,6 @@ const HeaderBase = ({titulo, pagina_atual,botao_L, botao_R}) => {
      )
 }
 
-//     position: absolute;
-   //  left: 2.5%;
-
-estilos['header-base']
 
 const HeaderDeCampanha = ({titulo, botao_L, botao_R}) => {
 
