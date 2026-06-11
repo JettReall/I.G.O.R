@@ -2,7 +2,15 @@ package com.example.igor.ficha.entity.personagem;
 
 import com.example.igor.ficha.entity.Efeito;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Item {
     @Id

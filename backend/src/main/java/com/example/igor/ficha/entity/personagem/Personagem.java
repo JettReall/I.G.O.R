@@ -1,14 +1,17 @@
 package com.example.igor.ficha.entity.personagem;
 
-import com.example.igor.ficha.Util.Stats;
+import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.entity.Efeito;
 import com.example.igor.ficha.entity.Ficha;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Personagem extends Ficha{
     @Id

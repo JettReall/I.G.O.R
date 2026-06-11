@@ -1,12 +1,17 @@
 package com.example.igor.usuario;
 
+import com.example.igor.Campanhna.Campanha;
+import com.example.igor.ficha.entity.Monstro;
 import com.example.igor.ficha.entity.personagem.Personagem;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Usuario {
     @Id
@@ -17,4 +22,8 @@ public class Usuario {
     private String email;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Personagem> personagemList;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Monstro> monstroList;
+    @OneToMany(mappedBy = "usuario")
+    private List<Campanha> campanhas;
 }

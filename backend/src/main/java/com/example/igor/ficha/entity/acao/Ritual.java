@@ -1,8 +1,16 @@
 package com.example.igor.ficha.entity.acao;
 
-import com.example.igor.ficha.Util.Elemento;
+import com.example.igor.ficha.FichaUtil.Elemento;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Ritual extends Acao{
     @Id
