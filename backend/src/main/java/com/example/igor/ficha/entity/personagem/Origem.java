@@ -1,4 +1,4 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.personagem;
 
 import com.example.igor.ficha.Util.TipoOrigem;
 import jakarta.persistence.*;

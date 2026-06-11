@@ -1,6 +1,5 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.personagem;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToMany;
 

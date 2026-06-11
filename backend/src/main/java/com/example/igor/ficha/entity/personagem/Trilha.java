@@ -1,5 +1,6 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.personagem;
 
+import com.example.igor.ficha.entity.acao.Habilidade;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public class Trilha {
     private String nome;
     @ManyToMany
     private List<Habilidade> habilidades;
+    @ManyToOne
+    private Classe classe;
 }

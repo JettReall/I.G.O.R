@@ -1,6 +1,6 @@
 package com.example.igor.usuario;
 
-import com.example.igor.ficha.entity.Personagem;
+import com.example.igor.ficha.entity.personagem.Personagem;
 import jakarta.persistence.*;
 import lombok.Data;
 

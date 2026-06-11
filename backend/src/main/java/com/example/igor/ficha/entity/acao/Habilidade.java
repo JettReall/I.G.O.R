@@ -1,4 +1,4 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.acao;
 
 import com.example.igor.ficha.Util.Elemento;
 import com.example.igor.ficha.entity.PreRequisito.PreRequisito;
@@ -7,11 +7,10 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Habilidade {
+public class Habilidade extends Acao{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
     private String classe;
     private int duracao;
     private boolean usoUnico;

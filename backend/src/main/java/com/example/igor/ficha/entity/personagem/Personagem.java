@@ -1,6 +1,7 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.personagem;
 
 import com.example.igor.ficha.Util.Stats;
+import com.example.igor.ficha.entity.Efeito;
 import jakarta.persistence.*;
 import lombok.Data;
 

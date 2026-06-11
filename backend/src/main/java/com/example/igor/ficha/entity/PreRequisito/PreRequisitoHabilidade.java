@@ -1,6 +1,6 @@
 package com.example.igor.ficha.entity.PreRequisito;
 
-import com.example.igor.ficha.entity.Habilidade;
+import com.example.igor.ficha.entity.acao.Habilidade;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 

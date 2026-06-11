@@ -1,4 +1,4 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.personagem;
 
 import jakarta.persistence.Embeddable;
 

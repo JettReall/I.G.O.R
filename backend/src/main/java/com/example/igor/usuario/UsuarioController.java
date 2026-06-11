@@ -49,4 +49,3 @@ public class UsuarioController {
         return usuarioService.loginUsuario(usuario);
     }
 }
-
