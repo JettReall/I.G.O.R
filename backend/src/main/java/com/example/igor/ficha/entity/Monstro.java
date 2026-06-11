@@ -4,7 +4,7 @@ import com.example.igor.ficha.Util.Stats;
 import jakarta.persistence.*;
 
 @Entity
-public class Monstro {
+public class Monstro extends Ficha{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

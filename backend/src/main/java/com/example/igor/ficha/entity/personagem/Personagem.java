@@ -2,6 +2,7 @@ package com.example.igor.ficha.entity.personagem;
 
 import com.example.igor.ficha.Util.Stats;
 import com.example.igor.ficha.entity.Efeito;
+import com.example.igor.ficha.entity.Ficha;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Personagem {
+public class Personagem extends Ficha{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
