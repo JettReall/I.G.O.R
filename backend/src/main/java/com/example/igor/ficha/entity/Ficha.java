@@ -1,15 +1,16 @@
 package com.example.igor.ficha.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
-
+@Getter
+@Setter
 @Entity
-public class Trilha {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Ficha {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    @ManyToMany
-    private List<Habilidade> habilidades;
 }

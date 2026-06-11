@@ -1,4 +1,4 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.acao;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class Efeito {
-    String nome;
-    String descricao;
+public class Pe {
+    private int inicial;
+    private int continuo;
 }

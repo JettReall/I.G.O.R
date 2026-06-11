@@ -1,10 +1,18 @@
 package com.example.igor.ficha.entity;
 
-import com.example.igor.ficha.Util.Stats;
+import com.example.igor.ficha.FichaUtil.Stats;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Monstro {
+public class Monstro extends Ficha{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

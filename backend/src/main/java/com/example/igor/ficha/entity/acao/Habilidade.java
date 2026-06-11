@@ -1,17 +1,24 @@
-package com.example.igor.ficha.entity;
+package com.example.igor.ficha.entity.acao;
 
-import com.example.igor.ficha.Util.Elemento;
+import com.example.igor.ficha.FichaUtil.Elemento;
 import com.example.igor.ficha.entity.PreRequisito.PreRequisito;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Habilidade {
+public class Habilidade extends Acao{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
     private String classe;
     private int duracao;
     private boolean usoUnico;
