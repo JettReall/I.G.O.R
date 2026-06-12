@@ -1,5 +1,7 @@
 package com.example.igor.usuario;
 
+import com.example.igor.usuario.UsuarioResponse.UsuarioResponse;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,10 @@ public class UsuarioService {
     }
 
     //Get por ID
-    public Usuario buscarUsuario(Long id){
-        return repository.findById(id).orElse(null);
+    public UsuarioResponse buscarUsuario(Long id){
+        Usuario usuario = repository.findById(id).orElse(null);
+        UsuarioResponse dto = new UsuarioResponse(usuario.getId(), usuario.getNome(),usuario.getEmail());
+        return dto;
     }
 
     //Atualizar

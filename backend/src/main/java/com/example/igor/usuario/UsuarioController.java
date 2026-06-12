@@ -2,6 +2,7 @@ package com.example.igor.usuario;
 
 import java.util.List;
 
+import com.example.igor.usuario.UsuarioResponse.UsuarioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class UsuarioController {
 
     //Get por ID
     @GetMapping("/{id}")
-    private Usuario buscar(@PathVariable Long id){
+    private UsuarioResponse buscar(@PathVariable Long id){
         return usuarioService.buscarUsuario(id);
     }
 
