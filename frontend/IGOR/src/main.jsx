@@ -11,6 +11,10 @@ import Campanhas from './paginas/campanha/campanhas.jsx'
 import TelaCampanhaAgente from './paginas/campanha/TelaCampanhaAgente'
 import Cadastro from './paginas/Login/cadastro'
 import Ficha from './paginas/ficha/ficha.jsx'
+import Etapa1 from './paginas/criador_ficha/Etapa1.jsx'
+import Etapa2 from './paginas/criador_ficha/Etapa2.jsx'
+import Etapa3 from './paginas/criador_ficha/Etapa3.jsx'
+import Etapa4 from './paginas/criador_ficha/Etapa4.jsx'
 
 
 const Private = ({Item})  => {
@@ -35,6 +39,10 @@ createRoot(document.getElementById('root')).render(
       <Route path='/app' element={<App />}/>
       <Route path='/teste' element={<TelaCampanhaAgente />}/>
       <Route path='/ficha' element={<Ficha/>}/>
+      <Route path='/etapa_1' element={<Etapa1/>}/>
+      <Route path='/etapa_2' element={<Etapa2/>}/>
+      <Route path='/etapa_3' element={<Etapa3/>}/>
+      <Route path='/etapa_4' element={<Etapa4/>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

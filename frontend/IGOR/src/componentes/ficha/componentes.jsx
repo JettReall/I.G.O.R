@@ -29,8 +29,8 @@ function Afinidade({elemento}) {
           </div>
 }
 
-function Atributos() {
 
+function Atributos({atributos_lista}) {
      const [atributos, setAtributos] = useState([
      { nome: "for", valor: 0 },
      { nome: "agi", valor: 0 },
@@ -39,9 +39,11 @@ function Atributos() {
      { nome: "pre", valor: 0 }
      ]);
 
+
+
   return (
     <div className={estilos["atributos-container"]}>
-      {atributos.map((atr) => (
+      {atributos_lista.map((atr) => (
         <AtributoValor 
           key={atr.nome} 
           atr={atr.nome} 
@@ -185,6 +187,7 @@ function BotaoEditarFicha() {
 }
 
 
+
 export {
      Atributos, 
      StatusContainer, 
@@ -194,4 +197,5 @@ export {
      InfoPersona,
      BotaoAumentarNex,
      BotaoEditarFicha,
+
 }
