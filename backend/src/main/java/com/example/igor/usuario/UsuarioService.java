@@ -1,5 +1,7 @@
 package com.example.igor.usuario;
 
+import com.example.igor.usuario.UsuarioResponse.UsuarioResponse;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class UsuarioService {
         if(repository.existsByNome(usuario.getNome())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse nome já está em uso");
         }
+        if(repository.existsByEmail(usuario.getEmail())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse email já está em uso");
+        }
         return repository.save(usuario);
     }
 
@@ -27,8 +32,10 @@ public class UsuarioService {
     }
 
     //Get por ID
-    public Usuario buscarUsuario(Long id){
-        return repository.findById(id).orElse(null);
+    public UsuarioResponse buscarUsuario(Long id){
+        Usuario usuario = repository.findById(id).orElse(null);
+        UsuarioResponse dto = new UsuarioResponse(usuario.getId(), usuario.getNome(),usuario.getEmail());
+        return dto;
     }
 
     //Atualizar
@@ -45,7 +52,7 @@ public class UsuarioService {
 
     //verificar
     public String loginUsuario(Usuario usuario){
-        Usuario a=repository.findByNome(usuario.getNome());
+        Usuario a=repository.findByEmail(usuario.getEmail());
         if(a==null) return "Usuario não encontrado";
         if(a.getSenha().equals(usuario.getSenha())){
             return "Login OK";
