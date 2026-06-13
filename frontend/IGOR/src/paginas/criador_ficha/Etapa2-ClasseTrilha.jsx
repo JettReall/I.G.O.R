@@ -3,13 +3,14 @@ import React, { useState } from 'react';
  import estilosEtapas from './etapas.module.css';
 import clsx from 'clsx';
 import { CaixaTexto, BotaoAvancarEtapa } from '../../componentes/criador-ficha/componentes';
+import { handleSelectUnico } from '../../assets/utils/SelecaoUnica';
 
 
-const classesInfo = ["combatente", "Especialista", "Ocultista"]; // Read-only
+const classesInfo = ["Combatente", "Especialista", "Ocultista"]; // Read-only
 
 const trilhasPorClasse = {
-  combatente: ["guerreiro", "Comandante de campo", "Aniquilador", "Tropa de choque"],
-  Especialista: ["Técnico", "Médico de campo", "Negociador", "Atirador de elite"],
+  Combatente: ["guerreiro", "Comandante de campo", "Aniquilador", "Tropa de choque"],
+  Especialista: ["Técnico", "Médico de campo", "Negociador", "Atirador de elite","Australupiteco","Camvio","Canario"],
   Ocultista: ["Graduado", "Intuitivo", "Conduite"],
 };
 
@@ -99,15 +100,15 @@ function Etapa2() {
   const [classes, setClasses] = useState({ classeAgente: "", trilhaAgente: "" });
   const [flagTrilha, setFlagTrilha] = useState(false); // false = selecionando classe, true = selecionando trilha
 
-  const handleSelecionar = (valor) => {
-    if (!flagTrilha) {
-      // Selecionando classe
-      setClasses((prev) => ({ ...prev, classeAgente: valor, trilhaAgente: "" }));
-    } else {
-      // Selecionando trilha
-      setClasses((prev) => ({ ...prev, trilhaAgente: valor }));
-    }
-  };
+const handleSelecionar = (valor) => {
+  if (!flagTrilha) {
+    const novaClasse = handleSelectUnico(classes.classeAgente, valor);
+    setClasses((prev) => ({ ...prev, classeAgente: novaClasse, trilhaAgente: "" }));
+  } else {
+    const novaTrilha = handleSelectUnico(classes.trilhaAgente, valor);
+    setClasses((prev) => ({ ...prev, trilhaAgente: novaTrilha }));
+  }
+};
 
   const handleAvancar = () => {
     if (!flagTrilha) {
@@ -128,7 +129,7 @@ function Etapa2() {
     <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa2'])}>
 
      <div className={estilosEtapas['caixa-texto-etapa2']}>
-          <CaixaTexto texto={"Próxima etapa: Escolha a classe e a trilha."}/>
+          <CaixaTexto texto={"Próxima etapa: Escolha a classe e a trilha."} tela={'caixa-etapa2'}/>
      </div>
 
      <div className={clsx(estilosEtapas['container-menor'],estilosEtapas['slot-imagem-etapa2'],estilosEtapas['coluna'])}>

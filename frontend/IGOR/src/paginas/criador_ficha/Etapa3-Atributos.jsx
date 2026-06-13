@@ -1,30 +1,12 @@
-import { CaixaTexto, InputComBotao, BotaoAvancarEtapa } from "../../componentes/criador-ficha/componentes";
-import { useState } from "react";
+import { CaixaTexto, InputComBotao, BotaoAvancarEtapa, ExibeAtributos } from "../../componentes/criador-ficha/componentes";
+import { useState, useEffect } from "react";
 import estilos from "../../componentes/ficha/componentes.module.css";
 import estilosEtapas from "./etapas.module.css"
 import clsx from "clsx";
 
 
 // Componente local para exibir os atributos (copia o layout do Atributos original)
-function ExibeAtributos({ atributos }) {
-  function AtributoValor({ atr, valor }) {
-    return (
-      <div className={clsx(estilos.atributo, estilos[atr])}>
-        <strong>{valor}</strong>
-      </div>
-    );
-  }
 
-//Não mexer no classname deste
-  return (
-    <div className={estilos["atributos-container"]}> 
-      {atributos.map((atr) => (
-        <AtributoValor key={atr.nome} atr={atr.nome} valor={atr.valor} />
-      ))}
-      {/* <Afinidade /> */}
-    </div>
-  );
-}
 
 function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosDistribuir }) {
   const handleIncrementar = (nomeAttr) => {
@@ -78,13 +60,20 @@ function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosD
 }
 
 function Etapa3() {
-  const [atributos, setAtributos] = useState([
+  const [atributos, setAtributos] = useState([]);
+
+  const dados = [   
     { nome: "for", valor: 0 },
     { nome: "agi", valor: 0 },
     { nome: "vig", valor: 0 },
     { nome: "int", valor: 0 },
     { nome: "pre", valor: 0 },
-  ]);
+]
+  
+useEffect(() => {
+  setAtributos(dados); // data já é um array de objetos simples
+}, []);
+
   const [pontosDistribuir, setPontosDistribuir] = useState(9);
 
   // Botão avançar só fica habilitado quando não houver pontos restantes
@@ -103,10 +92,12 @@ function Etapa3() {
                     texto={
                     "Distribua os pontos entre os 5 atributos. Só é possível ter no máximo 3 por atributo."
                     }
+                    tela={'caixa-etapa3'}
                />
 
                <CaixaTexto
                     texto={`Você possui ${pontosDistribuir} pontos disponíveis`}
+                    tela={'caixa-etapa3'}
                />
 
                <ContainerInputs

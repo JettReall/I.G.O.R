@@ -63,6 +63,7 @@ function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
   );
 }
 
+
 function Etapa4() {
   // Estado para armazenar os IDs das perícias escolhidas
   const [selecionados, setSelecionados] = useState([]);

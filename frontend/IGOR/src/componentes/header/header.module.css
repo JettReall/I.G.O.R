@@ -46,8 +46,17 @@
      display: flex;
 }
 
-.ficha {
+.ficha,
+.claro {
      background-color: snow;
      color: black;
      font-size: 32px;
+     border: 1px solid black;
+}
+
+.fixo {
+     position: absolute;
+     top: 0;
+     margin: 0;
+     padding: 0;
 }

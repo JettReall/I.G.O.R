@@ -6,15 +6,17 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Login from './paginas/Login/Login'
 import Homepage from './paginas/homepage/Homepage'
-import App from './app'
+
 import Campanhas from './paginas/campanha/campanhas.jsx'
 import TelaCampanhaAgente from './paginas/campanha/TelaCampanhaAgente'
 import Cadastro from './paginas/Login/cadastro'
 import Ficha from './paginas/ficha/ficha.jsx'
-import Etapa1 from './paginas/criador_ficha/Etapa1.jsx'
-import Etapa2 from './paginas/criador_ficha/Etapa2.jsx'
-import Etapa3 from './paginas/criador_ficha/Etapa3.jsx'
-import Etapa4 from './paginas/criador_ficha/Etapa4.jsx'
+import Etapa1 from './paginas/criador_ficha/Etapa1-DadosIniciais.jsx'
+import Etapa2 from './paginas/criador_ficha/Etapa2-ClasseTrilha.jsx'
+import Etapa3 from './paginas/criador_ficha/Etapa3-Atributos.jsx'
+import Etapa4 from './paginas/criador_ficha/Etapa4-Pericias.jsx'
+import EscolherPoderClasse from './paginas/criador_ficha/NEX/PoderClasse.jsx'
+import EscolherAumentoAtributo from './paginas/criador_ficha/NEX/AumentoAtributo.jsx'
 
 
 const Private = ({Item})  => {
@@ -36,13 +38,16 @@ createRoot(document.getElementById('root')).render(
       <Route path='/cadastro' element={<Cadastro/>}/>
       <Route exact path= "/" element={<Private Item={Homepage} />} />
       <Route path='*' element={<Homepage/>}/>
-      <Route path='/app' element={<App />}/>
       <Route path='/teste' element={<TelaCampanhaAgente />}/>
       <Route path='/ficha' element={<Ficha/>}/>
       <Route path='/etapa_1' element={<Etapa1/>}/>
       <Route path='/etapa_2' element={<Etapa2/>}/>
       <Route path='/etapa_3' element={<Etapa3/>}/>
       <Route path='/etapa_4' element={<Etapa4/>}/>
+      <>
+      <Route path='/poder_classe' element={<EscolherPoderClasse/>}/>
+      <Route path='/aumento_atributo' element={<EscolherAumentoAtributo/>}/>
+      </>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
