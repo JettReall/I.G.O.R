@@ -1,0 +1,829 @@
+[
+  {
+    "nome": "Ataque Especial",
+    "descricao": "Quando faz um ataque, você pode gastar 2 PE para receber +5 no teste de ataque ou na rolagem de dano. Conforme avança de NEX, você pode gastar +1 PE para receber mais bônus de +5. Você pode aplicar cada bônus de +5 em ataque ou dano.",
+    "efeito": {
+      "nome": "Bônus de Ataque/Dano",
+      "descricao": "+5 no teste de ataque ou rolagem de dano por 2 PE. +1 PE por +5 adicional."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Reflexos Defensivos",
+    "descricao": "Você recebe +2 em Defesa e em testes de resistência.",
+    "efeito": {
+      "nome": "Bônus Defensivo",
+      "descricao": "+2 em Defesa e em testes de resistência."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "ATRIBUTO", "atributo": "AGILIDADE", "valorMinimo": 2 }
+    ]
+  },
+  {
+    "nome": "Golpe Pesado",
+    "descricao": "O dano de suas armas corpo a corpo aumenta em mais um dado do mesmo tipo.",
+    "efeito": {
+      "nome": "Dano Aumentado",
+      "descricao": "+1 dado do mesmo tipo nas armas corpo a corpo."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Incansável",
+    "descricao": "Uma vez por cena, você pode gastar 2 PE para fazer uma ação de investigação adicional, mas deve usar Força ou Agilidade como atributo-base do teste.",
+    "efeito": {
+      "nome": "Ação de Investigação Adicional",
+      "descricao": "Ação de investigação extra usando Força ou Agilidade."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": 0,
+    "usoUnico": true,
+    "contadorUsos": 1,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Segurar o Gatilho",
+    "descricao": "Sempre que acerta um ataque com uma arma de fogo, pode fazer outro ataque com a mesma arma contra o mesmo alvo, pagando 2 PE por cada ataque já realizado no turno.",
+    "efeito": {
+      "nome": "Ataques Encadeados",
+      "descricao": "Ataque extra com arma de fogo por 2 PE cumulativos a cada acerto."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 2, "continuo": 2 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 60 }
+    ]
+  },
+  {
+    "nome": "Tanque de Guerra",
+    "descricao": "Se estiver usando uma proteção pesada, a Defesa e a resistência a dano que ela fornece aumentam em +2.",
+    "efeito": {
+      "nome": "Bônus com Proteção Pesada",
+      "descricao": "+2 em Defesa e resistência a dano com proteção pesada."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Tiro Certeiro",
+    "descricao": "Se estiver usando uma arma de disparo, você soma sua Agilidade nas rolagens de dano e ignora a penalidade contra alvos envolvidos em combate corpo a corpo.",
+    "efeito": {
+      "nome": "Precisão com Arma de Disparo",
+      "descricao": "Soma Agilidade no dano e ignora penalidade corpo a corpo."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+
+  {
+    "nome": "A Favorita",
+    "descricao": "Escolha uma arma para ser sua favorita. A categoria da arma escolhida é reduzida em I.",
+    "efeito": {
+      "nome": "Categoria Reduzida I",
+      "descricao": "A categoria da arma favorita é reduzida em I."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 10 }
+    ]
+  },
+  {
+    "nome": "Técnica Secreta",
+    "descricao": "A categoria da arma favorita passa a ser reduzida em II. Quando faz um ataque com ela, você pode gastar 2 PE para executar efeitos: Amplo (atinge alvo adicional adjacente) ou Destruidor (aumenta multiplicador de crítico em +1).",
+    "efeito": {
+      "nome": "Efeitos de Ataque Especial",
+      "descricao": "Amplo: atinge alvo adjacente. Destruidor: +1 no multiplicador de crítico. Custo: 2 PE por efeito."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 40 }
+    ]
+  },
+  {
+    "nome": "Técnica Sublime",
+    "descricao": "Adiciona efeitos à Técnica Secreta: Letal (aumenta margem de ameaça em +2, pode ser escolhido duas vezes para +5) e Perfurante (ignora até 5 pontos de resistência a dano).",
+    "efeito": {
+      "nome": "Efeitos Sublimes",
+      "descricao": "Letal: +2 na margem de ameaça (ou +5 se escolhido duas vezes). Perfurante: ignora 5 de resistência a dano."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 65 }
+    ]
+  },
+  {
+    "nome": "Máquina de Matar",
+    "descricao": "A categoria da arma favorita passa a ser reduzida em III, ela recebe +2 na margem de ameaça e seu dano aumenta em um dado do mesmo tipo.",
+    "efeito": {
+      "nome": "Domínio da Arma Favorita",
+      "descricao": "Categoria reduzida em III, +2 na margem de ameaça e +1 dado de dano."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Combatente",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 99 }
+    ]
+  },
+
+  {
+    "nome": "Inspirar Confiança",
+    "descricao": "Você pode gastar uma reação e 2 PE para fazer um aliado em alcance curto rolar novamente um teste recém realizado.",
+    "efeito": {
+      "nome": "Rerolar Teste de Aliado",
+      "descricao": "Aliado em alcance curto rerola um teste recém realizado."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 1,
+    "classe": "Combatente",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 10 }
+    ]
+  },
+  {
+    "nome": "Estrategista",
+    "descricao": "Você pode direcionar aliados em alcance curto. Gaste uma ação padrão e 1 PE por aliado (limitado pelo Intelecto). No próximo turno deles, ganham uma ação de movimento adicional.",
+    "efeito": {
+      "nome": "Ação de Movimento Adicional",
+      "descricao": "Aliados direcionados ganham uma ação de movimento adicional no próximo turno."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 1, "continuo": 0 },
+    "alcance": 1,
+    "classe": "Combatente",
+    "duracao": 1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 40 }
+    ]
+  },
+  {
+    "nome": "Brecha na Guarda",
+    "descricao": "Uma vez por rodada, quando um aliado causar dano em um inimigo em seu alcance curto, você pode gastar uma reação e 2 PE para que você ou outro aliado faça um ataque adicional. O alcance de Inspirar Confiança e Estrategista aumenta para médio.",
+    "efeito": {
+      "nome": "Ataque Adicional por Reação",
+      "descricao": "Ataque extra quando aliado causa dano em inimigo próximo. Alcance das outras habilidades aumenta para médio."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 1,
+    "classe": "Combatente",
+    "duracao": 0,
+    "usoUnico": true,
+    "contadorUsos": 1,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 65 }
+    ]
+  },
+  {
+    "nome": "Oficial Comandante",
+    "descricao": "Você pode gastar uma ação padrão e 5 PE para que cada aliado que você possa ver em alcance médio receba uma ação padrão adicional no próximo turno dele.",
+    "efeito": {
+      "nome": "Ação Padrão Adicional para Aliados",
+      "descricao": "Todos os aliados visíveis em alcance médio ganham uma ação padrão adicional."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 5, "continuo": 0 },
+    "alcance": 2,
+    "classe": "Combatente",
+    "duracao": 1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 99 }
+    ]
+  },
+
+  {
+    "nome": "Eclético",
+    "descricao": "Quando faz um teste de uma perícia, você pode gastar 2 PE para receber os benefícios de ser treinado nesta perícia.",
+    "efeito": {
+      "nome": "Treinamento Temporário",
+      "descricao": "Recebe benefícios de treinamento em qualquer perícia por 2 PE."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Perito",
+    "descricao": "Escolha duas perícias nas quais você é treinado (exceto Luta e Pontaria). Quando faz um teste dessas perícias, pode gastar 2 PE para somar +1d6. Conforme avança de NEX, pode gastar +1 PE para aumentar o dado de bônus.",
+    "efeito": {
+      "nome": "Dado de Bônus em Perícias",
+      "descricao": "+1d6 em duas perícias escolhidas por 2 PE. +1 PE por dado maior conforme NEX."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Conhecimento Aplicado",
+    "descricao": "Quando faz um teste de perícia (exceto Luta e Pontaria), você pode gastar 2 PE para mudar o atributo-base da perícia para Intelecto.",
+    "efeito": {
+      "nome": "Substituição de Atributo",
+      "descricao": "Muda o atributo-base de qualquer perícia para Intelecto por 2 PE."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "ATRIBUTO", "atributo": "INTELECTO", "valorMinimo": 2 }
+    ]
+  },
+  {
+    "nome": "Hacker",
+    "descricao": "Você recebe +5 em testes de Tecnologia para invadir sistemas e diminui o tempo necessário para hackear qualquer sistema para uma ação completa.",
+    "efeito": {
+      "nome": "Bônus em Hackear",
+      "descricao": "+5 em Tecnologia para invasão. Hackear reduzido a uma ação completa."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Movimento Tático",
+    "descricao": "Você pode gastar 1 PE para ignorar a penalidade em deslocamento por terreno difícil e por escalar até o final do turno.",
+    "efeito": {
+      "nome": "Ignorar Penalidade de Terreno",
+      "descricao": "Ignora penalidade de terreno difícil e escalada até o fim do turno."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 1, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Pensamento Ágil",
+    "descricao": "Uma vez por rodada, durante uma cena de investigação, você pode gastar 2 PE para fazer uma ação de procurar pistas adicional.",
+    "efeito": {
+      "nome": "Procurar Pistas Adicional",
+      "descricao": "Ação extra de procurar pistas por 2 PE, uma vez por rodada."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": true,
+    "contadorUsos": 1,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Artista Marcial",
+    "descricao": "Seus ataques desarmados causam 1d6 de dano, podem causar dano letal e contam como armas ágeis. Em NEX 35%, o dano aumenta para 1d8 e, em NEX 70%, para 1d10.",
+    "efeito": {
+      "nome": "Ataque Desarmado Letal",
+      "descricao": "1d6 de dano desarmado letal (1d8 em NEX 35%, 1d10 em NEX 70%). Conta como arma ágil."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Nerd",
+    "descricao": "Uma vez por cena, pode gastar 2 PE para fazer um teste de Atualidades (DT 20). Se passar, recebe uma informação útil para essa cena.",
+    "efeito": {
+      "nome": "Informação Útil",
+      "descricao": "Teste de Atualidades DT 20 por 2 PE. Sucesso revela dica, fraqueza de inimigo ou pista."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": true,
+    "contadorUsos": 1,
+    "elemento": null,
+    "preRequisitos": []
+  },
+
+  {
+    "nome": "Mira de Elite",
+    "descricao": "Você recebe proficiência com armas de fogo que usam balas longas e soma seu Intelecto em rolagens de dano com essas armas.",
+    "efeito": {
+      "nome": "Proficiência e Dano com Balas Longas",
+      "descricao": "Proficiência em armas de bala longa. Soma Intelecto no dano."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 10 }
+    ]
+  },
+  {
+    "nome": "Disparo Letal",
+    "descricao": "Quando faz a ação mirar você pode gastar 1 PE para aumentar em +2 a margem de ameaça do próximo ataque que fizer até o final de seu próximo turno.",
+    "efeito": {
+      "nome": "Margem de Ameaça Aumentada",
+      "descricao": "+2 na margem de ameaça do próximo ataque após mirar, por 1 PE."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 1, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 40 }
+    ]
+  },
+  {
+    "nome": "Disparo Impactante",
+    "descricao": "Se estiver usando uma arma de fogo com calibre grosso você pode gastar 2 PE para fazer as manobras derrubar, desarmar, empurrar ou quebrar usando um ataque à distância.",
+    "efeito": {
+      "nome": "Manobras à Distância",
+      "descricao": "Realiza manobras (derrubar, desarmar, empurrar, quebrar) com arma de calibre grosso à distância por 2 PE."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 65 }
+    ]
+  },
+  {
+    "nome": "Atirar para Matar",
+    "descricao": "Quando faz um acerto crítico com uma arma de fogo, você causa dano máximo, sem precisar rolar dados.",
+    "efeito": {
+      "nome": "Dano Máximo no Crítico",
+      "descricao": "Acerto crítico com arma de fogo causa dano máximo automaticamente."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 99 }
+    ]
+  },
+
+  {
+    "nome": "Inventário Otimizado",
+    "descricao": "Você soma seu Intelecto à sua Força para calcular sua capacidade de carga.",
+    "efeito": {
+      "nome": "Capacidade de Carga Aumentada",
+      "descricao": "Capacidade de carga = (Força + Intelecto) × 5 espaços."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 10 }
+    ]
+  },
+  {
+    "nome": "Remendão",
+    "descricao": "Você pode gastar uma ação completa e 1 PE para remover a condição quebrado de um equipamento adjacente até o final da cena. Além disso, qualquer equipamento geral tem sua categoria reduzida em I para você.",
+    "efeito": {
+      "nome": "Reparo de Equipamento",
+      "descricao": "Remove condição quebrado de equipamento adjacente. Equipamentos gerais têm categoria reduzida em I."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 1, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 40 }
+    ]
+  },
+  {
+    "nome": "Improvisar",
+    "descricao": "Você pode improvisar equipamentos com materiais ao redor. Gaste uma ação completa e 2 PE (+2 PE por categoria do item). Ao final da cena, o equipamento improvisado se torna inútil.",
+    "efeito": {
+      "nome": "Equipamento Improvisado",
+      "descricao": "Cria equipamento geral funcional temporário. Dura até o final da cena."
+    },
+    "acao": "ACAO_PADRAO",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 65 }
+    ]
+  },
+  {
+    "nome": "Preparado para Tudo",
+    "descricao": "Sempre que precisar de um item qualquer (exceto armas), pode gastar uma ação de movimento e 3 PE por categoria do item para lembrar que colocou ele no fundo da bolsa.",
+    "efeito": {
+      "nome": "Item do Nada",
+      "descricao": "Retira qualquer item não-arma do inventário por 3 PE por categoria do item."
+    },
+    "acao": "ACAO_MOVIMENTO",
+    "custo": { "inicial": 3, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Especialista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 99 }
+    ]
+  },
+
+  {
+    "nome": "Camuflar Ocultismo",
+    "descricao": "Você pode gastar uma ação livre para esconder símbolos e sigilos. Ao lançar um ritual, pode gastar +2 PE para lançá-lo sem componentes e sem gesticular.",
+    "efeito": {
+      "nome": "Ritual Silencioso",
+      "descricao": "Esconde sigilos e lança rituais sem componentes por +2 PE. DT 25 para perceber."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Criar Selo",
+    "descricao": "Você sabe fabricar selos paranormais de rituais que conheça. Fabricar um selo gasta uma ação de interlúdio e PE iguais ao custo do ritual. Você pode ter selos simultâneos igual à sua Presença.",
+    "efeito": {
+      "nome": "Fabricação de Selos",
+      "descricao": "Cria selos paranormais de rituais conhecidos. Máximo de selos = Presença."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Envolto em Mistério",
+    "descricao": "Sua aparência e postura assombrosas permitem manipular e assustar pessoas ignorantes ou supersticiosas. +5 em Enganação e Intimidação contra pessoas não treinadas em Ocultismo.",
+    "efeito": {
+      "nome": "Bônus em Enganação e Intimidação",
+      "descricao": "+5 em Enganação e Intimidação contra alvos não treinados em Ocultismo."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Ferramentas Paranormais",
+    "descricao": "Você reduz a categoria de um item paranormal em I e pode ativar itens paranormais sem pagar seu custo em PE.",
+    "efeito": {
+      "nome": "Uso Gratuito de Itens Paranormais",
+      "descricao": "Categoria de item paranormal reduzida em I. Ativação sem custo em PE."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Identificação Paranormal",
+    "descricao": "Você recebe +10 em testes de Ocultismo para identificar criaturas, objetos ou rituais.",
+    "efeito": {
+      "nome": "Bônus em Identificação",
+      "descricao": "+10 em Ocultismo para identificar criaturas, objetos ou rituais."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": null,
+    "preRequisitos": []
+  },
+  {
+    "nome": "Guiado pelo Paranormal",
+    "descricao": "Uma vez por cena, você pode gastar 2 PE para fazer uma ação de investigação adicional.",
+    "efeito": {
+      "nome": "Investigação Adicional",
+      "descricao": "Ação extra de investigação por 2 PE, uma vez por cena."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": 0,
+    "usoUnico": true,
+    "contadorUsos": 1,
+    "elemento": null,
+    "preRequisitos": []
+  },
+
+  {
+    "nome": "Poder do Flagelo",
+    "descricao": "Ao conjurar um ritual, você pode gastar seus próprios pontos de vida para pagar o custo em PE, à taxa de 2 PV por PE pago. PV gastos dessa forma só podem ser recuperados com descanso.",
+    "efeito": {
+      "nome": "PV como PE",
+      "descricao": "Gasta 2 PV por PE ao conjurar rituais. PV recuperados apenas com descanso."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "SANGUE",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 10 }
+    ]
+  },
+  {
+    "nome": "Abraçar a Dor",
+    "descricao": "Sempre que sofrer dano não paranormal, você pode gastar uma reação e 2 PE para reduzir esse dano à metade.",
+    "efeito": {
+      "nome": "Redução de Dano Não Paranormal",
+      "descricao": "Reduz dano não paranormal à metade por reação e 2 PE."
+    },
+    "acao": "ACAO_LIVRE",
+    "custo": { "inicial": 2, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": 0,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "SANGUE",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 40 }
+    ]
+  },
+  {
+    "nome": "Absorver Agonia",
+    "descricao": "Sempre que reduz um ou mais inimigos a 0 PV com um ritual, você recebe PE temporários iguais ao círculo do ritual utilizado.",
+    "efeito": {
+      "nome": "PE Temporários por Abate",
+      "descricao": "Ao reduzir inimigo a 0 PV com ritual, ganha PE temporários = círculo do ritual."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "SANGUE",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 65 }
+    ]
+  },
+  {
+    "nome": "Medo Tangível",
+    "descricao": "Você aprende o ritual Medo Tangível.",
+    "efeito": {
+      "nome": "Ritual Medo Tangível",
+      "descricao": "Aprende o ritual especial Medo Tangível."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "MEDO",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 99 }
+    ]
+  },
+
+  {
+    "nome": "Saber Ampliado",
+    "descricao": "Você aprende um ritual de 1º círculo. Toda vez que ganha acesso a um novo círculo, aprende um ritual adicional daquele círculo. Esses rituais não contam no seu limite.",
+    "efeito": {
+      "nome": "Ritual Adicional por Círculo",
+      "descricao": "Aprende um ritual extra por círculo acessado, fora do limite de rituais."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "CONHECIMENTO",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 10 }
+    ]
+  },
+  {
+    "nome": "Grimório Ritualístico",
+    "descricao": "Você cria um grimório que armazena rituais extras. Aprende rituais de 1º ou 2º círculo iguais ao seu Intelecto. Ao ganhar novo círculo, adiciona um ritual. Precisa empunhar o grimório e gastar uma ação completa para conjurar esses rituais.",
+    "efeito": {
+      "nome": "Grimório de Rituais Extras",
+      "descricao": "Armazena rituais extras fora do limite. Requer empunhar e ação completa para usar."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "CONHECIMENTO",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 40 }
+    ]
+  },
+  {
+    "nome": "Rituais Eficientes",
+    "descricao": "A DT para resistir a todos os seus rituais aumenta em +5.",
+    "efeito": {
+      "nome": "DT de Rituais Aumentada",
+      "descricao": "+5 na DT de todos os rituais do personagem."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "CONHECIMENTO",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 65 }
+    ]
+  },
+  {
+    "nome": "Conhecendo o Medo",
+    "descricao": "Você aprende o ritual Conhecendo o Medo.",
+    "efeito": {
+      "nome": "Ritual Conhecendo o Medo",
+      "descricao": "Aprende o ritual especial Conhecendo o Medo."
+    },
+    "acao": "NENHUM",
+    "custo": { "inicial": 0, "continuo": 0 },
+    "alcance": 0,
+    "classe": "Ocultista",
+    "duracao": -1,
+    "usoUnico": false,
+    "contadorUsos": 0,
+    "elemento": "MEDO",
+    "preRequisitos": [
+      { "tipo": "NEX", "nexMinimo": 99 }
+    ]
+  }
+]
