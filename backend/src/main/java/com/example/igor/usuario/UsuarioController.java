@@ -3,6 +3,7 @@ package com.example.igor.usuario;
 import java.util.List;
 
 import com.example.igor.usuario.UsuarioResponse.UsuarioResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,10 @@ public class UsuarioController {
     }
 
     //Atualizar
+    @Operation(
+            summary = "Atualiza um usuario",
+            description = "Recebe um usuario e o atualiza no banco com todas as novas informações, retorna o usuario que foi alterado"
+    )
     @PutMapping
     private UsuarioResponse atualizar(@RequestBody UsuarioResponse usuario){
         return usuarioService.atualizarUsuario(usuario);
