@@ -1,0 +1,7 @@
+package com.example.igor.Combate;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CombateRepository extends JpaRepository<Combate, Long> {
+
+}
