@@ -14,9 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Personagem extends Ficha{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String nomePersonagem;
 
