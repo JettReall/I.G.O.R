@@ -141,7 +141,6 @@
 .container-poderes {
      width: 800px;
      height: 100%;
-     border: 1px solid aqua;
      gap: 20px;
 
      overflow-x: scroll;
@@ -153,7 +152,67 @@
      grid-auto-flow: column;
 
      place-items: center;
+}
 
+/* */
 
+.container-maior {
+     place-items: center;
+}
 
+.container-menor-versatilidade {
+     background-color: gray;
+     padding: 20px;
+     border-radius: 10px;
+}
+
+.container-versatilidade {
+     display: grid;
+
+     place-items: center;
+
+     height: 80%;
+     width: 70%;
+
+     position: absolute;
+     bottom: 0;
+
+     grid-template-rows:  2fr  3fr 2fr;
+}
+
+.container-botoes-versatilidade {
+     width: 75%;
+     justify-content: space-evenly;
+
+}
+
+.botao-versatilidade {
+     width: 200px;
+     height: 50px;
+
+     border-top-left-radius: 10px;
+     border-top-right-radius: 10px;
+
+     font-size: 16px;
+
+     border: 1px solid black;
+     border-bottom: 0;
+
+}
+
+.botao-versatilidade:disabled {
+     background-color: gray;
+     color: white;
+     cursor: default;
+
+     transform: none;
+
+}
+
+.botao-versatilidade:hover {
+     transform: scale(1);
+     border: 2px solid black;
+     border-bottom: 0;
+     background-color: darkgray;
+     color: white;
 }

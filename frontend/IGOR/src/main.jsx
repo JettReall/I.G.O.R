@@ -15,8 +15,10 @@ import Etapa1 from './paginas/criador_ficha/Etapa1-DadosIniciais.jsx'
 import Etapa2 from './paginas/criador_ficha/Etapa2-ClasseTrilha.jsx'
 import Etapa3 from './paginas/criador_ficha/Etapa3-Atributos.jsx'
 import Etapa4 from './paginas/criador_ficha/Etapa4-Pericias.jsx'
-import EscolherPoderClasse from './paginas/criador_ficha/NEX/PoderClasse.jsx'
+import {EscolherPoderClasse} from './paginas/criador_ficha/NEX/PoderClasse.jsx'
 import EscolherAumentoAtributo from './paginas/criador_ficha/NEX/AumentoAtributo.jsx'
+import Versatilidade from './paginas/criador_ficha/NEX/Versatilidade.jsx'
+import { EscolherAfinidade } from './paginas/criador_ficha/Etapa5-NEX.jsx'
 
 
 const Private = ({Item})  => {
@@ -47,6 +49,7 @@ createRoot(document.getElementById('root')).render(
       <>
       <Route path='/poder_classe' element={<EscolherPoderClasse/>}/>
       <Route path='/aumento_atributo' element={<EscolherAumentoAtributo/>}/>
+      <Route path='versatilidade' element={<Versatilidade/>}/>
       </>
       </Routes>
     </BrowserRouter>

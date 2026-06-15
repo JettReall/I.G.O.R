@@ -80,6 +80,8 @@ useEffect(() => {
   const isBotaoAvancarDesabilitado = pontosDistribuir !== 0;
 
   return (
+
+    <>
     <div className={clsx(estilosEtapas['container-principal'],estilosEtapas['principal-etapa3'])}>
 
           <div className={estilos['slot-atributo']}>
@@ -90,15 +92,15 @@ useEffect(() => {
 
                <CaixaTexto
                     texto={
-                    "Distribua os pontos entre os 5 atributos. Só é possível ter no máximo 3 por atributo."
+                      "Distribua os pontos entre os 5 atributos. Só é possível ter no máximo 3 por atributo."
                     }
                     tela={'caixa-etapa3'}
-               />
+                    />
 
                <CaixaTexto
                     texto={`Você possui ${pontosDistribuir} pontos disponíveis`}
                     tela={'caixa-etapa3'}
-               />
+                    />
 
                <ContainerInputs
                     atributos={atributos}
@@ -112,6 +114,7 @@ useEffect(() => {
                <BotaoAvancarEtapa isDisabled={isBotaoAvancarDesabilitado} />
           </div>
     </div>
+  </>
   );
 }
 

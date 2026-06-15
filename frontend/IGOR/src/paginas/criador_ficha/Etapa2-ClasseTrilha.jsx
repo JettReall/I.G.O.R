@@ -4,7 +4,17 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { CaixaTexto, BotaoAvancarEtapa } from '../../componentes/criador-ficha/componentes';
 import { handleSelectUnico } from '../../assets/utils/SelecaoUnica';
+import combatenteImg from '../../assets/imagens/elementos/combatente.png';
+import especialistaImg from '../../assets/imagens/elementos/especialista.png';
+import ocultistaImg from '../../assets/imagens/elementos/ocultista.png';
+import indefinidoImg from '../../assets/imagens/elementos/indefinido.png';
 
+const imagens = {
+  combatente: combatenteImg,
+  especialista: especialistaImg,
+  ocultista: ocultistaImg,
+  indefinido: indefinidoImg,
+};
 
 const classesInfo = ["Combatente", "Especialista", "Ocultista"]; // Read-only
 
@@ -84,14 +94,11 @@ function SeletorClasseTrilha({ classeSelecionada, trilhaSelecionada, flagTrilha,
 }
 
 function ContainerImagem({ classe }) {
-  let caminho = "";
-  if (classe) {
-    caminho = `/images/${classe.toLowerCase()}.png`; // Ajuste conforme sua estrutura de imagens
-  }
+  const imagem = classe ? imagens[classe.toLowerCase()] : imagens.indefinido;
 
   return (
     <div className={estilosEtapas['container-imagem']}>
-      <img src={caminho} alt={`Imagem da classe ${classe}`} />
+      <img src={imagem} alt={`Imagem da classe ${classe}`} />
     </div>
   );
 }

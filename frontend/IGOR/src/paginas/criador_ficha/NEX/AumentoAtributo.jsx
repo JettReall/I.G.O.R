@@ -77,7 +77,7 @@ function EscolherAumentoAtributo() {
 
   return (
      <>
-     <HeaderBase titulo={"NEX XX: Aumento de Atributo"} pagina_atual={'claro'} isFixo={true}/>
+     <HeaderBase titulo={`NEX XX: Aumento de Atributo`} pagina_atual={'claro'} isFixo={true}/>
     <div className={clsx(estilosNEX['container-principal-nex'],estilosNEX['container-aumento-atributo'])}>
       <div className={estilosNEX['container-exibe-atributos']}>
           <ExibeAtributos atributos={atributos} />
