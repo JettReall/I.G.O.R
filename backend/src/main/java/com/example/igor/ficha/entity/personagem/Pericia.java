@@ -1,6 +1,10 @@
 package com.example.igor.ficha.entity.personagem;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +23,9 @@ public class Pericia {
 
     private String nome;
 
-    @Embedded
-    @AttributeOverride(
-            name = "nome",
-            column = @Column(name = "atributo_nome")
-    )
-    private Atributo atributo;
+    private String atributo;
 
+    @Column(columnDefinition = "TEXT")
     private String descricao;
+
 }
