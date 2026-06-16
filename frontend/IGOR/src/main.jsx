@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import './fontes.css'
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Login from './paginas/Login/Login'
@@ -15,10 +16,14 @@ import Etapa1 from './paginas/criador_ficha/Etapa1-DadosIniciais.jsx'
 import Etapa2 from './paginas/criador_ficha/Etapa2-ClasseTrilha.jsx'
 import Etapa3 from './paginas/criador_ficha/Etapa3-Atributos.jsx'
 import Etapa4 from './paginas/criador_ficha/Etapa4-Pericias.jsx'
+import { Etapa5 } from './paginas/criador_ficha/Etapa5-NEX.jsx'
+
+
 import {EscolherPoderClasse} from './paginas/criador_ficha/NEX/PoderClasse.jsx'
 import EscolherAumentoAtributo from './paginas/criador_ficha/NEX/AumentoAtributo.jsx'
 import Versatilidade from './paginas/criador_ficha/NEX/Versatilidade.jsx'
 import { EscolherAfinidade } from './paginas/criador_ficha/Etapa5-NEX.jsx'
+import EscolhidoOutroLado from './paginas/criador_ficha/NEX/EscolhidoOutroLado.jsx'
 
 
 const Private = ({Item})  => {
@@ -29,6 +34,8 @@ const Private = ({Item})  => {
     return <Login/>
   }
 }
+
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -47,9 +54,12 @@ createRoot(document.getElementById('root')).render(
       <Route path='/etapa_3' element={<Etapa3/>}/>
       <Route path='/etapa_4' element={<Etapa4/>}/>
       <>
+      
       <Route path='/poder_classe' element={<EscolherPoderClasse/>}/>
       <Route path='/aumento_atributo' element={<EscolherAumentoAtributo/>}/>
       <Route path='versatilidade' element={<Versatilidade/>}/>
+      <Route path='escolhido_outro_lado' element={<EscolhidoOutroLado />} />
+      <Route path='etapa_5' element={ <Etapa5/>}/>
       </>
       </Routes>
     </BrowserRouter>

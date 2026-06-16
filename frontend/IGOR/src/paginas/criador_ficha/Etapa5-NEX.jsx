@@ -10,13 +10,22 @@ import Versatilidade from "./NEX/Versatilidade";
 import { useState } from "react";
 import { handleSelectUnico } from "../../assets/utils/SelecaoUnica";
 
+import iconeSangue from '../../assets/imagens/elementos/icone-elementos/icone-sangue.png';
+import iconeMorte from '../../assets/imagens/elementos/icone-elementos/icone-morte.png';
+import iconeEnergia from '../../assets/imagens/elementos/icone-elementos/icone-energia.png';
+import iconeConhecimento from '../../assets/imagens/elementos/icone-elementos/icone-conhecimento.png';
+//Ajuste essas importações para receber essas imagens. O caminho delas é este.
+
 
 const Ficha = {
      Trilha: {
           nome: "",
           HabilidadeTrilha: ["","","",""],
-     }
+     },
+     afinidadeSelecionada: "",
 }
+
+
 
 const listaPericiasDisponiveis = [
   { id: 1, nome: "Atletismo", atributo: "Força", treino: 2 },
@@ -96,10 +105,93 @@ function Nex50() {
      )
 }
 
-function EscolherAfinidade({ isAberto, onFechar, onConfirmar }) {
+function EscolherAfinidade({ isAberto,onFechar }) {
+
+  const elementos = [
+    { nome: "Sangue", imagem: iconeSangue },
+    { nome: "Morte", imagem: iconeMorte },
+    { nome: "Conhecimento", imagem: iconeConhecimento },
+    { nome: "Energia", imagem: iconeEnergia }
+  ];
+  const [selecionado, setSelecionado] = useState(null);
+
+  const handleSelect = (nome) => {
+    setSelecionado(handleSelectUnico(selecionado, nome));
+  };
+
+  const handleConfirmar = () => {
+    if (selecionado) {
+      // Salva na variável global
+      Ficha.afinidadeSelecionada = selecionado;
+      console.log(Ficha.afinidadeSelecionada);
+      
+      // Fecha o modal
+      isAberto = false;
+     onFechar();
+      
+    }
+  };
+
+  return (
+    <Modal open={isAberto}>
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <CaixaTexto texto="Escolha sua afinidade" tela="pop-up" />
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', margin: '20px 0' }}>
+          {elementos.map((elem) => (
+            <div
+              key={elem.nome}
+              onClick={() => handleSelect(elem.nome)}
+              style={{
+                cursor: 'pointer',
+                border: selecionado === elem.nome ? '2px solid green' : '1px solid gray',
+                borderRadius: '8px',
+                padding: '10px',
+                textAlign: 'center'
+              }}
+            >
+              <img src={elem.imagem} alt={elem.nome} style={{ width: '80px', height: '80px' }} />
+              <strong style={{ display: 'block', marginTop: '8px' }}>{elem.nome}</strong>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={handleConfirmar}
+          disabled={!selecionado}
+          style={{
+            backgroundColor: '#4caf50',
+            color: 'white',
+            border: 'none',
+            padding: '8px 16px',
+            borderRadius: '4px',
+            cursor: !selecionado ? 'not-allowed' : 'pointer'
+          }}
+        >
+          Confirmar
+        </button>
+      </div>
+    </Modal>
+  );
 }
+
+function LevelUpNEX({classe}) {
+     switch ((classe.nome)) {
+          case "combatente":
+              
+          default:
+     }
+}
+
+//     <EscolherAfinidade
+//       isAberto={modalAberto}
+//       onFechar={() => setModalAberto(false)}
+//     />
 
 function Etapa5() {
+  const [modalAberto, setModalAberto] = useState(true);
 
+  return null;
 }
 
+export {EscolherAfinidade,
+     Etapa5,
+}

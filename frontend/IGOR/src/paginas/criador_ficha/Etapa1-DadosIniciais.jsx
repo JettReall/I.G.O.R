@@ -157,6 +157,12 @@ function Etapa1() {
     setOrigemSelecionada(origem);  
   };
 
+  const SalvarEtapa1 = () => {
+    console.log("Dados iniciais salvos.");
+    console.log(origemSelecionada, ficha);
+
+  }
+
   return (
     <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa1'])}>
       <CaixaTexto texto={`Vamos começar. Primeiro, insira algumas informações iniciais:`} tela={'caixa-etapa1'}/>
@@ -195,7 +201,7 @@ function Etapa1() {
           min={0}
           max={100}
         />
-        <BotaoAvancarEtapa isDisabled={isDesabilitado} />
+        <BotaoAvancarEtapa isDisabled={isDesabilitado} etapaAtual={1} funcaoAntesAvancar={SalvarEtapa1}/>
       </div>
 
       <TelaOrigens
