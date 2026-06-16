@@ -4,15 +4,25 @@ import './index.css'
 import './fontes.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-//import Homepage from './paginas/homepage/Homepage'
 import Login from './paginas/Login/Login'
 import Homepage from './paginas/homepage/Homepage'
-import App from './app'
-import LoginTeste from './paginas/Login/LoginTeste'
-import Campanhas from './paginas/campanha/campanhas'
+
+import Campanhas from './paginas/campanha/campanhas.jsx'
+import TelaCampanhaAgente from './paginas/campanha/TelaCampanhaAgente'
+import Cadastro from './paginas/Login/cadastro'
+import Ficha from './paginas/ficha/ficha.jsx'
+import Etapa1 from './paginas/criador_ficha/Etapa1-DadosIniciais.jsx'
+import Etapa2 from './paginas/criador_ficha/Etapa2-ClasseTrilha.jsx'
+import Etapa3 from './paginas/criador_ficha/Etapa3-Atributos.jsx'
+import Etapa4 from './paginas/criador_ficha/Etapa4-Pericias.jsx'
+import {EscolherPoderClasse} from './paginas/criador_ficha/NEX/PoderClasse.jsx'
+import EscolherAumentoAtributo from './paginas/criador_ficha/NEX/AumentoAtributo.jsx'
+import Versatilidade from './paginas/criador_ficha/NEX/Versatilidade.jsx'
+import { EscolherAfinidade } from './paginas/criador_ficha/Etapa5-NEX.jsx'
+
 
 const Private = ({Item})  => {
-  const signed = true;
+  const signed = false;
   if (signed === true) {
     return <Item/>
   } else {
@@ -24,18 +34,29 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Homepage/>}></Route>
-      <Route path='campanhas' element={<Campanhas usuario={"MiloAntraz"}/>}/>
+      <Route path="/" element={<Homepage/>}/>
+      <Route path='/campanhas' element={<Campanhas usuario={"MiloAntraz"}/>}/>
+      <Route path= "/login" element={<Login/>} />
+      <Route path='/cadastro' element={<Cadastro/>}/>
+      <Route exact path= "/" element={<Private Item={Homepage} />} />
+      <Route path='*' element={<Homepage/>}/>
+      <Route path='/teste' element={<TelaCampanhaAgente />}/>
+      <Route path='/ficha' element={<Ficha/>}/>
+      <Route path='/etapa_1' element={<Etapa1/>}/>
+      <Route path='/etapa_2' element={<Etapa2/>}/>
+      <Route path='/etapa_3' element={<Etapa3/>}/>
+      <Route path='/etapa_4' element={<Etapa4/>}/>
+      <>
+      <Route path='/poder_classe' element={<EscolherPoderClasse/>}/>
+      <Route path='/aumento_atributo' element={<EscolherAumentoAtributo/>}/>
+      <Route path='versatilidade' element={<Versatilidade/>}/>
+      </>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
 )
 
 /*
-        <Route path= "/login" element={<Login/>} />
-        <Route exact path= "/" element={<Private Item={Homepage} />} />
-        <Route path='*' element={<Homepage/>}/>
-        <Route path='/app' element={<App/>}></Route>
 
 
 */

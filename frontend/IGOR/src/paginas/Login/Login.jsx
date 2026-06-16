@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Login.css'
+import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
+import {InputLogin, ErroLogin} from './input';
 
 
 function ContainerLogo() {
@@ -10,55 +12,62 @@ function ContainerLogo() {
           </div>
      )
 }
-
-
-
 function ContainerDados() {
-     const [email, setEmail] = useState("");
-     const [senha, setSenha] = useState("");
-const [usuarios, setUsuarios] = useState([]); // array vazio inicial
 
-     useEffect(() => {
-     fetch('/api/usuarios')
-          .then(res => res.json())          // converte para objeto/array
-          .then(data => {
-               setUsuarios(data);              // data deve ser um array
-          })
-          .catch(err => console.error('Erro:', err));
-     }, []);
 
-//Parte que puxa do back, o mais próximo que cheguei
-     const HandleSubmit = async (event) => {
-          event.preventDefault();
-
-          console.log(email,senha);
-          useEffect();
- 
+     const HandleSubmit = () => {
+          event.preventDefault()
+          console.log("enviado");
+          
      }
 
-///Falta pouco, mas ainda nao resolvi
 
-     return (
+ const [form, setForm] = useState({
+     email:  "",
+     senha: "",
+ })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+ 
+   const todosPreenchidos = Object.values(form).every(
+    (valor) => typeof valor === "string" && valor.trim() !== ""
+  );
+
+  return (
           <div className="container-dados">
                <form onSubmit={HandleSubmit}>
-                    <div className="elemento-input">
-                         <input type="text" name="text" id="email" placeholder='Digite seu email' required onChange={(e) => setEmail(e.target.value)}/>    
-                    </div>
+                    <InputLogin 
+                         texto={"Digite seu email"}
+                         placeholder={"Exemplo: ElizabethWebber@ordo.com"}
+                         nome={"email"}
+                         tipo={"text"}
+                         valor={form.email}
+                         mudar={handleChange}
+                    />
+               
+               <InputLogin 
+                    texto={"Digite sua senha"}
+                    placeholder={""}
+                    nome={"senha"}
+                    tipo={"text"}
+                    valor={form.senha}
+                    mudar={handleChange}
+               />
 
-                    <div className="elemento-input">
-                         <input type="password" name="password" id="senha" placeholder='Digite sua senha' required onChange={ (e) => setSenha(e.target.value)} />
-                         <a href="">Esqueceu sua senha?</a>
-                    </div>
-                    <div className="container-botoes">
-                         <button className='botao-envio' type='submit'>Entrar</button>
-                    </div>
-              
-                    
+
+               <div className="container-botoes">
+                    <button className="botao-envio" type="submit" disabled={!todosPreenchidos}>Entrar</button>
+                    <BotaoLoginCadastro linkBotao={"cadastro"} texto={"Criar conta"} corBotao={"escuro"}></BotaoLoginCadastro>
+                    <a href="">Esqueceu sua senha?</a>
+               </div>
                </form>
-          </div>
+               </div>
      )
-
 }
+
 
 function Container() {
      return (
@@ -81,3 +90,33 @@ function Login() {
 
 
 export default Login
+
+/*
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Evita recarregar a página
+     //Criado totalmente com IA esse HandleSubmit
+    setCarregando(true);
+    setErro(null);
+    console.log("🔄 Carregando... (fetch iniciado)");
+
+    try {
+      const response = await fetch("api/usuarios");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("✅ Dados recebidos:", data);
+      setUsuarios(data);
+
+    } catch (err) {
+      setErro(err.message);
+      console.error("❌ Erro no fetch:", err.message);
+    } finally {
+      setCarregando(false);
+      console.log("🏁 Carregamento concluído");
+    }
+
+    LoginAuth(usuarios,email,senha);
+};
+*/

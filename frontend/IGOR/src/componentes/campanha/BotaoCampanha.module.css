@@ -1,0 +1,84 @@
+
+.container-botao-campanha {
+     width: 200px;
+     height: 250px;
+     
+     
+     border: 1px solid black;
+     background-color: snow;
+     border-radius: 10px;
+     
+     display: flex;
+     flex-direction: column;
+     position: relative;
+
+     background-size: cover;
+     background-position: center;
+}
+
+.container-botao-campanha:hover {
+          cursor: pointer;
+          transform: scale(1.05);
+          border: 3px solid purple;
+           transition: all 0.3s;
+}
+
+
+.botao-altera-campanha {
+     width: 25px;
+     height: 25px;
+     border-radius: 5px;
+
+     background-size: 80%;
+     background-position: center;
+     background-repeat: no-repeat
+}
+
+.container-botoes {
+     display: flex;
+     position: absolute;
+     right: 5%;
+     top: 5%;
+     gap: 5px;
+
+}
+
+.nome-campanha {
+     position: absolute;
+     bottom: 5%;
+     left: 5%;
+     color: crimson;
+}
+
+.editar {
+     background-color: beige;
+     background-image: url(../../assets/imagens/icones/lapis.png);
+
+
+}
+
+.apagar {
+     background-color: crimson;
+     background-image: url(../../assets/imagens/icones/lixo.png);
+     
+}
+
+.adicionar-ficha{
+     background-color: rgb(187, 187, 187);
+     background-image: url(../../assets/imagens/icones/adicionar-ficha.png);
+
+     grid-column: 1;
+}
+
+.ficha {
+     background-image: url(../../assets/imagens/icones/ficha.png);
+}
+
+.campanha {
+
+}
+
+.adicionar-campanha {
+     background-color: rgb(187, 187, 187);
+     grid-column: 1;
+}

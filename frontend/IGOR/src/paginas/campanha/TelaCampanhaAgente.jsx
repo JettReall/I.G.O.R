@@ -4,18 +4,19 @@ import BotaoCampanha from '../../componentes/campanha/BotaoCampanha.jsx'
 import { HeaderBase, HeaderDeCampanha } from '../../componentes/header/headers.jsx'
 import estilos from '../../componentes/campanha/BotaoCampanha.module.css'
 import clsx from 'clsx'
+import { BotaoRetorno } from '../../componentes/botoes/Botoes.jsx'
 
 
 
 
 function ContainerCampanhas() {
-     const classeCampanha = estilos['container-botao-campanha'];
-     const campanhaBotaoAdd = clsx(estilos['container-botao-campanha'],estilos['adicionar-campanha']);
+     const classeFicha = clsx(estilos['container-botao-campanha'],estilos.ficha);
+     const campanhaBotaoAdd = clsx(estilos['container-botao-campanha'],estilos['adicionar-ficha']);
 
      return (
           <div className="container-campanhas">
-               <BotaoCampanha aba_botao={"adicionar"} nome_botao={"Adicionar uma campanha"} classe={campanhaBotaoAdd}/>
-               <BotaoCampanha aba_botao={"Teste"} nome_botao={"Placeholder"} classe={classeCampanha}/>
+               <BotaoCampanha aba_botao={"adicionar"} nome_botao={"Criar uma ficha de Agente"} classe={campanhaBotaoAdd}/>
+               <BotaoCampanha aba_botao={"Teste"} nome_botao={"Placeholder"} classe={classeFicha}/>
 
 
           </div>
@@ -24,14 +25,14 @@ function ContainerCampanhas() {
 
 
 
-function Campanhas({usuario}) {
+function TelaCampanhaAgente({usuario}) {
       if (usuario == undefined) {
           usuario = "Usuário"
      }
      return   (
                <div className="corpo">
                     <header>
-                         <HeaderBase titulo={"Campanhas"} pagina_atual={'campanhas'}/> 
+                         <HeaderDeCampanha titulo={"Campanhas"} botao_L={<BotaoRetorno/>}/> 
                     </header>                
                
                     <nav className="latertal">
@@ -47,4 +48,4 @@ function Campanhas({usuario}) {
      )
 }
 
-export default Campanhas
+export default TelaCampanhaAgente

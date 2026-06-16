@@ -1,0 +1,16 @@
+.botao-aba-nav {
+     height: 50px;
+     width: 200px;
+     border-radius: 10px;
+     border: 0px solid transparent;
+     font-size: 20px;
+     background-color: transparent;
+     color: whitesmoke;
+}
+
+.botao-aba-nav:hover {
+     background-color: #ED191C;
+     font-size: 25px;
+     transition: all 0.3s ease;
+     cursor: pointer;
+}
