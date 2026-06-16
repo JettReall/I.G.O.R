@@ -1,5 +1,6 @@
 package com.example.igor.usuario;
 
+import com.example.igor.usuario.UsuarioResponse.UsuarioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,21 @@ public class UsuarioService {
     private UsuarioRepository repository;
 
     //Criar
-    public Usuario cadastrarUsuario(Usuario usuario) {
+    public UsuarioResponse cadastrarUsuario(UsuarioResponse usuario) {
+        Usuario usuarioBanco = new Usuario();
         if(repository.existsByNome(usuario.getNome())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse nome já está em uso");
         }
-        return repository.save(usuario);
+        if(repository.existsByEmail(usuario.getEmail())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse email já está em uso");
+        }
+        usuarioBanco.setNome(usuario.getNome());
+        usuarioBanco.setEmail(usuario.getEmail());
+        usuarioBanco.setSenha(usuario.getSenha());
+
+        repository.save(usuarioBanco);
+        usuario.setId(usuarioBanco.getId());
+        return usuario;
     }
 
     //Get All
@@ -27,14 +38,20 @@ public class UsuarioService {
     }
 
     //Get por ID
-    public Usuario buscarUsuario(Long id){
-        return repository.findById(id).orElse(null);
+    public UsuarioResponse buscarUsuario(Long id){
+        Usuario usuario = repository.findById(id).orElse(null);
+        UsuarioResponse dto = new UsuarioResponse(usuario.getId(), usuario.getNome(),usuario.getEmail(),usuario.getSenha());
+        return dto;
     }
 
     //Atualizar
-    public Usuario atualizarUsuario(Long id,Usuario usuario){
-        usuario.setId(id);
-        return repository.save(usuario);
+    public UsuarioResponse atualizarUsuario(UsuarioResponse usuario){
+        Usuario usuarioBanco = repository.findById(usuario.getId()).orElse(null);
+        usuarioBanco.setNome(usuario.getNome());
+        usuarioBanco.setEmail(usuario.getEmail());
+        usuarioBanco.setSenha(usuario.getSenha());
+        repository.save(usuarioBanco);
+        return usuario;
     }
 
     //Delete
@@ -44,8 +61,8 @@ public class UsuarioService {
     }
 
     //verificar
-    public String loginUsuario(Usuario usuario){
-        Usuario a=repository.findByNome(usuario.getNome());
+    public String loginUsuario(UsuarioResponse usuario){
+        Usuario a=repository.findByEmail(usuario.getEmail());
         if(a==null) return "Usuario não encontrado";
         if(a.getSenha().equals(usuario.getSenha())){
             return "Login OK";
