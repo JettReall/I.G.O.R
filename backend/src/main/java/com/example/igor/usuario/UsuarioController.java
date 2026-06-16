@@ -3,6 +3,7 @@ package com.example.igor.usuario;
 import java.util.List;
 
 import com.example.igor.usuario.UsuarioResponse.UsuarioResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class UsuarioController {
 
     //Criar
     @PostMapping
-    private Usuario cadastrar(@RequestBody Usuario usuario) {
+    private UsuarioResponse cadastrar(@RequestBody UsuarioResponse usuario) {
         return usuarioService.cadastrarUsuario(usuario);
     }
 
@@ -33,9 +34,13 @@ public class UsuarioController {
     }
 
     //Atualizar
-    @PutMapping("/{id}")
-    private Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuario){
-        return usuarioService.atualizarUsuario(id,usuario);
+    @Operation(
+            summary = "Atualiza um usuario",
+            description = "Recebe um usuario e o atualiza no banco com todas as novas informações, retorna o usuario que foi alterado"
+    )
+    @PutMapping
+    private UsuarioResponse atualizar(@RequestBody UsuarioResponse usuario){
+        return usuarioService.atualizarUsuario(usuario);
     }
 
     //Delete
@@ -46,7 +51,7 @@ public class UsuarioController {
 
     //verificar
     @PostMapping("/login")
-    private String login(@RequestBody Usuario usuario){
+    private String login(@RequestBody UsuarioResponse usuario){
         return usuarioService.loginUsuario(usuario);
     }
 }

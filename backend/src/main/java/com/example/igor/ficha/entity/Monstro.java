@@ -13,9 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class Monstro extends Ficha{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String nome;
     @Embedded
     @AttributeOverrides({

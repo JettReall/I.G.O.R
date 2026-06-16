@@ -16,9 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Habilidade extends Acao{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String classe;
     private int duracao;
     private boolean usoUnico;

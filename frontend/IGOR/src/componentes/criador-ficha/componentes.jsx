@@ -3,7 +3,10 @@ import clsx from 'clsx'
 import estilos from './componentes.module.css'
 import estilosFicha from '../ficha/componentes.module.css'
 import React from 'react';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
+=======
+>>>>>>> main
 
 
 function InputComBotao({ valor, aoMudar, aoIncrementar, aoDecrementar, classeExtra, min, max, nome, texto }) {
@@ -48,6 +51,7 @@ function CaixaTexto({ texto, tela }) {
   );
 }
 
+<<<<<<< HEAD
 function BotaoAvancarEtapa({ isDisabled, etapaAtual, funcaoAntesAvancar }) {
   const navigate = useNavigate();
 
@@ -90,6 +94,11 @@ function BotaoVoltarEtapa({ etapaAtual }) {
       Voltar
     </button>
   );
+=======
+function BotaoAvancarEtapa( {isDisabled} ) {
+//Sem funcionalidade por agora
+return <button disabled={isDisabled} className={estilos['botao-avancar']}>Avançar</button>
+>>>>>>> main
 }
 
 function BotaoAvancarNEX( {isDisabled} ) {
@@ -128,7 +137,10 @@ export {
      InputComBotao,
      CaixaTexto,
     BotaoAvancarEtapa,
+<<<<<<< HEAD
     BotaoVoltarEtapa,
+=======
+>>>>>>> main
      BotaoCancelarCriacao,
      BotaoAvancarNEX,
      ExibeAtributos,

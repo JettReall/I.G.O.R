@@ -21,6 +21,8 @@ public class Combate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nome;
+
     private int turno;
 
     @ManyToMany
