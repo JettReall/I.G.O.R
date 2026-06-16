@@ -1,12 +1,9 @@
 import { CaixaTexto, InputComBotao, BotaoAvancarEtapa, ExibeAtributos } from "../../componentes/criador-ficha/componentes";
 import { useState, useEffect } from "react";
 import estilos from "../../componentes/ficha/componentes.module.css";
-import estilosEtapas from "./etapas.module.css"
+import estilosEtapas from "./etapas.module.css";
 import clsx from "clsx";
-
-
-// Componente local para exibir os atributos (copia o layout do Atributos original)
-
+import { useEtapa } from "../../componentes/EtapaContext"; // importa o contexto
 
 function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosDistribuir }) {
   const handleIncrementar = (nomeAttr) => {
@@ -42,7 +39,7 @@ function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosD
   };
 
   return (
-    <div className={clsx(estilosEtapas['inputs-etapa3'],estilosEtapas['linha'])}>
+    <div className={clsx(estilosEtapas['inputs-etapa3'], estilosEtapas['linha'])}>
       {atributos.map((attr) => (
         <InputComBotao
           key={attr.nome}
@@ -60,61 +57,63 @@ function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosD
 }
 
 function Etapa3() {
-  const [atributos, setAtributos] = useState([]);
+  const { updateEtapa, etapaAtual } = useEtapa(); // contexto
 
+  const [atributos, setAtributos] = useState([]);
   const dados = [   
     { nome: "for", valor: 0 },
     { nome: "agi", valor: 0 },
     { nome: "vig", valor: 0 },
     { nome: "int", valor: 0 },
     { nome: "pre", valor: 0 },
-]
-  
-useEffect(() => {
-  setAtributos(dados); // data já é um array de objetos simples
-}, []);
+  ];
+
+  useEffect(() => {
+    setAtributos(dados);
+  }, []);
 
   const [pontosDistribuir, setPontosDistribuir] = useState(9);
-
-  // Botão avançar só fica habilitado quando não houver pontos restantes
   const isBotaoAvancarDesabilitado = pontosDistribuir !== 0;
 
+  const handleVoltar = () => {
+    updateEtapa(etapaAtual - 1); // volta para etapa 2
+  };
+
+  // Não há console.log neste arquivo; se houverem, serão mantidos para debug.
+
   return (
-
     <>
-    <div className={clsx(estilosEtapas['container-principal'],estilosEtapas['principal-etapa3'])}>
+      <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa3'])}>
+        <div className={estilos['slot-atributo']}>
+          <ExibeAtributos atributos={atributos} />
+        </div>
 
-          <div className={estilos['slot-atributo']}>
-               <ExibeAtributos atributos={atributos} />
-          </div>
+        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['coluna'], estilosEtapas['slot-inputs-etapa3'])}>
+          <CaixaTexto
+            texto="Distribua os pontos entre os 5 atributos. Só é possível ter no máximo 3 por atributo."
+            tela={'caixa-etapa3'}
+          />
+          <CaixaTexto
+            texto={`Você possui ${pontosDistribuir} pontos disponíveis`}
+            tela={'caixa-etapa3'}
+          />
+          <ContainerInputs
+            atributos={atributos}
+            setAtributos={setAtributos}
+            pontosDistribuir={pontosDistribuir}
+            setPontosDistribuir={setPontosDistribuir}
+          />
 
-          <div className={clsx(estilosEtapas['container-menor'],estilosEtapas['coluna'],estilosEtapas['slot-inputs-etapa3'])}>
+          {/* Botão Voltar (local, usando contexto) */}
+          <button onClick={handleVoltar} className={estilosEtapas['botao-voltar-etapa']}>
+            Voltar
+          </button>
 
-               <CaixaTexto
-                    texto={
-                      "Distribua os pontos entre os 5 atributos. Só é possível ter no máximo 3 por atributo."
-                    }
-                    tela={'caixa-etapa3'}
-                    />
-
-               <CaixaTexto
-                    texto={`Você possui ${pontosDistribuir} pontos disponíveis`}
-                    tela={'caixa-etapa3'}
-                    />
-
-               <ContainerInputs
-                    atributos={atributos}
-                    setAtributos={setAtributos}
-                    pontosDistribuir={pontosDistribuir}
-                    setPontosDistribuir={setPontosDistribuir}
-               />
-
-               {/* Botão de avanço condicional */}
-
-               <BotaoAvancarEtapa isDisabled={isBotaoAvancarDesabilitado} />
-          </div>
-    </div>
-  </>
+          {/* Botão Avançar (componente que já usa contexto) */}
+          <BotaoAvancarEtapa isDisabled={isBotaoAvancarDesabilitado} />
+        </div>
+      </div>
+    </>
   );
 }
 

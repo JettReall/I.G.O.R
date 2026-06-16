@@ -1,10 +1,8 @@
 // SeletorDePericias.jsx
 import { useState } from "react";
-import { BotaoAvancarEtapa } from "../../componentes/criador-ficha/componentes";
 import clsx from "clsx";
-import estilosUtil from "./utils.module.css"; // ← nome alterado para estilosUtil
+import estilosUtil from "./utils.module.css";
 
-// Componentes internos (movidos para cá, mas podem ficar dentro deste módulo)
 function CaixaTexto({ valor }) {
   if (valor !== 0) {
     return (
@@ -36,7 +34,6 @@ function PericiaSeletor({ dados, isChecked, onChange }) {
 }
 
 function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
- 
   return (
     <div className={clsx(estilosUtil['container-menor'], estilosUtil['pericias-etapa4'])}>
       {pericias.map((pericia) => (
@@ -51,8 +48,8 @@ function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
   );
 }
 
-// Componente principal reutilizável
-export function SeletorDePericias({ periciasElegiveis, listaPericias }) {
+// Componente principal reutilizável – recebe dois botões via props
+export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes }) {
   const [selecionados, setSelecionados] = useState([]);
   const [restantes, setRestantes] = useState(periciasElegiveis);
 
@@ -71,17 +68,19 @@ export function SeletorDePericias({ periciasElegiveis, listaPericias }) {
     }
   };
 
-  const isBotaoDesabilitado = restantes !== 0;
-
   return (
-       <div className={estilosUtil['principal']}>
+    <div className={estilosUtil['principal']}>
       <CaixaTexto valor={restantes} />
       <ContainerPericiasSelecionaveis
         pericias={listaPericias}
         selecionados={selecionados}
         onToggle={handleTogglePericia}
       />
-      <BotaoAvancarEtapa isDisabled={isBotaoDesabilitado} />
+      <div className={estilosUtil['container-botoes']}>
+        {botoes?.esquerdo && botoes.esquerdo}
+        {/* Botão direito só aparece quando não há mais pontos restantes */}
+        {botoes?.direito && restantes === 0 && botoes.direito}
+      </div>
     </div>
   );
 }

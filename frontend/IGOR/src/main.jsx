@@ -12,6 +12,9 @@ import Campanhas from './paginas/campanha/campanhas.jsx'
 import TelaCampanhaAgente from './paginas/campanha/TelaCampanhaAgente'
 import Cadastro from './paginas/Login/cadastro'
 import Ficha from './paginas/ficha/ficha.jsx'
+
+import CriadorFicha from './paginas/criador_ficha/CriadorFicha.jsx'
+
 import Etapa1 from './paginas/criador_ficha/Etapa1-DadosIniciais.jsx'
 import Etapa2 from './paginas/criador_ficha/Etapa2-ClasseTrilha.jsx'
 import Etapa3 from './paginas/criador_ficha/Etapa3-Atributos.jsx'
@@ -49,10 +52,9 @@ createRoot(document.getElementById('root')).render(
       <Route path='*' element={<Homepage/>}/>
       <Route path='/teste' element={<TelaCampanhaAgente />}/>
       <Route path='/ficha' element={<Ficha/>}/>
-      <Route path='/etapa_1' element={<Etapa1/>}/>
-      <Route path='/etapa_2' element={<Etapa2/>}/>
-      <Route path='/etapa_3' element={<Etapa3/>}/>
-      <Route path='/etapa_4' element={<Etapa4/>}/>
+<Route path="/criar_ficha/:step" element={<CriadorFicha />} />
+
+
       <>
       
       <Route path='/poder_classe' element={<EscolherPoderClasse/>}/>
@@ -67,6 +69,11 @@ createRoot(document.getElementById('root')).render(
 )
 
 /*
-
+      <>
+      <Route path='etapa_1' element={<Etapa1/>}/>
+      <Route path='etapa_2' element={<Etapa2/>}/>
+      <Route path='etapa_3' element={<Etapa3/>}/>
+      <Route path='etapa_4' element={<Etapa4/>}/>
+      </>
 
 */

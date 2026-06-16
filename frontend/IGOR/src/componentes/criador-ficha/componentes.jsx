@@ -3,10 +3,8 @@ import clsx from 'clsx'
 import estilos from './componentes.module.css'
 import estilosFicha from '../ficha/componentes.module.css'
 import React from 'react';
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
-=======
->>>>>>> main
+import { useEtapa } from '../EtapaContext';
 
 
 function InputComBotao({ valor, aoMudar, aoIncrementar, aoDecrementar, classeExtra, min, max, nome, texto }) {
@@ -51,54 +49,32 @@ function CaixaTexto({ texto, tela }) {
   );
 }
 
-<<<<<<< HEAD
-function BotaoAvancarEtapa({ isDisabled, etapaAtual, funcaoAntesAvancar }) {
-  const navigate = useNavigate();
+function BotaoAvancarEtapa({ isDisabled, funcaoAntesAvancar }) {
+  const { etapaAtual, updateEtapa } = useEtapa();
 
   const handleClick = () => {
-    // 1. Executa a função específica da etapa (se existir)
-    if (funcaoAntesAvancar) {
-      funcaoAntesAvancar();
-    }
-
-    // 2. Avança para a próxima etapa
-    const proximaEtapa = etapaAtual + 1;
-    navigate(`/etapa_${proximaEtapa}`);
+    if (funcaoAntesAvancar) funcaoAntesAvancar();
+    updateEtapa(etapaAtual + 1);
   };
 
   return (
-    <button
-      disabled={isDisabled}
-      onClick={handleClick}
-      className={estilos['botao-avancar']}
-    >
+    <button disabled={isDisabled} onClick={handleClick} className={estilos['botao-avancar']}>
       Avançar
     </button>
   );
 }
-
-function BotaoVoltarEtapa({ etapaAtual }) {
-  const navigate = useNavigate();
+function BotaoVoltarEtapa({ }) {
+  const { etapaAtual, updateEtapa } = useEtapa();
 
   const handleClick = () => {
-    // 2. Avança para a próxima etapa
-    const proximaEtapa = etapaAtual - 1;
-    navigate(`/etapa_${proximaEtapa}`);
+    updateEtapa(etapaAtual - 1);
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className={estilos['botao-avancar']}
-    >
+    <button onClick={handleClick} className={estilos['botao-avancar']}>
       Voltar
     </button>
   );
-=======
-function BotaoAvancarEtapa( {isDisabled} ) {
-//Sem funcionalidade por agora
-return <button disabled={isDisabled} className={estilos['botao-avancar']}>Avançar</button>
->>>>>>> main
 }
 
 function BotaoAvancarNEX( {isDisabled} ) {
@@ -137,10 +113,7 @@ export {
      InputComBotao,
      CaixaTexto,
     BotaoAvancarEtapa,
-<<<<<<< HEAD
     BotaoVoltarEtapa,
-=======
->>>>>>> main
      BotaoCancelarCriacao,
      BotaoAvancarNEX,
      ExibeAtributos,

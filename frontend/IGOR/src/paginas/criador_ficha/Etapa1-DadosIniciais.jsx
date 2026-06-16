@@ -105,7 +105,7 @@ function TelaOrigens({ isAberto, setModalAberto, onConfirmar }) {
   );
 }
 
-function Etapa1() {
+function Etapa1()  {
   const [ficha, setFicha] = useState({
     nome: "",
     jogador: "",
@@ -201,7 +201,7 @@ function Etapa1() {
           min={0}
           max={100}
         />
-        <BotaoAvancarEtapa isDisabled={isDesabilitado} etapaAtual={1} funcaoAntesAvancar={SalvarEtapa1}/>
+            <BotaoAvancarEtapa isDisabled={isDesabilitado} funcaoAntesAvancar={SalvarEtapa1} />
       </div>
 
       <TelaOrigens

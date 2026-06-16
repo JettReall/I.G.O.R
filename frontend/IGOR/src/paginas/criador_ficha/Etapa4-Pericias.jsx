@@ -1,7 +1,11 @@
+// Etapa4-Pericias.jsx
 import { HeaderBase } from "../../componentes/header/headers";
-import { SeletorDePericias } from "../../assets/utils/ContainerPericias"; // importa o componente reutilizável
+import { SeletorDePericias } from "../../assets/utils/ContainerPericias";
+import { BotaoAvancarEtapa, BotaoVoltarEtapa } from "../../componentes/criador-ficha/componentes";
+import { useEtapa } from "../../componentes/EtapaContext";
+import estilosEtapas from "./etapas.module.css";
+import clsx from "clsx";
 
-// Lista de perícias de exemplo (pode ficar aqui ou ser movida para um arquivo de dados)
 const listaPericiasDisponiveis = [
   { id: 1, nome: "Atletismo", atributo: "Força", treino: 2 },
   { id: 2, nome: "Acrobacia", atributo: "Agilidade", treino: 1 },
@@ -13,12 +17,23 @@ const listaPericiasDisponiveis = [
 ];
 
 function Etapa4() {
+  const { updateEtapa, etapaAtual } = useEtapa();
+
+  const handleVoltar = () => {
+    updateEtapa(etapaAtual - 1);
+  };
+
+  const botaoVoltar = <BotaoVoltarEtapa />
+
+  const botaoAvancar = <BotaoAvancarEtapa />;
+
   return (
     <>
-
+      <HeaderBase pagina_atual={'claro'} titulo={"Etapa 4: Escolha de Perícias"} isFixo={true} />
       <SeletorDePericias
         periciasElegiveis={5}
         listaPericias={listaPericiasDisponiveis}
+        botoes={{ esquerdo: botaoVoltar, direito: botaoAvancar }}
       />
     </>
   );
