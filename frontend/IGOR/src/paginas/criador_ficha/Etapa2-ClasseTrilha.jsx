@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // Assumindo que 'estilos' seja um CSS Module importado (ajuste conforme necessário)
  import estilosEtapas from './etapas.module.css';
 import clsx from 'clsx';
-import { CaixaTexto, BotaoAvancarEtapa } from '../../componentes/criador-ficha/componentes';
+import { CaixaTexto, BotaoAvancarEtapa, BotaoVoltarEtapa } from '../../componentes/criador-ficha/componentes';
 import { handleSelectUnico } from '../../assets/utils/SelecaoUnica';
 import combatenteImg from '../../assets/imagens/elementos/combatente.png';
 import especialistaImg from '../../assets/imagens/elementos/especialista.png';
@@ -51,11 +51,17 @@ function BotaoAvanco({ classeSelecionada, trilhaSelecionada, flagTrilha, aoAvanc
     ? trilhaSelecionada === ""
     : classeSelecionada === "";
 
+    if(!flagTrilha) {
   return (
     <button disabled={isDisabled} onClick={aoAvancar} className={estilosEtapas['avanco-etapa2']}>
       Avançar
     </button>
   );
+  } else {
+    return (
+      <BotaoAvancarEtapa  etapaAtual={2} isDisabled={isDisabled} funcaoAntesAvancar={console.log(classeSelecionada, trilhaSelecionada)}/>
+    )
+  }
 
   //Caso flagtrilha esteja ativada, deve ser BotaoAvancarEtapa no lugar
 }
@@ -155,12 +161,17 @@ const handleSelecionar = (valor) => {
           aoSelecionar={handleSelecionar}
           />
 
+          <div className="">
+
+           <BotaoVoltarEtapa etapaAtual={2}/>
+
           <BotaoAvanco
           classeSelecionada={classes.classeAgente}
           trilhaSelecionada={classes.trilhaAgente}
           flagTrilha={flagTrilha}
           aoAvancar={handleAvancar}
           />
+          </div>
 
         </div>
     </div>

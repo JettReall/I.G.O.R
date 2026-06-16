@@ -73,6 +73,25 @@ function BotaoAvancarEtapa({ isDisabled, etapaAtual, funcaoAntesAvancar }) {
   );
 }
 
+function BotaoVoltarEtapa({ etapaAtual }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // 2. Avança para a próxima etapa
+    const proximaEtapa = etapaAtual - 1;
+    navigate(`/etapa_${proximaEtapa}`);
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className={estilos['botao-avancar']}
+    >
+      Voltar
+    </button>
+  );
+}
+
 function BotaoAvancarNEX( {isDisabled} ) {
 //Sem funcionalidade por agora
 return <button disabled={isDisabled} className={estilos['botao-avancar']}>Avançar</button>
@@ -109,6 +128,7 @@ export {
      InputComBotao,
      CaixaTexto,
     BotaoAvancarEtapa,
+    BotaoVoltarEtapa,
      BotaoCancelarCriacao,
      BotaoAvancarNEX,
      ExibeAtributos,

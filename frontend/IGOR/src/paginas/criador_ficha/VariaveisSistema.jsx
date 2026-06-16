@@ -68,3 +68,76 @@ const FichaEmBranco = {
      poderes_classe: "",
 }
 
+const PersonagemVazio = {
+  id: 0,
+  nomePersonagem: "",
+  nomeJogador: "",
+  vida: "",
+  pe: "",
+  sanidade: "",
+  defesa: 0,
+  esquiva: 0,
+  proeficiencia: "",
+  nex: 0,
+  deslocamento: 0,
+  efeito: [
+    {
+      nome: "",
+      descricao: ""
+    }
+  ],
+  anotacoes: {
+    historia: "",
+    aparencia: "",
+    outro: ""
+  },
+  origem: {
+    id: 0,
+    nome: "COMBATENTE",
+    pericias: [
+      {
+        id: 0,
+        nome: "",
+        atributo: {
+          nome: "",
+          valor: ""
+        },
+        descricao: ""
+      }
+    ]
+  },
+  pericias: [
+    {
+      id: 0,
+      personagem: "",
+      pericia: {
+        id: 0,
+        nome: "",
+        atributo: {
+          nome: "",
+          valor: ""
+        },
+        descricao: ""
+      },
+      treino: 0,
+      bonus: 0,
+      outro: 0
+    }
+  ],
+  inventario: {
+    item: [
+      {
+        id: 0,
+        nome: "",
+        descricao: "",
+        efeito: {
+          nome: "",
+          descricao: ""
+        },
+        espaco: 0,
+        categoria: ""
+      }
+    ]
+  }
+};
+
