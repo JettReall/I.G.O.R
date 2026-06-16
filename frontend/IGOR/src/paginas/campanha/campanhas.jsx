@@ -1,55 +1,41 @@
 import './campanhas.css'
+import Nav from '../../componentes/nav/Nav.jsx'
+import BotaoCampanha from '../../componentes/campanha/BotaoCampanha.jsx'
+import { HeaderBase, HeaderDeCampanha } from '../../componentes/header/headers.jsx'
+import estilos from '../../componentes/campanha/BotaoCampanha.module.css'
+import clsx from 'clsx'
 
-function BotaoCampanha() {
-     return (
-          <div className="container-botao-campanha">
-               <div className="conatainer-botoes">
-                    <button className="botao-altera-campanha" id="editar"></button>
-                    <button className="botao-altera-campanha" id="apagar"></button>
-               </div>
-               <img src="" alt="" className="botao-campanha" />
-               <strong className="nome-campanha">Nome campanha</strong>  
-          </div>
-     ) 
-}
 
-function BotaoAddCampanha() {
-     return(
 
-          <div className="container-botao-campanha" id='adicionar-campanha'>
-               <img src="" alt="" className="botao-campanha" />
-               <strong className="nome-campanha">Adicionar uma campanha</strong>  
-          </div>
-     )
-}
-
-function BotaoAbaNav() {
-     return <button className="botao-aba-nav"></button>
-}
 
 function ContainerCampanhas() {
+     const classeCampanha = estilos['container-botao-campanha'];
+     const campanhaBotaoAdd = clsx(estilos['container-botao-campanha'],estilos['adicionar-campanha']);
+
      return (
           <div className="container-campanhas">
-               <BotaoAddCampanha/>
-               <BotaoCampanha/>
-               <BotaoCampanha/>
-               <BotaoCampanha/>
-               <BotaoCampanha/>
+               <BotaoCampanha aba_botao={"adicionar"} nome_botao={"Adicionar uma campanha"} classe={campanhaBotaoAdd}/>
+               <BotaoCampanha aba_botao={"Teste"} nome_botao={"Placeholder"} classe={classeCampanha}/>
+
+
           </div>
      )
 }
 
 
-function Campanhas() {
+
+function Campanhas({usuario}) {
+      if (usuario == undefined) {
+          usuario = "Usuário"
+     }
      return   (
-               <div className="container-grid">
+               <div className="corpo">
                     <header>
-                         <h1 className="texto-header">Header</h1>    
+                         <HeaderBase titulo={"Campanhas"} pagina_atual={'campanhas'}/> 
                     </header>                
                
                     <nav className="latertal">
-                         <BotaoAbaNav/>
-                         <h1>NAV</h1>
+                         <Nav usuario={usuario}></Nav>
                     </nav>
 
                     <main>

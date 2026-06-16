@@ -1,0 +1,49 @@
+nav {
+     background-color: #6E1F1F;
+
+     position: relative;
+
+     grid-column: 1;
+     grid-row: 1/-1;
+     padding: 20px;
+
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+
+}
+
+.container-botoes-laterais {
+     position: absolute;
+     top: 20vh;
+
+     display: flex;
+     flex-direction: column;
+     gap: 50px;
+
+}
+
+.container-botao-perfil {
+     color: whitesmoke;
+     font-size: 18px;
+     display: flex;
+     flex-direction: row;
+     gap: 10px;
+     position: absolute;
+     bottom: 10%;
+}
+
+
+.foto-perfil {
+     width: 50px;
+     height: 50px;
+     border-radius: 25px;
+     border: 1px solid black;
+}
+
+.nome-perfil {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
