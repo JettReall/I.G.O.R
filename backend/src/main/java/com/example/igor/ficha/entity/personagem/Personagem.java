@@ -18,18 +18,7 @@ import java.util.List;
 @Entity
 public class Personagem extends Ficha {
 
-    private String nomePersonagem;
-
     private String nomeJogador;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "atual", column = @Column(name = "vida_atual")),
-            @AttributeOverride(name = "max", column = @Column(name = "vida_max")),
-            @AttributeOverride(name = "temporario", column = @Column(name = "vida_temporario"))
-    })
-    private Stats vida;
-
 
     @Embedded
     @AttributeOverrides({
@@ -83,4 +72,15 @@ public class Personagem extends Ficha {
 
     @Embedded
     private Inventario inventario;
+
+    @PostLoad
+    public void initPersonagemEmbeddeds() {
+        if (pe == null) {
+            pe = new Stats(0, 0, 0);
+        }
+        if (sanidade == null) {
+            sanidade = new Stats(0, 0, 0);
+        }
+    }
+
 }

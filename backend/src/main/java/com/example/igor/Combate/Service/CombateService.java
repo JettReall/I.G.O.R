@@ -1,9 +1,11 @@
 package com.example.igor.Combate.Service;
 
+import com.example.igor.Acao.AcaoService;
 import com.example.igor.Combate.Combate;
-import com.example.igor.Combate.CombateRepository;
 import com.example.igor.Combate.DTO.CombateFichaDTO;
+import com.example.igor.Combate.DTO.ContextoAcao;
 import com.example.igor.Combate.DTO.PericiaDTO;
+import com.example.igor.Combate.Repositories.CombateRepository;
 import com.example.igor.ficha.Repositories.FichaRepository;
 import com.example.igor.ficha.entity.Ficha;
 import com.example.igor.ficha.entity.Monstro;
@@ -18,7 +20,7 @@ import java.util.Map;
 
 
 @Service
-public class CombateService {
+public class CombateService{
 
     @Autowired
     private CombateRepository repository;
@@ -26,6 +28,9 @@ public class CombateService {
     private FichaRepository fichaRepository;
     @Autowired
     private PericiaService periciaService;
+    @Autowired
+    private AcaoService acaoService;
+
 
     private int iniciativa(Ficha ficha){
         PericiaDTO dto = new PericiaDTO(12L, ficha.getId());
@@ -34,6 +39,7 @@ public class CombateService {
         ficha.setIniciativa(response);
         return response;
     }
+
 
     public List<Ficha> shuffle(List<Long> fichasIds) {
 
@@ -52,11 +58,6 @@ public class CombateService {
                 .map(entry -> fichaRepository.findById(entry.getKey()).orElseThrow())
                 .toList();
     }
-
-
-
-    //TODO apos a funcao shuffle estiver pronta precisa da funcao addFichaRandom que vai adicionar uma ficha ao combate e refazer a ordem de turno
-
 
 
     //add ficha em alguma posicao especifica;
@@ -83,17 +84,28 @@ public class CombateService {
     }
 
 
-    /*
-    //TODO fazer saporra
+    public Combate addFichaRandom(CombateFichaDTO dto){
+        Combate combate = repository.findById(dto.combateId).orElseThrow();
+        combate.getOrdemTurno().add(fichaRepository.findById(dto.fichaDTO.getId()).orElseThrow());
+        List<Long> listId = combate.getOrdemTurno()
+                .stream()
+                .map(Ficha::getId)
+                .toList();
+        combate.setOrdemTurno(shuffle(listId));
+        return repository.save(combate);
+    }
+
 
     public ContextoAcao acao(ContextoAcao contextoAcao){
-        contextoAcao
+        if(contextoAcao.periciaDTO!=null){
+            contextoAcao.periciaDTO = periciaService.usarPericia(contextoAcao.periciaDTO);
+            return contextoAcao;
+        }
+        if(contextoAcao.acaoid != null){
+            contextoAcao = acaoService.usar(contextoAcao);
+        }
 
-
-        return null;
+        return contextoAcao;
     }
-    */
-
-
 
 }
