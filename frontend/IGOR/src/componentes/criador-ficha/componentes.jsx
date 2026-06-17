@@ -5,6 +5,7 @@ import estilosFicha from '../ficha/componentes.module.css'
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEtapa } from '../EtapaContext';
+import { useNEX } from '../NEXContext';
 
 
 function InputComBotao({ valor, aoMudar, aoIncrementar, aoDecrementar, classeExtra, min, max, nome, texto }) {
@@ -77,11 +78,44 @@ function BotaoVoltarEtapa({ }) {
   );
 }
 
-function BotaoAvancarNEX( {isDisabled} ) {
-//Sem funcionalidade por agora
-return <button disabled={isDisabled} className={estilos['botao-avancar']}>Avançar</button>
+function BotaoAvancarNEX({ isDisabled, funcaoAntesAvancar }) {
+  const nexContext = useNEX();
+  const etapaContext = useEtapa();
+
+  const handleClick = () => {
+    if (funcaoAntesAvancar) funcaoAntesAvancar();
+    if (nexContext) {
+      nexContext.avancarNex();
+    } else if (etapaContext) {
+      etapaContext.updateEtapa(etapaContext.etapaAtual + 1);
+    }
+  };
+
+  return (
+    <button disabled={isDisabled} onClick={handleClick} className={estilos['botao-avancar-nex']}>
+      Avançar
+    </button>
+  );
 }
 
+function BotaoVoltarNEX({ isDisabled,  }) {
+  const nexContext = useNEX();
+  const etapaContext = useEtapa();
+
+  const handleClick = () => {
+    if (nexContext) {
+      nexContext.voltarNex();
+    } else if (etapaContext) {
+      etapaContext.updateEtapa(etapaContext.etapaAtual - 1);
+    }
+  };
+
+  return (
+    <button disabled={isDisabled} onClick={handleClick} className={estilos['botao-avancar-nex']}>
+      Voltar
+    </button>
+  );
+}
 
 function BotaoCancelarCriacao() {
      //Vazio por agora
@@ -117,5 +151,6 @@ export {
      BotaoCancelarCriacao,
      BotaoAvancarNEX,
      ExibeAtributos,
+     BotaoVoltarNEX
   
 }

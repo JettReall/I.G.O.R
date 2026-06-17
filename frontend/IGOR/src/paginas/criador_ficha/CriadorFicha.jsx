@@ -11,9 +11,8 @@ import { Etapa5 } from './Etapa5-NEX';
 
 function ConteudoCriador() {
   const { etapaAtual, updateEtapa } = useEtapa();
-  const { step } = useParams(); // step será "etapa_1", "etapa_2" etc.
+  const { step } = useParams();
 
-  // Sincroniza a URL com o contexto na primeira carga
   useEffect(() => {
     if (step) {
       const numero = parseInt(step.split('_')[1], 10);
@@ -24,17 +23,12 @@ function ConteudoCriador() {
   }, [step]);
 
   switch (etapaAtual) {
-    case 1:
-          return <Etapa1 />;
-     case 2:
-          return <Etapa2/>;
-     case 3:
-          return <Etapa3/>;
-     case 4:
-          return <Etapa4/>;
-    // outros cases futuros
-    default:
-      return <Etapa1 />;
+    case 1: return <Etapa1 />;
+    case 2: return <Etapa2 />;
+    case 3: return <Etapa3 />;
+    case 4: return <Etapa4 />;
+    case 5: return <Etapa5 />;
+    default: return <Etapa1 />;
   }
 }
 

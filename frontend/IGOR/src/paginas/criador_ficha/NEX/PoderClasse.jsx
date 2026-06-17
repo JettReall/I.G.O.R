@@ -61,21 +61,14 @@ function EscolherPoderClasse() {
   };
 
   const desabilitar = selectedId === null;
-  const nex = 20;
 
-  let texto = "";
-  if (selectedId === null) {
-    texto = `Escolha um poder de classe`;
-  } else {
-    texto = `Poder escolhido. Clique em avançar para confirmar`;
-  }
+
+  let texto = desabilitar ?  `Escolha um poder de classe` : `Poder escolhido. Clique em avançar para confirmar`;
+
+  
+
 
   return (
-    <>
-      <HeaderBase
-        pagina_atual={'claro'}
-        titulo={`NEX ${nex}: Escolha um poder de classe`}
-      />
       <div className={clsx(estilosNEX['container-principal-nex'], estilosNEX['container-tela-poderes'])}>
         <CaixaTexto texto={texto} tela={'caixa-etapa5'} />
         <div>
@@ -84,11 +77,9 @@ function EscolherPoderClasse() {
             selectedId={selectedId}
             onSelect={handleSelect}
           />
-
         </div>
         <BotaoAvancarNEX isDisabled={desabilitar} />
       </div>
-    </>
   );
 }
 
