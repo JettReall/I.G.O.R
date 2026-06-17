@@ -1,8 +1,11 @@
 package com.example.igor.global.Dado;
 
 
+import lombok.NoArgsConstructor;
+
 import java.util.concurrent.ThreadLocalRandom;
 
+@NoArgsConstructor
 public class Dado implements Rolar{
     public int tamanho;
     public int valor;

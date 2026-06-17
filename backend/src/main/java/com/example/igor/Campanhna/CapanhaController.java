@@ -1,7 +1,6 @@
 package com.example.igor.Campanhna;
 
 import com.example.igor.Campanhna.DTO.CampanhaCombateDTO;
-import com.example.igor.Campanhna.DTO.CampanhaFichaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

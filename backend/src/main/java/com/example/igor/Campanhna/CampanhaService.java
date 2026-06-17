@@ -1,13 +1,9 @@
 package com.example.igor.Campanhna;
 
 import com.example.igor.Campanhna.DTO.CampanhaCombateDTO;
-import com.example.igor.Campanhna.DTO.CampanhaFichaDTO;
 import com.example.igor.Campanhna.Exception.CampanhaJaExisteException;
 import com.example.igor.Combate.Combate;
 import com.example.igor.Combate.CombateRepository;
-import com.example.igor.ficha.FichaUtil.TipoFicha;
-import com.example.igor.ficha.entity.Monstro;
-import com.example.igor.ficha.entity.personagem.Personagem;
 import com.example.igor.usuario.Usuario;
 import com.example.igor.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
