@@ -17,8 +17,7 @@ public class PersonagemService {
     @Autowired
     private PersonagemRepository personagemRepository;
 
-    //salvar no banco
-
+    //Salva um personagem no banco
     public Personagem criarPersonagem(PersonagemDTO dto) {
 
         Personagem personagem = new Personagem();
@@ -37,11 +36,13 @@ public class PersonagemService {
         return personagemRepository.save(personagem);
     }
 
+    //Busca um personagem especifico pelo ID
     public Personagem buscarPorId(Long id) {
         return personagemRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Personagem com id " + id + "não encontrado"));
     }
      
+    //Lista os personagens de um jogador
     public List<Personagem> listarPorJogador(String nomeJogador) {
         return personagemRepository.findByNomeJogador(nomeJogador);
     }

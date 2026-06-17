@@ -17,7 +17,7 @@ public class PersonagemController {
     @Autowired
     private PersonagemService personagemService;
 
-     //converte o json em um objeto perso dto para criar um personagem novo
+    //converte o json em um objeto perso dto para criar um personagem novo
     @PostMapping
     public ResponseEntity<Personagem> criarPersonagem(@RequestBody PersonagemDTO dto)
     {
@@ -33,6 +33,7 @@ public class PersonagemController {
         return ResponseEntity.ok(personagem);
     }
 
+    //retorna todos os personagens de um jogador
     @GetMapping
     public ResponseEntity<List<Personagem>> listarPorJogador(@RequestParam String jogador) {
         List<Personagem> personagens = personagemService.listarPorJogador(jogador);

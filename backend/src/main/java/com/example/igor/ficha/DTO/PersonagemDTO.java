@@ -8,16 +8,19 @@ public class PersonagemDTO {
     public PersonagemDTO() {
     }
 
-    public PersonagemDTO(String nomePersonagem, String nomeJogador) {
+    public PersonagemDTO(String nomePersonagem, String nomeJogador) //criar pela primeira vez
+    {
         this.nomePersonagem = nomePersonagem;
         this.nomeJogador = nomeJogador;
     }
 
-    public String getNomePersonagem() {
+    public String getNomePersonagem() //pegar o nome do personagem
+    {
         return nomePersonagem;
     }
 
-    public void setNomePersonagem(String nomePersonagem) {
+    public void setNomePersonagem(String nomePersonagem) // salvar nome do personagem
+    {
         this.nomePersonagem = nomePersonagem;
     }
 
