@@ -4,7 +4,10 @@ import com.example.igor.Campanhna.Campanha;
 import com.example.igor.ficha.entity.Monstro;
 import com.example.igor.ficha.entity.personagem.Personagem;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 

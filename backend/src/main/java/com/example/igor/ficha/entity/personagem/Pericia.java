@@ -19,12 +19,11 @@ public class Pericia {
 
     private String nome;
 
-    @Embedded
-    @AttributeOverride(
-            name = "nome",
-            column = @Column(name = "atributo_nome")
-    )
-    private Atributo atributo;
+    private String atributo;
 
+    @Column(columnDefinition = "TEXT")
     private String descricao;
+
+
+
 }

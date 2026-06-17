@@ -4,7 +4,10 @@ import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.entity.Efeito;
 import com.example.igor.ficha.entity.Ficha;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -13,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Personagem extends Ficha{
+public class Personagem extends Ficha {
 
     private String nomePersonagem;
 
@@ -46,6 +49,7 @@ public class Personagem extends Ficha{
     private Stats sanidade;
 
 
+
     private int defesa;
 
 //  PROTECAO ENUM
@@ -73,8 +77,7 @@ public class Personagem extends Ficha{
     @ManyToOne
     private Origem origem;
 
-    @OneToMany(mappedBy = "personagem", cascade = CascadeType.ALL)
-    private List<PericiaPersonagem> pericias;
+
 
     @Embedded
     private Inventario inventario;

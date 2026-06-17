@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Monstro extends Ficha{
+public class Monstro extends Ficha {
     private String nome;
     @Embedded
     @AttributeOverrides({
@@ -21,4 +21,8 @@ public class Monstro extends Ficha{
             @AttributeOverride(name = "temporario", column = @Column(name = "vida_temporario"))
     })
     private Stats vida;
+
+
+
+
 }
