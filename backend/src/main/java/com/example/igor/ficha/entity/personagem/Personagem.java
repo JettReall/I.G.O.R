@@ -48,6 +48,8 @@ public class Personagem extends Ficha {
     })
     private Stats sanidade;
 
+    @Embedded
+    private AtributoPersonagem atributos;
 
 
     private int defesa;

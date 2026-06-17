@@ -18,8 +18,7 @@ public class Origem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private TipoOrigem nome;
+    private String nome;
 
     @ManyToMany
     private List<Pericia> pericias;

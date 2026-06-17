@@ -1,0 +1,302 @@
+
+.container-principal {
+     height: 100%;
+     width: 70%;
+     justify-self: center;
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+     border: 1px solid black;
+     background-color: whitesmoke;
+
+     overflow: hidden;
+}
+
+.container-menor {
+     display: flex;
+     justify-content: space-evenly;
+
+     align-items: center;
+     width: 100%;
+     height: 100%;
+}
+
+.linha {
+     display: flex;
+     flex-direction: row;
+}
+
+.coluna {
+     display: flex;
+     flex-direction: column;
+}
+
+/*  Estilos Etapa 1 */
+
+.principal-etapa1{
+     position: absolute;
+     bottom: 0;
+     height: 85%;
+     justify-content: space-around; 
+
+     grid-template-columns: 1fr;
+     grid-template-rows: repeat(3,1fr);
+     place-items: center;
+
+     border-top-left-radius: 10px;
+     border-top-right-radius: 10px;
+}
+
+.inputs-etapa1 {
+     justify-content: space-around;
+}
+
+.botoes-etapa1 {
+     place-items: center;
+}
+
+
+.container-input-solo {
+     display: flex;
+     flex-direction: column;
+     place-self: center;
+
+     width: 90%;
+}
+
+.container-input-solo input {
+     height: 50px;
+     background-color: snow;
+     border-radius: 10px;
+}
+
+.botao-origem {
+     text-align: center;
+     width: 200px;
+}
+
+.escolhida button {
+     background-color: rgb(90, 87, 94);
+     color: snow;
+}
+
+.botao-origem button {
+     height: 50px;
+     width: 100%;
+     border-radius: 10px;
+     font-size: 16px;
+}
+
+.botao-conf-origem {
+     height: 50px;
+
+     border-radius: 10px;
+     border: 0px solid black;
+     background-color: black;
+     color: snow;
+
+     box-shadow: 01px 1px grey;
+
+     font-size: 20px;
+}
+
+.botao-conf-origem:disabled {
+     opacity: 0.7;
+     cursor: default;
+     background-color: grey;
+}
+
+.tela-origens {
+     width: 60vw;
+     height: 70vh;
+
+     background-color: snow;
+     border-radius: 10px;
+}
+
+.container-origens {
+     display: grid;
+     grid-template-columns: repeat(2,1fr);
+
+     width: 80%;
+     height: 50%;
+
+     overflow-y: scroll;
+
+     gap: 10px;
+
+}
+
+.elemento-origem strong {
+     font-size: 24px;
+     place-content: center;
+}
+
+.elemento-origem p {
+     height: 25px;
+     margin: 0;
+     place-content: center;
+}
+
+.elemento-origem {
+     display: grid;
+     grid-template-rows: 2fr 1fr 1fr;
+
+     height: 100px;
+     width: 90%;
+
+     border: 1px solid black;
+     border-radius: 10px;
+
+     margin-left: 10px;
+
+     cursor: pointer;
+}
+
+.origem-selecionada {
+     border: 1px solid purple;
+     background-color: lightgrey;
+
+     transition: all 0.3 ease;
+}
+
+/*Estilos Etapa 2*/
+
+.principal-etapa2 {
+     grid-template-columns: repeat(2,1fr);
+     grid-template-rows: 2fr 4fr 1fr;
+
+     grid-template-areas: 
+     "caixatexto caixatexto"
+     "imagem seletor"
+     "nulo nulo"
+}
+
+.caixa-texto-etapa2 {
+     grid-area: caixatexto;
+}
+
+.seletor-etapa2 {
+     grid-area: seletor;
+}
+
+.slot-imagem-etapa2 {
+     grid-area: imagem;
+     place-items: center;
+
+
+
+}
+
+.slot-imagem-etapa2 img {
+     transform: scale(0.8);
+     border: 1px solid black;
+     transition: all 0.5 ease-in-out;
+
+}
+
+.container-info-classe-trilha {
+
+     width: 70%;
+     height: 100px;
+     justify-content: space-around;
+
+}
+
+.container-info-classe-trilha strong{
+     border: 1px solid black;
+     border-radius: 5px;
+     width: 100%;
+     height: 40%;
+
+     text-align: start;
+     place-content: center;
+}
+
+.botao-classe-trilha {
+     background-color: snow;
+     border: 1px solid black;
+     width: 70%;
+     min-height: 75px;
+     font-size: 24px;
+     border-radius: 10px;
+
+     flex-wrap: wrap;
+}
+
+.botao-classe-trilha:disabled {
+     border: 2px solid #9A00FD;
+
+     background-color: rgb(0, 0, 0, 0.6);
+
+     color: snow;
+     opacity: 0.9;
+     scale: 1.1;
+     transform: none;
+}
+
+
+.botoes-etapa2 {
+     height: 80%;
+     width: 100%;
+     gap: 30px;
+     
+    place-items: center;
+    padding-top: 30px;
+
+     max-height: 450px;
+     overflow-y: scroll;
+     overflow-x: hidden;
+}
+
+.avanco-etapa2 {
+     height: 50px;
+     width: 200px;
+     align-self: center;
+
+     border-radius: 10px;
+     border: 0px solid black;
+     background-color: black;
+     color: snow;
+
+     box-shadow: 01px 1px grey;
+
+     font-size: 20px;
+
+}
+
+.avanco-etapa2:disabled {
+     opacity: 0.7;
+     cursor: default;
+     background-color: grey; 
+}
+
+/* Estilos Etapa 3 */
+
+.principal-etapa3 {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+
+
+     place-items: center;
+}
+
+.slot-atributo {
+     grid-column: 1;
+}
+
+.slot-inputs-etapa3 {
+     height: 70%;
+     width: 90%;
+     place-items: center;
+}
+
+.inputs-etapa3 {
+     gap: 10px;
+     flex-wrap: wrap;
+     justify-content: center;
+}
+
+/* Estilos etapa 4 */
