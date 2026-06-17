@@ -1,15 +1,22 @@
 package com.example.igor.ficha.entity.personagem;
 
+import java.util.List;
+
 import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.entity.Efeito;
 import com.example.igor.ficha.entity.Ficha;
-import jakarta.persistence.*;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
