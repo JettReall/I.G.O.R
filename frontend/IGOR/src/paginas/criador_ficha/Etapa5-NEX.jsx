@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { SeletorDePericias } from "../../assets/utils/ContainerPericias";
-import { BotaoAvancarNEX, BotaoVoltarNEX, CaixaTexto } from "../../componentes/criador-ficha/componentes";
+import { BotaoAvancarEtapa, BotaoAvancarNEX, BotaoVoltarEtapa, BotaoVoltarNEX, CaixaTexto } from "../../componentes/criador-ficha/componentes";
 import { HeaderBase } from "../../componentes/header/headers";
 import Modal from '../../componentes/Modal';
 import estilosNEX from './NEX/nex.module.css';
@@ -89,22 +89,67 @@ function GrauDeTreinamento({ NEX, Treino }) {
 }
 
 function Nex50() {
+
+  const [contador, setContador] = useState(0);
+
+
+  function HandleClick() {
+    setContador(contador+1)
+  }
+
+
+
+
+  const BotaoNex50 = () => {
+    switch(contador) {
+      case 0: return <button className={estilosNEX['botao-avancar']} onClick={HandleClick}></button>
+      case 1: return <button className={estilosNEX['botao-avancar']} onClick={HandleClick}></button>
+      case 2: return <BotaoAvancarNEX />
+    }
+  }
+  const ElementoNex50 = () => {
+    switch(contador) {
+      case 0: return <Versatilidade botao={<BotaoNex50/>}/>
+      case 1: return <EscolherAumentoAtributo botao={<BotaoNex50/>}/>
+      case 2: return <EscolherAfinidade isAberto={true} onFechar={handleFinalClick}/>
+    }
+  }
+
+
   return (
     <>
-      <HeaderBase titulo={"NEX 50%: Versatilidade"} pagina_atual={"claro"} isFixo={true} />
-      <Versatilidade />
-      <BotaoAvancarNEX isDisabled={false} />
+
+      <ElementoNex50 />
+
     </>
   );
 }
 
-function Nex5() {
+function Nex5({nex}) {
+  const [aberto, setAberto] = useState(true);
+
+  const handleFechar = () => setAberto(false);
+
+  const Botoes = () => {
+    if (nex === 5) {
+      return < BotaoAvancarEtapa>Finalizar</BotaoAvancarEtapa>
+    }
+      return  <BotaoAvancarNEX>Começar</BotaoAvancarNEX>
+  }
+
   return (
     <>
-      <CaixaTexto texto="NEX 5%: Início da jornada" tela="pop-up" />
+      <Modal open={aberto}>
+        <div style={{ padding: '20px', textAlign: 'center' }}>
+          <strong>Etapa 5: Level Up</strong>     
+          <CaixaTexto tela={'pop-up'} texto={`Iniciaremos agora o Level Up do seu personagem até o nex escolhido`} />
+          <Botoes/>
+        </div>
+      </Modal>
     </>
   );
 }
+
 
 function EscolherAfinidade({ isAberto, onFechar }) {
   const elementos = [
@@ -126,6 +171,8 @@ function EscolherAfinidade({ isAberto, onFechar }) {
       onFechar();
     }
   };
+
+  
 
   return (
     <Modal open={isAberto}>
@@ -168,12 +215,14 @@ function EscolherAfinidade({ isAberto, onFechar }) {
   );
 }
 
+const avanco = <BotaoAvancarNEX isDisabled={false}/>;
+
 // Mapeamento NEX -> Componente
 const LevelUp = {
   5: <Nex5 />,
   10: <LiberarHabTrilha Trilha={Ficha.Trilha} hab={0} />,
   15: <EscolherPoderClasse />,
-  20: <EscolherAumentoAtributo />,
+  20: <EscolherAumentoAtributo botao={avanco}/>,
   25: <AprimorarHabTrilha nivel={2} />,
   30: <EscolherPoderClasse />,
   35: <GrauDeTreinamento NEX={35} />,
@@ -200,15 +249,12 @@ function ConteudoNEX() {
     updateEtapa(etapaAtual - 1);
   };
 
+
   return (
     <div className={estilosNEX['container-nex']}>
-      <HeaderBase pagina_atual={'claro'} isFixo={false} titulo={`NEX ${nexAtual}%`} />
+      {/* <HeaderBase pagina_atual={'claro'} isFixo={false} titulo={`NEX ${nexAtual}%`} /> */}
       <div className={estilosNEX['conteudo-nex']}>
         {LevelUp[nexAtual] || <CaixaTexto texto={`NEX ${nexAtual} ainda não implementado.`} tela="pop-up" />}
-      </div>
-      <div className={estilosNEX['botoes-nex']}>
-        <BotaoVoltarNEX/>
-        <BotaoAvancarNEX/>
       </div>
     </div>
   );
@@ -218,10 +264,12 @@ function Etapa5() {
   const { etapaAtual, updateEtapa } = useEtapa();
   const { nex } = useParams();
   const initialNEX = nex ? parseInt(nex.split('_')[1], 10) : 5;
+//
 
   const handleFinish = () => {
     updateEtapa(etapaAtual + 1);
   };
+
 
   return (
     <NEXProvider initialNEX={initialNEX} onFinish={handleFinish}>

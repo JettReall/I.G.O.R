@@ -5,6 +5,7 @@ import { BotaoAvancarNEX, CaixaTexto } from "../../../componentes/criador-ficha/
 import clsx from "clsx";
 import estilosNEX from './nex.module.css';
 import { handleSelectUnico } from "../../../assets/utils/SelecaoUnica"; // Ajuste o path conforme necessário
+import { BotaoVoltarNEX } from "../../../componentes/criador-ficha/componentes";
 
 // Dados de exemplo para as habilidades de trilha
 const trilhasExemplo = [
@@ -119,7 +120,7 @@ function BotaoDivisor({ texto, aoClicar, valor, disabled }) {
   );
 }
 
-function Versatilidade() {
+function Versatilidade({botao}) {
   const [exibirTrilha, setExibirTrilha] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -159,6 +160,7 @@ function Versatilidade() {
     <>
     
       <div className={clsx(estilosNEX['container-principal-nex'], estilosNEX['container-versatilidade'])}>
+        
         <CaixaTexto texto={"Escolha entre um poder de sua classe ou a primeira habilidade de outra trilha"} tela={'versatilidade'} />
         <div className={estilosNEX['container-maior']}>
           <div className={clsx(estilosNEX['container-botoes-versatilidade'], estilosNEX['linha'])}>
@@ -184,7 +186,10 @@ function Versatilidade() {
             />
           </div>
         </div>
-        <BotaoAvancarNEX isDisabled={!selectedItem} />
+        <div className={estilosNEX['container-botoes-avanco']}>
+          <BotaoVoltarNEX />
+          {(selectedItem) ? botao : "Escolha um"} 
+        </div>
       </div>
     </>
   );

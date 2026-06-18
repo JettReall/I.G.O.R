@@ -48,24 +48,19 @@ function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
   );
 }
 
-// Componente principal reutilizável – recebe dois botões via props
-export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes }) {
-  const [selecionados, setSelecionados] = useState([]);
-  const [restantes, setRestantes] = useState(periciasElegiveis);
+// Componente principal agora recebe selecionados e onToggle como props
+export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes, selecionados, onToggle }) {
+  // Calcula quantas ainda podem ser escolhidas
+  const restantes = periciasElegiveis - selecionados.length;
 
+  // Função que envolve o toggle e valida o limite
   const handleTogglePericia = (id) => {
     const isSelecionado = selecionados.includes(id);
-    if (!isSelecionado) {
-      if (restantes === 0) {
-        alert(`Você só pode escolher ${periciasElegiveis} perícias.`);
-        return;
-      }
-      setSelecionados([...selecionados, id]);
-      setRestantes(restantes - 1);
-    } else {
-      setSelecionados(selecionados.filter((item) => item !== id));
-      setRestantes(restantes + 1);
+    if (!isSelecionado && restantes === 0) {
+      alert(`Você só pode escolher ${periciasElegiveis} perícias.`);
+      return;
     }
+    onToggle(id);
   };
 
   return (
@@ -76,10 +71,9 @@ export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes }) 
         selecionados={selecionados}
         onToggle={handleTogglePericia}
       />
-      <div className={estilosUtil['container-botoes']}>
+      <div className={estilosUtil['container-botoes-avanco']}>
         {botoes?.esquerdo && botoes.esquerdo}
-        {/* Botão direito só aparece quando não há mais pontos restantes */}
-        {botoes?.direito && restantes === 0 && botoes.direito}
+        {(restantes === 0) ? (botoes?.direito && botoes.direito) : <p>Escolha o requerido</p>}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { BotaoAvancarNEX, CaixaTexto } from '../../../componentes/criador-ficha/componentes';
+import { BotaoAvancarNEX, BotaoVoltarNEX, CaixaTexto } from '../../../componentes/criador-ficha/componentes';
 import { HeaderBase } from '../../../componentes/header/headers';
 import { useState } from 'react';
 import estilosNEX from './nex.module.css'
@@ -78,7 +78,11 @@ function EscolherPoderClasse() {
             onSelect={handleSelect}
           />
         </div>
+        <div className={estilosNEX['container-botoes-avanco']}>
+
+        <BotaoVoltarNEX />
         <BotaoAvancarNEX isDisabled={desabilitar} />
+        </div>
       </div>
   );
 }

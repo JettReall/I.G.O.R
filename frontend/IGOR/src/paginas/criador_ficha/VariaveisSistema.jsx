@@ -31,3 +31,34 @@ export const FichaEmBranco = {
     item: [{ id: 0, nome: "", descricao: "", efeito: { nome: "", descricao: "" }, espaco: 0, categoria: "" }]
   }
 };
+
+//Deixe tudo acima deste comentário intacto por agora.
+
+export const etapa1_dados = {
+    nome: "",
+    jogador: "",
+    nex: 0,
+    origem: {
+    id: 0,
+    nome: "",
+    pericias: [{ id: 0, nome: "", atributo: { nome: "", valor: "" }, descricao: "" }]
+    }
+}
+
+export const etapa2_dados = {
+   classeAgenteEscolhida: "",
+    trilhaAgenteEscolhida: "" 
+}
+
+export const etapa3_dados = [
+
+  { nome: "for", valor: 0 },
+  { nome: "agi", valor: 0 },
+  { nome: "vig", valor: 0 },
+  { nome: "int", valor: 0 },
+  { nome: "pre", valor: 0 },
+] 
+
+export const etapa4_dados = [
+  { id: 0} //Id = 0 indica que é vazio.
+];

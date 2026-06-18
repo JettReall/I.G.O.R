@@ -8,7 +8,16 @@ const EstiloModal = {
   transform: 'translate(-50%, -50%)',
 
   padding: '50px',
-  zIndex: 1000
+  zIndex: 1000,
+
+  backgroundColor:' #fefefe',
+  borderRadius: '10px',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-evenly',
+  gap: '2px',
+
+
 }
 
 const EstiloOverlay = {

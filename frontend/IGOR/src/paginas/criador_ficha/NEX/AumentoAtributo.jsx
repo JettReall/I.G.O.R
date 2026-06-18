@@ -52,7 +52,7 @@ function ContainerBotaoAtributo({ atributos, selectedNome, onSelect }) {
   );
 }
 
-function EscolherAumentoAtributo() {
+function EscolherAumentoAtributo( {botao}) {
   const [atributoEscolhido, setAtributoEscolhido] = useState(null);
   const desativar = atributoEscolhido === null;
 
@@ -92,7 +92,7 @@ function EscolherAumentoAtributo() {
                selectedNome={atributoEscolhido}
                onSelect={handleSelect}
                />
-               <BotaoAvancarNEX isDisabled={desativar} />
+               {!desativar ? botao : <p>Escolha um</p> }
       </div>
     </div>
      </>

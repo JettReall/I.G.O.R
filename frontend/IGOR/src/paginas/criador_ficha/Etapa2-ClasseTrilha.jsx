@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // adicionado useEffect
 import estilosEtapas from './etapas.module.css';
 import clsx from 'clsx';
-import { CaixaTexto, BotaoAvancarEtapa } from '../../componentes/criador-ficha/componentes';
+import { CaixaTexto, BotaoAvancarEtapa, BotaoVoltarEtapa } from '../../componentes/criador-ficha/componentes';
 import { handleSelectUnico } from '../../assets/utils/SelecaoUnica';
-import { useEtapa } from '../../componentes/EtapaContext'; // importa o contexto
+import { useEtapa } from '../../componentes/EtapaContext';
+import { etapa2_dados } from './VariaveisSistema';
 
 import combatenteImg from '../../assets/imagens/elementos/combatente.png';
 import especialistaImg from '../../assets/imagens/elementos/especialista.png';
 import ocultistaImg from '../../assets/imagens/elementos/ocultista.png';
 import indefinidoImg from '../../assets/imagens/elementos/indefinido.png';
+import { HeaderBase } from '../../componentes/header/headers';
 
 const imagens = {
   combatente: combatenteImg,
@@ -63,7 +65,7 @@ function BotaoAvanco({ classeSelecionada, trilhaSelecionada, flagTrilha, aoAvanc
         isDisabled={isDisabled}
         funcaoAntesAvancar={() => {
           console.log("Etapa 2 concluída:", { classe: classeSelecionada, trilha: trilhaSelecionada });
-          aoFinalizar(); // opcional: chamar qualquer outra ação antes de avançar
+          aoFinalizar(); // chama a função de finalização (que salva)
         }}
       />
     );
@@ -73,9 +75,7 @@ function BotaoAvanco({ classeSelecionada, trilhaSelecionada, flagTrilha, aoAvanc
 function BotaoVoltar({ flagTrilha, aoRetornar, aoVoltarEtapa }) {
   if (!flagTrilha) {
     return (
-      <button onClick={aoVoltarEtapa} className={estilosEtapas['avanco-etapa2']}>
-        Voltar etapa
-      </button>
+      <BotaoVoltarEtapa />
     );
   } else {
     return (
@@ -127,17 +127,32 @@ function ContainerImagem({ classe }) {
 }
 
 function Etapa2() {
-  const { updateEtapa, etapaAtual } = useEtapa(); // usa o contexto
-  const [classes, setClasses] = useState({ classeAgente: "", trilhaAgente: "" });
+  const { updateEtapa, etapaAtual } = useEtapa();
+
+  // Estados temporários (renomeados com sufixo Temp)
+  const [classesTemp, setClassesTemp] = useState({ classeAgente: "", trilhaAgente: "" });
   const [flagTrilha, setFlagTrilha] = useState(false);
+
+  // Carregar dados salvos ao montar o componente
+  useEffect(() => {
+    const temDados = etapa2_dados.classeAgenteEscolhida !== "" || 
+                      etapa2_dados.trilhaAgenteEscolhida !== "";
+
+    if (temDados) {
+      setClassesTemp({
+        classeAgente: etapa2_dados.classeAgenteEscolhida,
+        trilhaAgente: etapa2_dados.trilhaAgenteEscolhida,
+      });
+    }
+  }, []);
 
   const handleSelecionar = (valor) => {
     if (!flagTrilha) {
-      const novaClasse = handleSelectUnico(classes.classeAgente, valor);
-      setClasses((prev) => ({ ...prev, classeAgente: novaClasse, trilhaAgente: "" }));
+      const novaClasse = handleSelectUnico(classesTemp.classeAgente, valor);
+      setClassesTemp((prev) => ({ ...prev, classeAgente: novaClasse, trilhaAgente: "" }));
     } else {
-      const novaTrilha = handleSelectUnico(classes.trilhaAgente, valor);
-      setClasses((prev) => ({ ...prev, trilhaAgente: novaTrilha }));
+      const novaTrilha = handleSelectUnico(classesTemp.trilhaAgente, valor);
+      setClassesTemp((prev) => ({ ...prev, trilhaAgente: novaTrilha }));
     }
   };
 
@@ -154,49 +169,50 @@ function Etapa2() {
   };
 
   const handleVoltarEtapa = () => {
-    updateEtapa(etapaAtual - 1); // volta para etapa 1
+    updateEtapa(etapaAtual - 1);
   };
 
-  const handleFinalizar = () => {
-    // qualquer outra ação antes de avançar (ex.: salvar dados)
-    console.log("Preparando para avançar para etapa 3");
+  // Função SalvarEtapa2 – salva os dados na variável global
+  const SalvarEtapa2 = () => {
+    etapa2_dados.classeAgenteEscolhida = classesTemp.classeAgente;
+    etapa2_dados.trilhaAgenteEscolhida = classesTemp.trilhaAgente;
+    console.log("Dados da Etapa 2 salvos em etapa2_dados:", etapa2_dados);
   };
 
   return (
-    <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa2'])}>
-      <div className={estilosEtapas['caixa-texto-etapa2']}>
-        <CaixaTexto texto={"Próxima etapa: Escolha a classe e a trilha."} tela={'caixa-etapa2'} />
-      </div>
+    <>
+      <HeaderBase titulo={"Etapa 2: Escolha de Classe e Trilha"} isFixo={true} pagina_atual={'claro'} />
+      <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa2'])}>
+        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['slot-imagem-etapa2'], estilosEtapas['coluna'])}>
+          <ContainerImagem classe={classesTemp.classeAgente} />
+          <ContainerClasseTrilhaInfo classe={classesTemp.classeAgente} trilha={classesTemp.trilhaAgente} />
+        </div>
 
-      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['slot-imagem-etapa2'], estilosEtapas['coluna'])}>
-        <ContainerImagem classe={classes.classeAgente} />
-        <ContainerClasseTrilhaInfo classe={classes.classeAgente} trilha={classes.trilhaAgente} />
-      </div>
-
-      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['seletor-etapa2'], estilosEtapas['coluna'])}>
-        <SeletorClasseTrilha
-          classeSelecionada={classes.classeAgente}
-          trilhaSelecionada={classes.trilhaAgente}
-          flagTrilha={flagTrilha}
-          aoSelecionar={handleSelecionar}
-        />
-
-        <div className="">
-          <BotaoVoltar
+        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['seletor-etapa2'], estilosEtapas['coluna'])}>
+          <SeletorClasseTrilha
+            classeSelecionada={classesTemp.classeAgente}
+            trilhaSelecionada={classesTemp.trilhaAgente}
             flagTrilha={flagTrilha}
-            aoRetornar={handleRetornar}
-            aoVoltarEtapa={handleVoltarEtapa}
+            aoSelecionar={handleSelecionar}
           />
-          <BotaoAvanco
-            classeSelecionada={classes.classeAgente}
-            trilhaSelecionada={classes.trilhaAgente}
-            flagTrilha={flagTrilha}
-            aoAvancar={handleAvancar}
-            aoFinalizar={handleFinalizar}
-          />
+
+          <div className={estilosEtapas['container-botoes-avanco']}>
+            <BotaoVoltar
+              flagTrilha={flagTrilha}
+              aoRetornar={handleRetornar}
+              aoVoltarEtapa={handleVoltarEtapa}
+            />
+            <BotaoAvanco
+              classeSelecionada={classesTemp.classeAgente}
+              trilhaSelecionada={classesTemp.trilhaAgente}
+              flagTrilha={flagTrilha}
+              aoAvancar={handleAvancar}
+              aoFinalizar={SalvarEtapa2}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

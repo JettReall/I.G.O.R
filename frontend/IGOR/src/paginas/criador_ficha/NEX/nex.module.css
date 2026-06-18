@@ -1,7 +1,8 @@
 .container-principal-nex {
-     height: 100%;
+     height: 80%;
      width: 100%;
-     justify-self: center;
+
+     place-self: center;
 
     align-items: center;
     justify-content: center;
@@ -10,6 +11,9 @@
      background-color: whitesmoke;
 
      overflow: hidden;
+
+     position: absolute;
+     bottom: 0;
 
      margin: 0;
      padding: 0;
@@ -167,20 +171,28 @@
 }
 
 .container-versatilidade {
-     display: grid;
 
+     background-color: transparent;
      place-items: center;
 
-     height: 80%;
-     width: 70%;
 
-
+     display: grid;
      grid-template-rows:  1fr  3fr 2fr;
+     background-color: snow;
+     justify-content: space-evenly;
+
+}
+
+.menor-versatilidade {
+
+
+     padding: 20px 20px 20px 20px;
 }
 
 .container-botoes-versatilidade {
      width: 75%;
      justify-content: space-evenly;
+
 
 }
 
@@ -217,4 +229,13 @@
 
 .container-escolhido-outrolado {
      background-color: white;
+}
+
+.container-botoes-avanco {
+     width: 90%;
+     justify-content: space-evenly;
+     display: flex;
+}
+.container-botoes-avanco button{
+     width: 40%;
 }

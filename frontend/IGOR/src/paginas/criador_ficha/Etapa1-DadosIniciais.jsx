@@ -1,9 +1,11 @@
 import clsx from "clsx";
 import estilosEtapas from "./etapas.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // adicionado useEffect
 import { BotaoAvancarEtapa, CaixaTexto, InputComBotao } from "../../componentes/criador-ficha/componentes";
 import Modal from "../../componentes/Modal";
 import { handleSelectUnico } from "../../assets/utils/SelecaoUnica";
+import { HeaderBase } from "../../componentes/header/headers";
+import { etapa1_dados } from "./VariaveisSistema";
 
 const origensExemplo = [
   { id: 1, nome: "Acadêmico", pericias: ["Conhecimento", "Investigação"] },
@@ -105,14 +107,40 @@ function TelaOrigens({ isAberto, setModalAberto, onConfirmar }) {
   );
 }
 
-function Etapa1()  {
-  const [ficha, setFicha] = useState({
+function Etapa1() {
+  // Estados temporários (renomeados com sufixo Temp)
+  const [fichaTemp, setFichaTemp] = useState({
     nome: "",
     jogador: "",
     nex: 0,
   });
-  const [origemSelecionada, setOrigemSelecionada] = useState(null);
+  const [origemSelecionadaTemp, setOrigemSelecionadaTemp] = useState(null);
   const [abrirOrigem, setAbrirOrigem] = useState(false);
+
+  // Carregar dados salvos ao montar o componente
+  useEffect(() => {
+    // Verifica se há dados salvos (nome, jogador ou origem)
+    const temDados = etapa1_dados.nome !== "" || 
+                      etapa1_dados.jogador !== "" || 
+                      etapa1_dados.nex !== 0 || 
+                      etapa1_dados.origem.id !== 0;
+
+    if (temDados) {
+      setFichaTemp({
+        nome: etapa1_dados.nome,
+        jogador: etapa1_dados.jogador,
+        nex: etapa1_dados.nex,
+      });
+
+      // Se houver origem com id > 0, localiza nos exemplos e seta
+      if (etapa1_dados.origem.id > 0) {
+        const origemEncontrada = origensExemplo.find(o => o.id === etapa1_dados.origem.id);
+        if (origemEncontrada) {
+          setOrigemSelecionadaTemp(origemEncontrada);
+        }
+      }
+    }
+  }, []); // executa apenas na montagem
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -122,23 +150,23 @@ function Etapa1()  {
       const isValid = !isNaN(num) && num >= 0 && num <= 100 && (num % 5 === 0 || num === 99);
       if (!isValid) return;
     }
-    setFicha(prev => ({
+    setFichaTemp(prev => ({
       ...prev,
       [name]: name === "nex" ? Number(value) : value
     }));
   };
 
   const incrementarNex = () => {
-    const atual = ficha.nex;
+    const atual = fichaTemp.nex;
     let novo = atual + 5;
     if (novo >= 100) novo = 99;
     if (novo % 5 === 0 || novo === 99) {
-      setFicha(prev => ({ ...prev, nex: novo }));
+      setFichaTemp(prev => ({ ...prev, nex: novo }));
     }
   };
 
   const decrementarNex = () => {
-    const atual = ficha.nex;
+    const atual = fichaTemp.nex;
     let novo = 0;
     if (atual === 99) {
       novo = atual - 4;
@@ -147,69 +175,91 @@ function Etapa1()  {
     }
     if (novo < 0) novo = 0;
     if (novo % 5 === 0 || novo === 99) {
-      setFicha(prev => ({ ...prev, nex: novo }));
+      setFichaTemp(prev => ({ ...prev, nex: novo }));
     }
   };
 
-  const isDesabilitado = ficha.nome === "" || ficha.jogador === "" || ficha.nex === 0 || !origemSelecionada;
+  const isDesabilitado = fichaTemp.nome === "" || 
+                         fichaTemp.jogador === "" || 
+                         fichaTemp.nex === 0 || 
+                         !origemSelecionadaTemp;
 
   const handleConfirmarOrigem = (origem) => {
-    setOrigemSelecionada(origem);  
+    setOrigemSelecionadaTemp(origem);
   };
 
   const SalvarEtapa1 = () => {
-    console.log("Dados iniciais salvos.");
-    console.log(origemSelecionada, ficha);
+    // Preenche a variável global com os dados atuais
+    etapa1_dados.nome = fichaTemp.nome;
+    etapa1_dados.jogador = fichaTemp.jogador;
+    etapa1_dados.nex = fichaTemp.nex;
 
-  }
+    if (origemSelecionadaTemp) {
+      etapa1_dados.origem.id = origemSelecionadaTemp.id;
+      etapa1_dados.origem.nome = origemSelecionadaTemp.nome;
+      etapa1_dados.origem.pericias = origemSelecionadaTemp.pericias.map((nomePericia, index) => ({
+        id: index,
+        nome: nomePericia,
+        atributo: { nome: "", valor: "" },
+        descricao: ""
+      }));
+    } else {
+      etapa1_dados.origem = { id: 0, nome: "", pericias: [] };
+    }
+
+    console.log("Dados da Etapa 1 salvos em etapa1_dados:", etapa1_dados);
+  };
 
   return (
-    <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa1'])}>
-      <CaixaTexto texto={`Vamos começar. Primeiro, insira algumas informações iniciais:`} tela={'caixa-etapa1'}/>
+    <>
+      <HeaderBase pagina_atual={'claro'} isFixo={true} titulo={"Etapa 1: Dados iniciais"} />
+      <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa1'])}>
+        <CaixaTexto texto={`Vamos começar. Primeiro, insira algumas informações iniciais:`} tela={'caixa-etapa1'} />
 
-      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['coluna'], estilosEtapas['inputs-etapa1'])}>
-        <InputNome 
-          texto="Nome do personagem" 
-          nomeCampo="nome" 
-          placeholder="Personagem" 
-          valor={ficha.nome}
-          aoMudar={handleChange}
-        />
-        <InputNome 
-          texto="Nome do Jogador" 
-          nomeCampo="jogador" 
-          placeholder="Jogador" 
-          valor={ficha.jogador}
-          aoMudar={handleChange}
+        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['coluna'], estilosEtapas['inputs-etapa1'])}>
+          <InputNome 
+            texto="Nome do personagem" 
+            nomeCampo="nome" 
+            placeholder="Personagem" 
+            valor={fichaTemp.nome}
+            aoMudar={handleChange}
+          />
+          <InputNome 
+            texto="Nome do Jogador" 
+            nomeCampo="jogador" 
+            placeholder="Jogador" 
+            valor={fichaTemp.jogador}
+            aoMudar={handleChange}
+          />
+        </div>
+
+        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['linha'], estilosEtapas['botoes-etapa1'])}>
+          <BotaoOrigem 
+            origemSelecionada={origemSelecionadaTemp}
+            aoAbrirModal={() => setAbrirOrigem(true)}
+          />
+
+          <InputComBotao
+            valor={fichaTemp.nex} 
+            aoMudar={handleChange} 
+            aoIncrementar={incrementarNex}
+            aoDecrementar={decrementarNex}
+            nome={"nex"}
+            texto={"NEX:"}
+            classeExtra={"nex"}
+            min={0}
+            max={100}
+          />
+          <BotaoAvancarEtapa isDisabled={isDesabilitado} funcaoAntesAvancar={SalvarEtapa1} />
+        </div>
+
+        <TelaOrigens
+          isAberto={abrirOrigem}
+          setModalAberto={setAbrirOrigem}
+          onConfirmar={handleConfirmarOrigem}
         />
       </div>
-
-      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['linha'], estilosEtapas['botoes-etapa1'])}>
-        <BotaoOrigem 
-          origemSelecionada={origemSelecionada}
-          aoAbrirModal={() => setAbrirOrigem(true)}
-        />
-
-        <InputComBotao
-          valor={ficha.nex} 
-          aoMudar={handleChange} 
-          aoIncrementar={incrementarNex}
-          aoDecrementar={decrementarNex}
-          nome={"nex"}
-          texto={"NEX:"}
-          classeExtra={"nex"}
-          min={0}
-          max={100}
-        />
-            <BotaoAvancarEtapa isDisabled={isDesabilitado} funcaoAntesAvancar={SalvarEtapa1} />
-      </div>
-
-      <TelaOrigens
-        isAberto={abrirOrigem}
-        setModalAberto={setAbrirOrigem}
-        onConfirmar={handleConfirmarOrigem}
-      />
-    </div>
+    </>
   );
 }
 

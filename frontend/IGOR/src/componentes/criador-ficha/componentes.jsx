@@ -72,7 +72,7 @@ function BotaoVoltarEtapa({ }) {
   };
 
   return (
-    <button onClick={handleClick} className={estilos['botao-avancar']}>
+    <button onClick={handleClick} className={clsx(estilos['botao-avancar'],estilos['voltar'])}>
       Voltar
     </button>
   );
@@ -111,7 +111,7 @@ function BotaoVoltarNEX({ isDisabled,  }) {
   };
 
   return (
-    <button disabled={isDisabled} onClick={handleClick} className={estilos['botao-avancar-nex']}>
+    <button disabled={isDisabled} onClick={handleClick} className={clsx(estilos['botao-avancar-nex'],estilos['voltar'])}>
       Voltar
     </button>
   );

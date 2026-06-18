@@ -102,4 +102,13 @@
 
 }
 
+.container-botoes-avanco {
+     width: 90%;
+     justify-content: space-evenly;
+     display: flex;
+}
+.container-botoes-avanco button{
+     width: 40%;
+     max-width: 200px;
+}
 
