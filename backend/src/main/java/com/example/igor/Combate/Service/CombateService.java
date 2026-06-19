@@ -65,7 +65,7 @@ public class CombateService{
         Combate combate = repository.findById(dto.combateId)
                 .orElseThrow(() -> new RuntimeException("Combate não encontrado"));
 
-        Ficha fichaDTO = fichaRepository.findById(dto.fichaDTO.getId())
+        Ficha fichaDTO = fichaRepository.findById(dto.fichaid)
                 .orElseThrow(() -> new RuntimeException("Ficha não encontrada"));
 
         if (dto.posicao < 0 || dto.posicao > combate.getOrdemTurno().size()) {
@@ -86,7 +86,7 @@ public class CombateService{
 
     public Combate addFichaRandom(CombateFichaDTO dto){
         Combate combate = repository.findById(dto.combateId).orElseThrow();
-        combate.getOrdemTurno().add(fichaRepository.findById(dto.fichaDTO.getId()).orElseThrow());
+        combate.getOrdemTurno().add(fichaRepository.findById(dto.fichaid).orElseThrow());
         List<Long> listId = combate.getOrdemTurno()
                 .stream()
                 .map(Ficha::getId)
@@ -107,5 +107,21 @@ public class CombateService{
 
         return contextoAcao;
     }
+
+
+    public Combate pularVez(Long id){
+        Combate combate = repository.findById(id).orElseThrow();
+        combate.setTurno(combate.getTurno()+1);
+        resetAcoes(combate);
+        return repository.save(combate);
+    }
+
+    public Combate resetAcoes(Combate c){
+        c.getAcoes().AcaoLivre = true;
+        c.getAcoes().AcaoMovimento = true;
+        c.getAcoes().AcaoPadrao = true;
+        return c;
+    }
+
 
 }

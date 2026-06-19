@@ -38,7 +38,7 @@ public class RitualGenerico implements UsarAcao {
 
     /**
      * Retorna null intencionalmente — rituais concretos devem sobrescrever
-     * esse método com seu próprio AcoesChave para serem registrados no AcaoService.
+     * esse méto.do com seu próprio AcoesChave para serem registrados no AcaoService.
      */
     @Override
     public AcoesChave getTipo() {
