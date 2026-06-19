@@ -1,5 +1,6 @@
 package com.example.igor.Combate;
 
+import com.example.igor.Combate.Util.AcaoCombate;
 import com.example.igor.ficha.entity.Efeito;
 import com.example.igor.ficha.entity.Ficha;
 import com.example.igor.ficha.entity.Monstro;
@@ -55,4 +56,7 @@ public class Combate {
             inverseJoinColumns = @JoinColumn(name = "monstro_id")
     )
     private List<Monstro> monstros;
+
+    @Embedded
+    private AcaoCombate acoes;
 }

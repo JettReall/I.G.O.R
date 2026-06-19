@@ -1,9 +1,11 @@
 package com.example.igor.Combate.Service;
 
+import com.example.igor.Acao.AcaoService;
 import com.example.igor.Combate.Combate;
-import com.example.igor.Combate.CombateRepository;
 import com.example.igor.Combate.DTO.CombateFichaDTO;
+import com.example.igor.Combate.DTO.ContextoAcao;
 import com.example.igor.Combate.DTO.PericiaDTO;
+import com.example.igor.Combate.Repositories.CombateRepository;
 import com.example.igor.ficha.Repositories.FichaRepository;
 import com.example.igor.ficha.entity.Ficha;
 import com.example.igor.ficha.entity.Monstro;
@@ -18,7 +20,7 @@ import java.util.Map;
 
 
 @Service
-public class CombateService {
+public class CombateService{
 
     @Autowired
     private CombateRepository repository;
@@ -26,6 +28,9 @@ public class CombateService {
     private FichaRepository fichaRepository;
     @Autowired
     private PericiaService periciaService;
+    @Autowired
+    private AcaoService acaoService;
+
 
     private int iniciativa(Ficha ficha){
         PericiaDTO dto = new PericiaDTO(12L, ficha.getId());
@@ -34,6 +39,7 @@ public class CombateService {
         ficha.setIniciativa(response);
         return response;
     }
+
 
     public List<Ficha> shuffle(List<Long> fichasIds) {
 
@@ -54,17 +60,12 @@ public class CombateService {
     }
 
 
-
-    //TODO apos a funcao shuffle estiver pronta precisa da funcao addFichaRandom que vai adicionar uma ficha ao combate e refazer a ordem de turno
-
-
-
     //add ficha em alguma posicao especifica;
     public Combate addFichaPosicao(CombateFichaDTO dto) {
         Combate combate = repository.findById(dto.combateId)
                 .orElseThrow(() -> new RuntimeException("Combate não encontrado"));
 
-        Ficha fichaDTO = fichaRepository.findById(dto.fichaDTO.getId())
+        Ficha fichaDTO = fichaRepository.findById(dto.fichaid)
                 .orElseThrow(() -> new RuntimeException("Ficha não encontrada"));
 
         if (dto.posicao < 0 || dto.posicao > combate.getOrdemTurno().size()) {
@@ -83,17 +84,44 @@ public class CombateService {
     }
 
 
-    /*
-    //TODO fazer saporra
+    public Combate addFichaRandom(CombateFichaDTO dto){
+        Combate combate = repository.findById(dto.combateId).orElseThrow();
+        combate.getOrdemTurno().add(fichaRepository.findById(dto.fichaid).orElseThrow());
+        List<Long> listId = combate.getOrdemTurno()
+                .stream()
+                .map(Ficha::getId)
+                .toList();
+        combate.setOrdemTurno(shuffle(listId));
+        return repository.save(combate);
+    }
+
 
     public ContextoAcao acao(ContextoAcao contextoAcao){
-        contextoAcao
+        if(contextoAcao.periciaDTO!=null){
+            contextoAcao.periciaDTO = periciaService.usarPericia(contextoAcao.periciaDTO);
+            return contextoAcao;
+        }
+        if(contextoAcao.acaoid != null){
+            contextoAcao = acaoService.usar(contextoAcao);
+        }
 
-
-        return null;
+        return contextoAcao;
     }
-    */
 
+
+    public Combate pularVez(Long id){
+        Combate combate = repository.findById(id).orElseThrow();
+        combate.setTurno(combate.getTurno()+1);
+        resetAcoes(combate);
+        return repository.save(combate);
+    }
+
+    public Combate resetAcoes(Combate c){
+        c.getAcoes().AcaoLivre = true;
+        c.getAcoes().AcaoMovimento = true;
+        c.getAcoes().AcaoPadrao = true;
+        return c;
+    }
 
 
 }

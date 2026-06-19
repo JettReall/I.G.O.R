@@ -1,4 +1,4 @@
-package com.example.igor.Campanhna.DTO;
+package com.example.igor.Campanha.DTO;
 
 import com.example.igor.ficha.FichaUtil.FichaDTO;
 

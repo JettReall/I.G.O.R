@@ -1,6 +1,6 @@
 package com.example.igor.usuario;
 
-import com.example.igor.Campanhna.Campanha;
+import com.example.igor.Campanha.Campanha;
 import com.example.igor.ficha.entity.Monstro;
 import com.example.igor.ficha.entity.personagem.Personagem;
 import jakarta.persistence.*;

@@ -1,14 +1,16 @@
-package com.example.igor.Campanhna;
+package com.example.igor.Campanha;
 
-import com.example.igor.Campanhna.DTO.CampanhaCombateDTO;
+import com.example.igor.Campanha.DTO.CampanhaCombateDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/campanha")
-public class CapanhaController {
+public class CampanhaController {
     @Autowired
     private CampanhaService campanhaService;
 
@@ -67,4 +69,12 @@ public class CapanhaController {
         return campanhaService.removerCombate(dto);
     }
 
+    @Operation(
+            summary = "Get Campanha do usuario",
+            description = "Recebe um id de um usuario e retorna a lista de todas as campanhas dele"
+    )
+    @GetMapping("/{id}")
+    private List<Campanha> getCampanhas(@PathVariable Long id){
+        return campanhaService.getCampanhas(id);
+    }
 }

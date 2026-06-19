@@ -1,4 +1,4 @@
-package com.example.igor.Campanhna.Exception;
+package com.example.igor.Campanha.Exception;
 
 public class CampanhaJaExisteException extends RuntimeException {
 

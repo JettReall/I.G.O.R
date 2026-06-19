@@ -1,7 +1,9 @@
 package com.example.igor.Combate.Util;
 
-import com.example.igor.Combate.DTO.PericiaDTO;
+import com.example.igor.Acao.AcoesChave;
+import com.example.igor.Combate.DTO.ContextoAcao;
 
 public interface UsarAcao {
-    public PericiaDTO usarAcao(PericiaDTO dto);
+    AcoesChave getTipo();
+    public ContextoAcao usarAcao(ContextoAcao contexto);
 }

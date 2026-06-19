@@ -1,5 +1,7 @@
 package com.example.igor.ficha.entity.acao;
 
+import com.example.igor.Acao.AcoesChave;
+import com.example.igor.Combate.DTO.ContextoAcao;
 import com.example.igor.ficha.FichaUtil.Elemento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,4 +24,14 @@ public class Ritual extends Acao{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ataque_id")
     private Ataque infoAtaque;
+
+    @Override
+    public AcoesChave getTipo() {
+        return getAcaochave();
+    }
+
+    @Override
+    public ContextoAcao usarAcao(ContextoAcao contexto) {
+        return null;
+    }
 }
