@@ -104,4 +104,19 @@ public class RitualGenerico implements UsarAcao {
         periciaService.usarPericia(dto);
         return dto.rolagem.getMaiorDado().valor + dto.rolagem.getBonus();
     }
+
+    public ContextoAcao verificaRitual(ContextoAcao contexto){
+        Personagem p = (Personagem) fichaRepository.findById(contexto.idUsuario).orElseThrow();
+        Ficha alvo = fichaRepository.findById(contexto.idAlvo).orElseThrow();
+        Ritual ritual = ritualRepository.findById(contexto.acaoid).orElseThrow();
+
+        if(p.getHabilidades().stream()
+                .anyMatch(h -> h.getNome().equals("Absorver Agonia"))){
+            if (alvo.getVida().getAtual()==0){
+                p.getPe().setTemporario(p.getPe().getTemporario()+ritual.getCirculo());
+            }
+        }
+        fichaRepository.save(p);
+        return contexto;
+    }
 }

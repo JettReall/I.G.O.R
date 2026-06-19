@@ -38,15 +38,9 @@ public class AtaqueAcao implements UsarAcao {
         if(personagem instanceof Personagem){
             Personagem personagem1 = (Personagem) personagem;
             System.out.println("PE ANTES: " + personagem1.getPe().getAtual());
-            if(personagem1.getPe().getAtual()>=ataque.getCusto().getInicial()) {
 
-                personagem1.getPe().setAtual(
-                        personagem1.getPe().getAtual() - ataque.getCusto().getInicial());
-                System.out.println("PE DEPOIS: " + personagem1.getPe().getAtual());
-                fichaRepository.save(personagem1);
-            }else{
-                throw new PersonagemPEInsuficienteException("O personagem atual n possui PE suficiente para realizar essa acao");
-            }
+            personagem1= AcaoService.atualizaPE(personagem1,ataque.getCusto().getInicial());
+            fichaRepository.save(personagem1);
         }
 
 

@@ -22,6 +22,7 @@ public class Decadencia extends RitualGenerico {
 
     @Override
     public ContextoAcao usarAcao(ContextoAcao contexto) {
-        return super.usarAcao(contexto);
+        contexto = super.usarAcao(contexto);
+        return super.verificaRitual(contexto);
     }
 }

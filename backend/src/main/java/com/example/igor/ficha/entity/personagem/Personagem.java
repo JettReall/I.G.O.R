@@ -3,6 +3,7 @@ package com.example.igor.ficha.entity.personagem;
 import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.entity.Efeito;
 import com.example.igor.ficha.entity.Ficha;
+import com.example.igor.ficha.entity.acao.Habilidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,10 +38,6 @@ public class Personagem extends Ficha {
     })
     private Stats sanidade;
 
-    @Embedded
-    private AtributoPersonagem atributos;
-
-
     private int defesa;
 
 //  PROTECAO ENUM
@@ -59,6 +56,9 @@ public class Personagem extends Ficha {
 
 //afinidade
 
+    @ManyToMany
+    private List<Habilidade> habilidades;
+
     @ElementCollection
     private List<Efeito> efeito;
 
@@ -67,7 +67,6 @@ public class Personagem extends Ficha {
 
     @ManyToOne
     private Origem origem;
-
 
 
     @Embedded

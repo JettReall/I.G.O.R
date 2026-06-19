@@ -27,7 +27,7 @@ public class Ritual extends Acao{
 
     @Override
     public AcoesChave getTipo() {
-        return null;
+        return getAcaochave();
     }
 
     @Override

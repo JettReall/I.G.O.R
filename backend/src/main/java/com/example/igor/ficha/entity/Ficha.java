@@ -32,6 +32,7 @@ public abstract class Ficha {
     })
     private Stats vida = new Stats(0, 0, -1);
 
+
     @Embedded
     private AtributoPersonagem atributos;
 
@@ -40,6 +41,7 @@ public abstract class Ficha {
 
     @Column(columnDefinition = "integer default 0")
     private int iniciativa;
+
 
     public int getValorAtributo(AtributoEnum atributo){
         return switch (atributo){
@@ -59,10 +61,4 @@ public abstract class Ficha {
         return vida;
     }
 
-    @PostLoad
-    public void initEmbeddeds() {
-        if (vida == null) {
-            vida = new Stats(0, 0, 0);
-        }
-    }
 }
