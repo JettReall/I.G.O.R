@@ -1,5 +1,7 @@
 package com.example.igor.ficha.entity.personagem;
 
+import com.example.igor.ficha.entity.Ficha;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,8 +19,9 @@ public class PericiaPersonagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
-    private Personagem personagem;
+    private Ficha ficha;
 
     @ManyToOne
     private Pericia pericia;

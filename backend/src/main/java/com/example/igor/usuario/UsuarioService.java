@@ -61,12 +61,12 @@ public class UsuarioService {
     }
 
     //verificar
-    public String loginUsuario(UsuarioResponse usuario){
+    public UsuarioResponse loginUsuario(UsuarioResponse usuario){
         Usuario a=repository.findByEmail(usuario.getEmail());
-        if(a==null) return "Usuario não encontrado";
+        if(a==null) return new UsuarioResponse("Usuario nao encontrado");
         if(a.getSenha().equals(usuario.getSenha())){
-            return "Login OK";
+            return new UsuarioResponse(a.getId(),a.getNome(),a.getEmail(),a.getSenha(),"Login ok");
         }
-        return "Senha Errada";
+        return new UsuarioResponse("senha errada");
     }
 }

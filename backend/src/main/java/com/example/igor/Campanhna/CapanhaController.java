@@ -1,7 +1,6 @@
 package com.example.igor.Campanhna;
 
 import com.example.igor.Campanhna.DTO.CampanhaCombateDTO;
-import com.example.igor.Campanhna.DTO.CampanhaFichaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,11 @@ public class CapanhaController {
         return campanhaService.CriarCampanha(campanha,id);
     }
 
-    //Deletar campanha
+
+    @Operation(
+            summary = "Deleta uma campanha",
+            description = "Recebe um ID por parâmetro e deleta a campanha correspondente. Retorna 0 em caso de sucesso"
+    )
     @DeleteMapping("/{id}")
     private int deletarCampanha(@PathVariable Long id){
         return campanhaService.deletarCampanha(id);
@@ -44,18 +47,24 @@ public class CapanhaController {
 
      */
 
-    //Criar combate
+
+    @Operation(
+            summary = "Adiciona um combate à campanha",
+            description = "Recebe um CampanhaCombateDTO com o id da campanha e o nome do novo combate. Cria o combate e o associa à campanha"
+    )
     @PostMapping("/combate/add")
     private Campanha addCombate(@RequestBody CampanhaCombateDTO dto){
         return campanhaService.addCombate(dto);
     }
 
-    //Remove Combate
+
+    @Operation(
+            summary = "Remove um combate da campanha",
+            description = "Recebe um CampanhaCombateDTO com o id da campanha e o id do combate a ser removido"
+    )
     @PostMapping("/combate/delete")
     private Campanha removeCombate(@RequestBody CampanhaCombateDTO dto){
         return campanhaService.removerCombate(dto);
     }
-
-
 
 }

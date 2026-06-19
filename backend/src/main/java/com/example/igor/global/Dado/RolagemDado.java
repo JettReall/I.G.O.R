@@ -1,6 +1,5 @@
 package com.example.igor.global.Dado;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,10 +26,13 @@ public class RolagemDado {
 
     //construtor
     public RolagemDado(int quantidade, int tamanho, int bonus){
-        this();
+        rolar(quantidade,tamanho,bonus);
+    }
+
+    public RolagemDado rolar(int quantidade, int tamanho, int bonus){
         //quantidade = 0 implica em rolagem vazia
         if(quantidade<=0) {
-            return;
+            return new RolagemDado();
         }else{
 
             this.bonus = bonus;
@@ -56,6 +58,7 @@ public class RolagemDado {
             this.somaTotal = soma;
             this.maiorDado = this.dados.get(maiorindice);
         }
+        return this;
     }
 
     public int getResultadoTotal() {
