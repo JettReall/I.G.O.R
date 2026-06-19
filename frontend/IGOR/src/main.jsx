@@ -1,10 +1,12 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import './fontes.css'
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom';
 
+import Modal from './componentes/Modal.jsx'
 import Login from './paginas/Login/Login'
 import Homepage from './paginas/homepage/Homepage'
 
@@ -27,6 +29,7 @@ import EscolherAumentoAtributo from './paginas/criador_ficha/NEX/AumentoAtributo
 import Versatilidade from './paginas/criador_ficha/NEX/Versatilidade.jsx'
 import { EscolherAfinidade } from './paginas/criador_ficha/Etapa5-NEX.jsx'
 import EscolhidoOutroLado from './paginas/criador_ficha/NEX/EscolhidoOutroLado.jsx'
+import { CaixaTexto } from './componentes/criador-ficha/componentes.jsx'
 
 
 const Private = ({Item})  => {
@@ -38,7 +41,16 @@ const Private = ({Item})  => {
   }
 }
 
+function NaoEncontrado() {
+  const retorne = useNavigate();
 
+  return (
+    <Modal open={true}>
+      <CaixaTexto texto={"Página não encontrada"}/>
+      <button onClick={() => retorne('/')}>Voltar</button>
+    </Modal>
+  );
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -48,10 +60,11 @@ createRoot(document.getElementById('root')).render(
       <Route path='/campanhas' element={<Campanhas usuario={"MiloAntraz"}/>}/>
       <Route path= "/login" element={<Login/>} />
       <Route path='/cadastro' element={<Cadastro/>}/>
-      <Route exact path= "/" element={<Private Item={Homepage} />} />
-      <Route path='*' element={<Homepage/>}/>
+      {/* <Route exact path= "/" element={<Private Item={Homepage} />} /> */}
+      <Route path='*' element={<NaoEncontrado/>}/>
       <Route path='/campanhas/teste' element={<TelaCampanhaAgente />}/>
       <Route path='campanhas/ficha' element={<Ficha/>}/>
+
       <>
 <Route path="/criar_ficha/:step" element={<CriadorFicha />} />
 <Route path="/criar_ficha/:step/:nex?" element={<CriadorFicha />} />

@@ -25,7 +25,7 @@ function ContainerCampanhas() {
 
 
 
-function Campanhas({usuario}) {
+function Campanhas() {
      return   (
                <div className="corpo">
                     <header>

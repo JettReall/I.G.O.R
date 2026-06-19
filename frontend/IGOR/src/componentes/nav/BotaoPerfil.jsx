@@ -1,4 +1,6 @@
 import './Nav.css'
+import Modal from '../Modal'
+import Edit from '../../assets/imagens/icones/edit-traco.png'
 
 function BotaoPerfil( {foto, nomeperfil} ) {
      return (

@@ -22,6 +22,7 @@ function ContainerDados() {
      const navigate = useNavigate(); //
 
      const handleSubmit = async (event) => {
+
           event.preventDefault();
           setErro(""); // Limpa erros anteriores
 
@@ -41,11 +42,15 @@ function ContainerDados() {
                     setErro(null);
                     
                }
+               
 
-               Object.assign(usuario, response.data); 
+               const responseGet = await axios.get(`api/usuarios/${response.data.id}`)
+                Object.assign(usuario, responseGet.data); 
 
                navigate('/campanhas');
                console.log(usuario);
+               console.log(responseGet);
+               
                
 
           } catch (error) {

@@ -1,0 +1,7 @@
+function Combate() {
+
+}
+
+export {
+     Combate,
+}
