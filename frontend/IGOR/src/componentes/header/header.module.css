@@ -52,9 +52,16 @@
 
 }
 
-.ficha,
+
 .claro {
      background-color: snow;
+     color: black;
+     font-size: 24px;
+     border: 1px solid black;
+}
+
+.ficha {
+    background-color: #cf9f3d;
      color: black;
      font-size: 24px;
      border: 1px solid black;

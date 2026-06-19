@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Login.css'
 import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
 import {InputLogin, ErroLogin} from './input';
+import axios from 'axios'
 
 
 function ContainerLogo() {
@@ -13,61 +14,70 @@ function ContainerLogo() {
      )
 }
 function ContainerDados() {
+     const [email, setEmail] = useState("");
+     const [senha, setSenha] = useState("");
+     const [erro, setErro] = useState(""); // Estado para exibir erros na tela
 
+     const handleSubmit = async (event) => {
+          event.preventDefault();
+          setErro(""); // Limpa erros anteriores
 
-     const HandleSubmit = () => {
-          event.preventDefault()
-          console.log("enviado");
-          
-     }
+          try {
+               // Envia um POST para o Spring Boot com os dados de login
+               const response = await axios.post('http://localhost:8080/usuarios/login', {
+                    email: email,
+                    senha: senha
+               });
+               console.log("Login efetuado com sucesso!", response.data);
 
+               if (response.data === 'Senha Errada') {
+                    setErro("Email ou senha incorretos");
+               } else {
+                    setErro(null);
+               }
 
- const [form, setForm] = useState({
-     email:  "",
-     senha: "",
- })
+          } catch (error) {
+               console.error("Erro no login", error);
+               setErro("E-mail ou senha incorretos.");
+          }
+     };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
- 
-   const todosPreenchidos = Object.values(form).every(
-    (valor) => typeof valor === "string" && valor.trim() !== ""
-  );
-
-  return (
+     return (
           <div className="container-dados">
-               <form onSubmit={HandleSubmit}>
-                    <InputLogin 
-                         texto={"Digite seu email"}
-                         placeholder={"Exemplo: ElizabethWebber@ordo.com"}
-                         nome={"email"}
-                         tipo={"text"}
-                         valor={form.email}
-                         mudar={handleChange}
-                    />
-               
-               <InputLogin 
-                    texto={"Digite sua senha"}
-                    placeholder={""}
-                    nome={"senha"}
-                    tipo={"text"}
-                    valor={form.senha}
-                    mudar={handleChange}
-               />
+               <form onSubmit={handleSubmit}>
+                    <div className="elemento-input">
+                         <input 
+                              type="email" 
+                              id="email" 
+                              placeholder='example@example.com' 
+                              required 
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                         />    
+                    </div>
 
+                    <div className="elemento-input">
+                         <input 
+                              type="password" 
+                              id="senha" 
+                              placeholder='Digite sua senha' 
+                              required 
+                              value={senha}
+                              onChange={(e) => setSenha(e.target.value)} 
+                         />
+                         <a href="#esqueceu-senha">Esqueceu sua senha?</a>
+                    </div>
+                    
+                    {/* Exibe mensagem de erro caso as credenciais sejam inválidas */}
+                    {erro && <p style={{color: 'red', fontSize: '14px'}}>{erro}</p>}
 
-               <div className="container-botoes">
-                    <button className="botao-envio" type="submit" disabled={!todosPreenchidos}>Entrar</button>
-                    <BotaoLoginCadastro linkBotao={"cadastro"} texto={"Criar conta"} corBotao={"escuro"}></BotaoLoginCadastro>
-                    <a href="">Esqueceu sua senha?</a>
-               </div>
+                    <div className="container-botoes">
+                         <button className='botao-envio' type='submit'>Entrar</button>
+                    </div>
                </form>
-               </div>
-     )
+          </div>
+     );
 }
-
 
 function Container() {
      return (

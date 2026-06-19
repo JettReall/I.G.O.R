@@ -6,7 +6,7 @@ import FundoSangue from '../../assets/imagens/fundos/fundo-sangue.png'
 
 const HeaderBase = ({titulo, pagina_atual,botao_L, botao_R, isFixo}) => {
 
-     let classNamefixa = ""
+     let classNamefixa = "";
      if (isFixo === true) {
           classNamefixa = 'fixo'
      } else {
@@ -14,11 +14,16 @@ const HeaderBase = ({titulo, pagina_atual,botao_L, botao_R, isFixo}) => {
      }
 
      const classe_atual = clsx(estilos['header-base'], estilos[pagina_atual], estilos[classNamefixa]);
+     let substitutoBotao = {
+          esq: <div></div>,
+          dir: <div></div>,
+     };
+
      return(
           <div className={classe_atual}>
-               {botao_L}
+               {botao_L || substitutoBotao.esq}
                <h1 className="texto-header">{titulo}</h1>  
-               {botao_R}
+               {botao_R || substitutoBotao.dir}
           </div>
      )
 }

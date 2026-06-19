@@ -5,11 +5,14 @@ body {
 
 .corpo {
      /* background-image: url(../../assets/imagens/fundos/fundo-morte.png); */
-          background-color: rgb(223, 223, 202);
+     
+     background-color: #DDCEAF;
+
 
      background-position: center;
      background-repeat: no-repeat;
      background-size: cover;
+
 
 
      overflow: scroll; 
@@ -61,12 +64,14 @@ body {
      border-top-left-radius: 10px;
      border-top-right-radius: 10px;
 
-     background-color: rgb(46, 4, 13);
+     background-color: #322917;
      color: snow;
 }
 
 .botao-ataque-ritual:disabled {
-     background-color: crimson;
+     background-color: #eec36b;
+     color: black;
+     font-weight: 800;
      font-size: 26px;
      opacity: 0.9;
 }

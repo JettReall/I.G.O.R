@@ -2,8 +2,6 @@
  
      width: auto;
      height: auto;
-
-     /* border: 2px solid purple;  */
      
      display: flex;
      align-items: end;
@@ -84,7 +82,7 @@
 }
 
 .circulo-afinidade {
-     background-color: aquamarine;
+    
      border-radius: 100px ;
 
 
@@ -190,7 +188,8 @@
 
 .header {
      font-size: 16px;
-     background-color: grey;
+     background-color: #d6bd8a;
+     color: rgb(0, 0, 0);
      top: 0;
 }
 
