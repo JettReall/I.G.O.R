@@ -16,6 +16,6 @@ public class DadoController {
     )
     @PostMapping
     private RolagemDado rolagemSimples(@RequestBody DadoRequest info){
-        return new RolagemDado (info.getQuantidade(),info.getTamanho(),info.getBonus());
+        return new RolagemDado(info.getQuantidade(), info.getTamanho(), info.getBonus());
     }
 }

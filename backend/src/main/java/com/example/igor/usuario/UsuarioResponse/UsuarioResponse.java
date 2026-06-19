@@ -12,4 +12,16 @@ public class UsuarioResponse {
     private String nome;
     private String email;
     private String senha;
+    private String mensagem;
+
+    public UsuarioResponse(Long id,String nome,String email, String senha){
+        this.id = id;
+        this.nome = nome;
+        this.email=email;
+        this.senha =senha;
+    }
+
+    public UsuarioResponse(String mensagem){
+        this.mensagem=mensagem;
+    }
 }
