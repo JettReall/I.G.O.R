@@ -1,0 +1,78 @@
+
+.input-com-botao {
+     width: 100px;
+     text-align: center;  
+}
+
+.trio-botoes {
+     display: flex;
+}
+
+.muda {
+     background-color: rgb(127, 11, 34);
+     color: snow;
+     font-size: 15px;
+
+}
+
+.l {
+     border-top-left-radius: 10px;
+     border-bottom-left-radius: 10px;
+}
+
+.r {
+     border-top-right-radius: 10px;
+     border-bottom-right-radius: 10px;
+}
+
+
+
+.input-com-botao input {
+     width: 100%;
+     height: 50px;
+
+
+
+     font-size: 24px;
+     text-align: center;
+
+}
+
+.botao-avancar {
+     height: 50px;
+
+     border-radius: 10px;
+     border: 0px solid black;
+     background-color: black;
+     color: snow;
+
+     box-shadow: 01px 1px grey;
+
+     font-size: 20px;
+}
+
+.botao-avancar:disabled {
+     opacity: 0.7;
+     cursor: default;
+     background-color: grey;
+}
+
+.caixa-texto {
+     border: 5px solid black;
+     background-color: lightgray;
+
+     place-content: center;
+     text-align: center;
+     padding-left: 20px;
+     padding-right: 20px;
+}
+
+.caixa-etapa5,
+.caixa-etapa3,
+.caixa-etapa2,
+.caixa-etapa1 {
+     width: 90%;
+     height: 100px;
+     place-self: center;
+}
+

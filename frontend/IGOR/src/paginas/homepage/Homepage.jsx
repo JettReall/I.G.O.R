@@ -1,33 +1,45 @@
-import './Homepage.css';
+import estilos from './Homepage.module.css'
+import { HeaderBase } from '../../componentes/header/headers';
+import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
 
 import editIcon from '../../assets/imagens/icones/edit-traco.png'
 
 function Homepage() {
+     const botoesHome = 
+     <div className={estilos['botoes-topo']}>
+          <BotaoLoginCadastro linkBotao={'cadastro'} corBotao={"escuro"}/>
+          <BotaoLoginCadastro linkBotao={'login'}/>
+     </div>
+
+
+
+
+     
+
      return (
-          <main>     
-                    <TituloPagina/>
-                    
-                    <Carrossel></Carrossel>
-          </main>
+          <div className={estilos.homepage}>  
+                    <HeaderBase botao_R={botoesHome} pagina_atual={'homepage'}></HeaderBase>
+                    <main className='principal'>
+                         <TituloPagina/>
+                         <Carrossel></Carrossel>
+                    </main>
+          </div>
      )
 }
 
 function TituloPagina() {
      return (
-          <div className="foco-tela">
-
-               <div className="titulo-pagina">
+          <div className={estilos['foco-tela']}>        
                     <h1>I.G.O.R.</h1>
                     <h3>Interface de Gerenciamento da Ordo Realitas</h3>
-               </div>
-               <p>Conheça o IGOR, um site projetado para gerenciamento de seus agentes e campanhas.</p>
+               <p>Conheça o IGOR, um site projetado para <br /> gerenciamento de seus agentes e campanhas.</p>
           </div>
      )
 }
 
 function Card({texto}) {
      return (
-          <div className='cartao'>
+          <div className={estilos.cartao}>
           <img src={editIcon} alt="Icone de lapis" />
           <p>{texto}</p>
 
@@ -53,13 +65,14 @@ function Carrossel() {
 
           ]
 
+
      const filacartoes = conteudo.map( bloco => {
           c.texto = bloco;
           return <Card key={bloco} texto={c.texto}/>;
      })
 
      return (
-          <div className="container-cartoes">
+          <div className={estilos['container-cartoes']}>
                {filacartoes}
           </div>
      )

@@ -1,7 +1,9 @@
 package com.example.igor.ficha.entity.acao;
 
 import com.example.igor.ficha.FichaUtil.TipoDano;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +15,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class Ataque extends Acao{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private int dano;
     @Enumerated(EnumType.STRING)
     private TipoDano tipoDano;
