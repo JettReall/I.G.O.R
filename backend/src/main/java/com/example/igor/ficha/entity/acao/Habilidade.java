@@ -2,6 +2,8 @@ package com.example.igor.ficha.entity.acao;
 
 import java.util.List;
 
+import com.example.igor.Acao.AcoesChave;
+import com.example.igor.Combate.DTO.ContextoAcao;
 import com.example.igor.ficha.FichaUtil.Elemento;
 import com.example.igor.ficha.entity.PreRequisito.PreRequisito;
 
@@ -36,4 +38,14 @@ public class Habilidade extends Acao{
             inverseJoinColumns = @JoinColumn(name = "prerequisito_id")
     )
     private List<PreRequisito> preRequisitos;
+
+    @Override
+    public AcoesChave getTipo() {
+        return getAcaochave();
+    }
+
+    @Override
+    public ContextoAcao usarAcao(ContextoAcao contexto) {
+        return null;
+    }
 }

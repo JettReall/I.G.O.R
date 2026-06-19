@@ -4,6 +4,6 @@ import com.example.igor.ficha.FichaUtil.FichaDTO;
 
 public class CombateFichaDTO {
     public Long combateId;
-    public FichaDTO fichaDTO;
+    public Long fichaid;
     public int posicao;
 }
