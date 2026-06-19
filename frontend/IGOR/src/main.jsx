@@ -50,8 +50,8 @@ createRoot(document.getElementById('root')).render(
       <Route path='/cadastro' element={<Cadastro/>}/>
       <Route exact path= "/" element={<Private Item={Homepage} />} />
       <Route path='*' element={<Homepage/>}/>
-      <Route path='/teste' element={<TelaCampanhaAgente />}/>
-      <Route path='/ficha' element={<Ficha/>}/>
+      <Route path='/campanhas/teste' element={<TelaCampanhaAgente />}/>
+      <Route path='campanhas/ficha' element={<Ficha/>}/>
       <>
 <Route path="/criar_ficha/:step" element={<CriadorFicha />} />
 <Route path="/criar_ficha/:step/:nex?" element={<CriadorFicha />} />

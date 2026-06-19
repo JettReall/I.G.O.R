@@ -32,10 +32,10 @@ function TelaCampanhaAgente({usuario}) {
      return   (
                <div className="corpo">
                     <header>
-                         <HeaderDeCampanha titulo={"Campanhas"} botao_L={<BotaoRetorno/>}/> 
+                         <HeaderDeCampanha titulo={"Campanhas"} botao_L={<BotaoRetorno/>} pagina_atual={'campanha'} /> 
                     </header>                
                
-                    <nav className="latertal">
+                    <nav className="lateral">
                          <Nav usuario={usuario}></Nav>
                     </nav>
 

@@ -5,6 +5,10 @@ import clsx from 'clsx';
 import estilos from './componentes.module.css'
 import { Link } from 'react-router-dom';
 
+import Lapis from '../../assets/imagens/icones/lapis.png'
+import Delete from '../../assets/imagens/icones/lixo.png'
+
+
 
 function AtributoValor({atr,valor}) {
      return (
@@ -56,7 +60,7 @@ function Atributos({atributos_lista}) {
 }
 
 function Status({nome,valor,lado, isDadoUnico}) {
-     let  classeDupla = "dupla"
+     let  classeDupla = "dupla";
 
      if(!lado) {
           lado = "up"
@@ -161,8 +165,10 @@ function Item({dados_item, isHeader}) {
 function InfoPersona({dados_persona}) {
      return (
           <div className={estilos['container-persona']}>
+               <div className={clsx(estilos['linha'], estilos['classe-trilha-nomes'])}>
                <strong className={estilos['trilha']}>{dados_persona.trilha}</strong>
                <strong>{dados_persona.classe}</strong>
+               </div>
                <strong>{dados_persona.origem}</strong>
                <strong>Jogador: {dados_persona.jogador}</strong>
           </div>
@@ -178,13 +184,6 @@ function BotaoAumentarNex() {
      )
 }
 
-function BotaoEditarFicha() {
-     return (
-          <Link to={null}>
-               <button className={estilos['editar-ficha']}></button>
-          </Link>
-     )
-}
 
 
 
@@ -196,6 +195,5 @@ export {
      Item, 
      InfoPersona,
      BotaoAumentarNex,
-     BotaoEditarFicha,
 
 }

@@ -36,9 +36,11 @@
      background-image: url(../../assets/imagens/fundos/fundo-sangue.png);
       background-size: cover;
      background-position: center;
+
      display: flex;
      flex-direction: column;
 }
+
 
 .header-de-campanha .header-base {
      background: none;
@@ -46,6 +48,8 @@
 
 .seletor-fichas {
      display: flex;
+     justify-content: space-evenly;
+
 }
 
 .ficha,
@@ -61,4 +65,8 @@
      top: 0;
      margin: 0;
      padding: 0;
+}
+
+.campanha {
+     color: whitesmoke;
 }

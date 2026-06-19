@@ -1,7 +1,8 @@
 // SeletorDePericias.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 import estilosUtil from "./utils.module.css";
+import { etapa1_dados } from "../../paginas/criador_ficha/VariaveisSistema";
 
 function CaixaTexto({ valor }) {
   if (valor !== 0) {
@@ -33,10 +34,20 @@ function PericiaSeletor({ dados, isChecked, onChange }) {
   );
 }
 
-function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
+function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle, limite }) {
+  // Filtra as perícias cujo treino seja menor que o limite (não renderiza se treino >= limite)
+
+  function ValidaPericiaElegivel({p}) {
+    if ((p.id === etapa1_dados.origem.pericias[0].id) ||
+        (p.id === etapa1_dados.origem.pericias[1].id) ||
+        (p.treino >= lim) ) {
+          return false
+    } else return true;
+  }
+
   return (
     <div className={clsx(estilosUtil['container-menor'], estilosUtil['pericias-etapa4'])}>
-      {pericias.map((pericia) => (
+      {pericias.map((pericia) => ( //Só exiba pericia seletor se ValidarPericiaElegivel(pericia, lim) retornar true
         <PericiaSeletor
           key={pericia.id}
           dados={pericia}
@@ -49,9 +60,12 @@ function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
 }
 
 // Componente principal agora recebe selecionados e onToggle como props
-export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes, selecionados, onToggle }) {
+export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes, selecionados, onToggle, isEtapa4 }) {
   // Calcula quantas ainda podem ser escolhidas
   const restantes = periciasElegiveis - selecionados.length;
+
+  // Estado para a lista líquida (exclui perícias da origem quando for Etapa4)
+  
 
   // Função que envolve o toggle e valida o limite
   const handleTogglePericia = (id) => {
@@ -63,13 +77,18 @@ export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes, se
     onToggle(id);
   };
 
+  function Cap() {
+    return isEtapa4 ? 1 : 3;
+  }
+
   return (
     <div className={estilosUtil['principal']}>
       <CaixaTexto valor={restantes} />
       <ContainerPericiasSelecionaveis
-        pericias={listaPericias}
+        pericias={listaPericias} // usa a lista líquida
         selecionados={selecionados}
         onToggle={handleTogglePericia}
+        limite={Cap()} // passa o valor numérico
       />
       <div className={estilosUtil['container-botoes-avanco']}>
         {botoes?.esquerdo && botoes.esquerdo}

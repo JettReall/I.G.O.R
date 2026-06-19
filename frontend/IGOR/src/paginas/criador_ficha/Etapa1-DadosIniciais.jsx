@@ -6,14 +6,15 @@ import Modal from "../../componentes/Modal";
 import { handleSelectUnico } from "../../assets/utils/SelecaoUnica";
 import { HeaderBase } from "../../componentes/header/headers";
 import { etapa1_dados } from "./VariaveisSistema";
+import { pericias_dados } from "./VariaveisSistema";
 
 const origensExemplo = [
-  { id: 1, nome: "Acadêmico", pericias: ["Conhecimento", "Investigação"] },
-  { id: 2, nome: "Soldado", pericias: ["Atletismo", "Vontade"] },
-  { id: 3, nome: "Policial", pericias: ["Investigação", "Percepção"] },
-  { id: 4, nome: "Ocultista", pericias: ["Ocultismo", "Vontade"] },
-  { id: 5, nome: "Policial2", pericias: ["Investigação", "Percepção"] },
-  { id: 6, nome: "Ocultista2", pericias: ["Ocultismo", "Vontade"] },
+  { id: 1, nome: "Acadêmico", pericias: [ pericias_dados[5], pericias_dados[6] ] },
+  { id: 2, nome: "Soldado", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 3, nome: "Policial", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 4, nome: "Ocultista", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 5, nome: "Policial2", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 6, nome: "Ocultista2", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
 ];
 
 function InputNome({ texto, nomeCampo, placeholder, valor, aoMudar }) {
@@ -66,8 +67,8 @@ function ContainerOrigens({ origens, origemSelecionada, onSelecionar }) {
           )}
         >
           <strong>{origem.nome}</strong>
-          <p>{origem.pericias[0]}</p>
-          <p>{origem.pericias[1]}</p>
+          <p>{origem.pericias[0]?.nome}</p>
+          <p>{origem.pericias[1]?.nome}</p>
         </div>
       ))}
     </div>

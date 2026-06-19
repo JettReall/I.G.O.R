@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import { HeaderBase } from "../../componentes/header/headers"
 import { BotaoRetorno } from "../../componentes/botoes/Botoes"
-import { StatusContainer, Atributos, Pericia, AtaqueRitual, Item, InfoPersona, BotaoAumentarNex, BotaoEditarFicha } from "../../componentes/ficha/componentes";
+import { StatusContainer, Atributos, Pericia, AtaqueRitual, Item, InfoPersona, BotaoAumentarNex } from "../../componentes/ficha/componentes";
 import estilos from './ficha.module.css'
 
 
@@ -202,7 +202,6 @@ function BotoesFicha( ) {
 
           <div className={estilos['botoes-header-ficha']}>
                <BotaoAumentarNex/>
-               <BotaoEditarFicha/>
           </div>
      )
 }
@@ -225,6 +224,13 @@ function Ficha() {
           trilha: "Negociador"
      }
 
+      const dadosPadrao = [
+    { nome: "for", valor: 0 },
+    { nome: "agi", valor: 0 },
+    { nome: "vig", valor: 0 },
+    { nome: "int", valor: 0 },
+    { nome: "pre", valor: 0 },
+  ];
 
      return (
           <>
@@ -235,7 +241,7 @@ function Ficha() {
                 botao_R={<BotoesFicha/>} />
           </header>
           <main className={estilos.corpo}>
-               <Atributos/>
+               <Atributos atributos_lista={dadosPadrao}/>
                <div className={estilos['container-status-info-persona']}> 
                     <InfoPersona dados_persona={dados_persona} />
                     <ContainerValAtualMax/>

@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useEtapa } from "../../componentes/EtapaContext";
+
 export const FichaEmBranco = {
   id: 0,
   nomePersonagem: "",
@@ -59,6 +62,15 @@ export const etapa3_dados = [
   { nome: "pre", valor: 0 },
 ] 
 
-export const etapa4_dados = [
-  { id: 0} //Id = 0 indica que é vazio.
-];
+export const pericias_dados = [
+  { id: 1, nome: "Atletismo", atributo: "Força", treino: 0 },
+  { id: 2, nome: "Acrobacia", atributo: "Agilidade", treino: 0 },
+  { id: 3, nome: "Percepção", atributo: "Intelecto", treino: 0 },
+  { id: 4, nome: "Furtividade", atributo: "Agilidade", treino: 0 },
+  { id: 5, nome: "Investigação", atributo: "Intelecto", treino: 0 },
+  { id: 6, nome: "Diplomacia", atributo: "Presença", treino: 0 },
+  { id: 7, nome: "Vontade", atributo: "Presença", treino: 0 },
+]; //Essa é a variavel de leitura para as pericias
+
+
+

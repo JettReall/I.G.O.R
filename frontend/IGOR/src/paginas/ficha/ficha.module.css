@@ -1,8 +1,19 @@
-.corpo {
-     background-image: none;
-     background-color: gainsboro;
+body {
+     overflow: auto;
+     overflow-x: hidden;
+}
 
-     overflow-y: scroll; 
+.corpo {
+     /* background-image: url(../../assets/imagens/fundos/fundo-morte.png); */
+          background-color: rgb(223, 223, 202);
+
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+
+
+     overflow: scroll; 
+     overflow-x: hidden;
      height: auto;  
      width: 100%;
 
@@ -76,6 +87,7 @@
      width: 600px;
      height: 150px;
 
+     border-radius: 10px;
      justify-content: space-evenly;
 
      background-color: whitesmoke;

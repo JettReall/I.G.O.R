@@ -12,14 +12,19 @@
      font-size: 50px;
 }
 
-
+.linha {
+     display: flex;
+     flex-direction: row;
+}
 
 .atributos-container {
      width: 600px;
      height: 600px;
      background-image: url(../../assets/imagens/elementos/Atributos.png);
+     
      background-position: center;
      background-repeat: no-repeat;
+     background-blend-mode: hue;
 
      /* VocÊ NAO VAI saber ajeitar pra deixar alinhado, só não mexa em nada do display grid e não mude nada do background*/
 
@@ -109,6 +114,7 @@
      width: 100%;
 
 
+
      display: flex;
      flex-direction: column;
      
@@ -155,6 +161,7 @@
      background-color: snow;
 
      font-size: 30px;
+     border-radius: 10px;
 }
 
 .elemento-container {
@@ -213,11 +220,21 @@
      justify-content: space-around;
      align-items: center;
      
+     border-radius: 20px;
+     opacity: 0.7;
 
      font-size: 24px;
 
      background-color: snow;
      border: 1px solid black;
+}
+
+.classe-trilha-nomes {
+     gap: 20px;
+}
+
+.classe-trilha-nomes strong {
+     place-self: end;
 }
 
 .container-persona strong {
@@ -234,10 +251,7 @@
      width: 50px;
 }
 
-.editar-ficha {
-      background-image: url(../../assets/imagens/icones/lapis.png);
-      background-color: aqua;
-}
+
 
 .aumentarNEX {
      background-image: url(../../assets/imagens/icones/menu-hamburguer.png);
