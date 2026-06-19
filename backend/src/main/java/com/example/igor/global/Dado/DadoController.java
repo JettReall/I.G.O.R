@@ -1,6 +1,6 @@
 package com.example.igor.global.Dado;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/Dado")
 public class DadoController {
 
+    @Operation(
+            summary = "Realiza uma rolagem de dados",
+            description = "Recebe quantidade de dados, tamanho do dado e bônus. Retorna a rolagem completa com todos os dados, soma total, maior dado e resultado final (soma + bônus)"
+    )
     @PostMapping
     private RolagemDado rolagemSimples(@RequestBody DadoRequest info){
-        return new RolagemDado (info.getQuantidade(),info.getTamanho(),info.getBonus());
+        return new RolagemDado(info.getQuantidade(), info.getTamanho(), info.getBonus());
     }
 }

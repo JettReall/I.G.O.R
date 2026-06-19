@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Ficha {
+public class FichaDTO {
 
     private Long id;
     private TipoFicha tipo;
