@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 public class DadoController {
 
     @Operation(
-            summary = "Realiza uma rolagem de dados",
-            description = "Recebe quantidade de dados, tamanho do dado e bônus. Retorna a rolagem completa com todos os dados, soma total, maior dado e resultado final (soma + bônus)"
+            summary = "Rola um dado",
+            description = "recebe o dado q deseja ser rolado no formato NdX + B\n\n" +
+                    "N=Quantidade\n\nX=tamanho(quantidade de faces do dado\n\nB=bonus\n\n" +
+                    "devolve a rolagem com todos os detalhes."
     )
     @PostMapping
     private RolagemDado rolagemSimples(@RequestBody DadoRequest info){

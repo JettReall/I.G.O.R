@@ -1,4 +1,4 @@
-package com.example.igor.Campanhna;
+package com.example.igor.Campanha;
 
 import com.example.igor.Combate.Combate;
 import com.example.igor.ficha.entity.Monstro;
