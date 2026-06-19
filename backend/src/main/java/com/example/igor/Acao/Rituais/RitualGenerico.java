@@ -59,7 +59,7 @@ public class RitualGenerico implements UsarAcao {
 
         // Se não atingiu a DT do ritual, conjuração falha — PE já foi gasto
         if (dt < ritual.getDt()) {
-            contexto.menssagem = "Não passou na dt se fodeu kkkkkkkkk";
+            contexto.menssagem = "Não passou na dt kkkkkkkkk";
             fichaRepository.save(personagem);
             return contexto;
         }
