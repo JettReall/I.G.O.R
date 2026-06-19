@@ -6,6 +6,9 @@ import { HeaderBase } from "../../componentes/header/headers"
 import { BotaoRetorno } from "../../componentes/botoes/Botoes"
 import { StatusContainer, Atributos, Pericia, AtaqueRitual, Item, InfoPersona, BotaoAumentarNex } from "../../componentes/ficha/componentes";
 import estilos from './ficha.module.css'
+import Delete from '../../assets/imagens/icones/lixo.png'
+import AddIcone from '../../assets/imagens/icones/add.png'
+
 
 
 //className={estilos['corpo']}
@@ -31,7 +34,7 @@ const periciaExemplo2 = {
   treino: "Treino",
   bonus: "Bônus",
   extra: "Extra",
-  total: "Total"  // normalmente calculado: (treino ? 2 : 0) + bonus + extra 
+  total: "Total"  
 };
 
 
@@ -55,9 +58,9 @@ function ContainerAtaques() {
      }
 
      return (
-          <div className="">
+               <div className={estilos['container-ataque-ritual']}>  
                <AtaqueRitual dados_ataque_ritual={HeaderAtaque} isHeader={true}/>
-          </div>
+               </div>
      )
 
 
@@ -72,7 +75,11 @@ function ContainerRituais() {
      }
 
      return (
+          <>
+               <div className={estilos['container-ataque-ritual']}>
           <AtaqueRitual dados_ataque_ritual={HeaderRitual} isHeader={true}/>
+               </div>
+          </>
      )
 
 }
@@ -99,8 +106,9 @@ function ContainerItems() {
 
      return (
           <div className={estilos['container-itens']}>
-          <Item dados_item={HeaderItem} isHeader={true}/>
-          <Item dados_item={ExItem}/>
+          <Item dados_item={HeaderItem} isHeader={true} imagem={AddIcone}/>
+          <Item dados_item={ExItem} imagem={Delete} />
+          <Item dados_item={ExItem} imagem={Delete} />
           </div>
      )
 
@@ -127,17 +135,18 @@ function ContainerAtaqueRitual() {
           )
      }
 
+     const estiloCaixa = {'gap':'0'}
 ////---------------------------------------------------------------
      if (isRitual) {
           return (
-               <div className={estilos['container-ataque-ritual']}>
-                    <BotoesAtaqueRitual/>
-                    <ContainerRituais />
-               </div>
+          <div style={estiloCaixa}>
+               <BotoesAtaqueRitual/>
+               <ContainerRituais />
+          </div>
           )
      } else {
           return (
-               <div className={estilos['container-ataque-ritual']}>
+               <div style={estiloCaixa}>
                     <BotoesAtaqueRitual/>
                     <ContainerAtaques/>
                </div>
@@ -201,7 +210,7 @@ function BotoesFicha( ) {
      return (
 
           <div className={estilos['botoes-header-ficha']}>
-               <BotaoAumentarNex/>
+               <BotaoAumentarNex caminho={null}/>
           </div>
      )
 }
@@ -235,7 +244,7 @@ function Ficha() {
      return (
           <>
           <header>
-               <HeaderBase titulo={"Ficha"}
+               <HeaderBase titulo={"Nome do agente"}
                 pagina_atual={"ficha"}
                 botao_L={<BotaoRetorno/>} 
                 botao_R={<BotoesFicha/>} />

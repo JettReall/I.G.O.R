@@ -200,8 +200,10 @@
 
 .informacao-ataque-ritutal,
 .botao-item {
-     width: 30px;
-     height: 30px;
+     width: 75px;
+     height: 100%;
+     background: none;
+     border: 0;
 }
 
 .item-carga,
@@ -246,12 +248,11 @@
 
 .aumentarNEX,
 .editar-ficha {
-     height: 50px;
-     width: 50px;
+     height: 100px;
+     width: 128px;
+     background-color: transparent;
+     border: none;
+
 }
 
 
-
-.aumentarNEX {
-     background-image: url(../../assets/imagens/icones/menu-hamburguer.png);
-}

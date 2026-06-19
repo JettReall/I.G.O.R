@@ -3,6 +3,8 @@ import './Login.css'
 import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
 import {InputLogin, ErroLogin} from './input';
 import axios from 'axios'
+import { Navigate, useNavigate } from 'react-router-dom';
+import { usuario } from './Usuario';
 
 
 function ContainerLogo() {
@@ -17,6 +19,7 @@ function ContainerDados() {
      const [email, setEmail] = useState("");
      const [senha, setSenha] = useState("");
      const [erro, setErro] = useState(""); // Estado para exibir erros na tela
+     const navigate = useNavigate(); //
 
      const handleSubmit = async (event) => {
           event.preventDefault();
@@ -24,17 +27,26 @@ function ContainerDados() {
 
           try {
                // Envia um POST para o Spring Boot com os dados de login
-               const response = await axios.post('http://localhost:8080/usuarios/login', {
+               const response = await axios.post('api/usuarios/login', {
                     email: email,
                     senha: senha
                });
                console.log("Login efetuado com sucesso!", response.data);
+               console.log(response.status, response);
+               
 
                if (response.data === 'Senha Errada') {
                     setErro("Email ou senha incorretos");
                } else {
                     setErro(null);
+                    
                }
+
+               Object.assign(usuario, response.data); 
+
+               navigate('/campanhas');
+               console.log(usuario);
+               
 
           } catch (error) {
                console.error("Erro no login", error);

@@ -6,9 +6,23 @@ import estilos from './componentes.module.css'
 import { Link } from 'react-router-dom';
 
 import Lapis from '../../assets/imagens/icones/lapis.png'
+import LevelUP from '../../assets/imagens/icones/level-up.png'
+import AddIcone from '../../assets/imagens/icones/add.png'
 import Delete from '../../assets/imagens/icones/lixo.png'
+import InfoIcone from '../../assets/imagens/icones/simbolo-de-informacao.png'
 
+import iconeSangue from '../../assets/imagens/elementos/icone-elementos/icone-sangue.png';
+import iconeMorte from '../../assets/imagens/elementos/icone-elementos/icone-morte.png';
+import iconeEnergia from '../../assets/imagens/elementos/icone-elementos/icone-energia.png';
+import iconeConhecimento from '../../assets/imagens/elementos/icone-elementos/icone-conhecimento.png';
+import iconeMedo from '../../assets/imagens/elementos/icone-elementos/icone-medo.png';
 
+     const estiloImg = {
+          'width':'100%',
+          'height': '100%',
+          'objectFit':'contain',
+          'transform':'scale(0.9)'
+     }
 
 function AtributoValor({atr,valor}) {
      return (
@@ -19,15 +33,41 @@ function AtributoValor({atr,valor}) {
 }
 
 function Afinidade({elemento}) {
+     let ImagemAfinidade = "";
 
-     if (!elemento) {
-          elemento = "INDEFINIDO"
+     if (elemento) {
+     elemento = elemento.toUpperCase();   // ← método correto
+     console.log(elemento);
+     
      }
+
+     switch (elemento) {
+               case "SANGUE":
+                    ImagemAfinidade = iconeSangue;            
+                    break;
+               case "MORTE":
+                    ImagemAfinidade = iconeMorte;
+                    break;
+               case "ENERGIA":
+                    ImagemAfinidade = iconeEnergia;
+                    break;
+               case "CONHECIMENTO":
+                    ImagemAfinidade = iconeConhecimento;
+                    break;
+               default:
+                    ImagemAfinidade = iconeMedo;
+                    elemento = "INDEFINIDO";
+                    break;
+     }
+
+
+
+
 
      return <div className={estilos["afinidade"]}>
                <strong className={estilos['titulo-afinidade']}>AFINIDADE</strong>
                <div className={estilos["circulo-afinidade"]}>
-
+                    <img src={ImagemAfinidade} alt="" style={estiloImg}/>
                </div>
                <strong className={estilos["nome-elemento"]}>{elemento}</strong>
           </div>
@@ -54,7 +94,7 @@ function Atributos({atributos_lista}) {
           valor={atr.valor} 
         />
       ))}
-     <Afinidade/> 
+     <Afinidade elemento={"Sangue"}/> 
     </div>
   );
 }
@@ -131,20 +171,22 @@ function AtaqueRitual({dados_ataque_ritual, isHeader}) {
                <strong className={estilos['ataque-ritual-categoria']}>{dados_ataque_ritual.categoria}</strong>
                <strong className={estilos['ataque-ritual-tipo']}>{dados_ataque_ritual.tipo}</strong>
                <button className={estilos['informacao-ataque-ritutal']}>
-                    <img src="..\..\assets\imagens\icones\simbolo-de-informacao.png" alt="" />
+                    <img src={AddIcone} alt="" style={estiloImg} title='Adicionar Ataque' />
                </button>
           </div>
      )
 
 }
 
-function Item({dados_item, isHeader}) {
-
+function Item({dados_item, isHeader, imagem}) {
+          let tooltipImg = "";
           let classeHeader = "";
      if (isHeader) {
           classeHeader = "header";
+          tooltipImg = "Adicionar Item"; 
      } else {
-          classeHeader = ""
+          classeHeader = "";
+          tooltipImg = "Apagar Item";
      }
      return (
           <div className={clsx(estilos['elemento-container'],estilos[classeHeader])}>
@@ -154,7 +196,7 @@ function Item({dados_item, isHeader}) {
                <strong className={estilos['item-carga']}>{dados_item.carga}</strong>
                <strong className={estilos['item-total']}>{dados_item.total}</strong>
                <button className={estilos['botao-item']}>
-                    <img src="..\..\assets\imagens\icones\lixo.png" alt="" />
+                    <img src={imagem} alt="" style={estiloImg} title={tooltipImg} />
                </button>
           </div>
      )
@@ -176,10 +218,14 @@ function InfoPersona({dados_persona}) {
 }
 
 
-function BotaoAumentarNex() {
+function BotaoAumentarNex( {caminho} ) {
+
+
      return (
-          <Link to={null}>
-               <button className={estilos['aumentarNEX']}></button>
+          <Link to={caminho}>
+               <button className={estilos['aumentarNEX']}>
+                    <img src={LevelUP} alt="" style={estiloImg} title='Aumentar nível do personagem'/>
+               </button>
           </Link>
      )
 }

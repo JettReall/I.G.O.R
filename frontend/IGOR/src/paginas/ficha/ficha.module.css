@@ -49,7 +49,8 @@ body {
 
 .container-ataque-ritual,
 .container-itens {
-     gap: 0;
+     padding-top: 0;
+     gap: 10px;
      height: 350px;
      width: 90%;
 

@@ -4,6 +4,7 @@ import BotaoCampanha from '../../componentes/campanha/BotaoCampanha.jsx'
 import { HeaderBase, HeaderDeCampanha } from '../../componentes/header/headers.jsx'
 import estilos from '../../componentes/campanha/BotaoCampanha.module.css'
 import clsx from 'clsx'
+import { usuario } from '../Login/Usuario.jsx'
 
 
 
@@ -25,9 +26,6 @@ function ContainerCampanhas() {
 
 
 function Campanhas({usuario}) {
-      if (usuario == undefined) {
-          usuario = "Usuário"
-     }
      return   (
                <div className="corpo">
                     <header>
@@ -35,7 +33,7 @@ function Campanhas({usuario}) {
                     </header>                
                
                     <nav className="latertal">
-                         <Nav usuario={usuario}></Nav>
+                         <Nav usuario={usuario.nome}></Nav>
                     </nav>
 
                     <main>
