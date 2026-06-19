@@ -66,7 +66,7 @@ public class UsuarioController {
             description = "Recebe email e senha, retorna 'Login OK' se as credenciais estiverem corretas, 'Senha Errada' ou 'Usuario não encontrado' caso contrário"
     )
     @PostMapping("/login")
-    private String login(@RequestBody UsuarioResponse usuario){
+    private UsuarioResponse login(@RequestBody UsuarioResponse usuario){
         return usuarioService.loginUsuario(usuario);
     }
 }
