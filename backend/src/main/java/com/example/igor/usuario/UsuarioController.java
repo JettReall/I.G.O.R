@@ -1,10 +1,11 @@
 package com.example.igor.usuario;
 
-import java.util.List;
-
 import com.example.igor.usuario.UsuarioResponse.UsuarioResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -14,39 +15,58 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    //Criar
+    @Operation(
+            summary = "Cadastra um usuario",
+            description = "Recebe nome, email e senha. Retorna erro 409 se o nome ou email já estiverem em uso"
+    )
     @PostMapping
-    private Usuario cadastrar(@RequestBody Usuario usuario) {
+    private UsuarioResponse cadastrar(@RequestBody UsuarioResponse usuario) {
         return usuarioService.cadastrarUsuario(usuario);
     }
 
-    //Get All
+    @Operation(
+            summary = "Lista todos os usuarios",
+            description = "Retorna uma lista com todos os usuarios cadastrados no banco"
+    )
     @GetMapping
     private List<Usuario> lista(){
         return usuarioService.listaUsuarios();
     }
 
-    //Get por ID
+    @Operation(
+            summary = "Busca um usuario por ID",
+            description = "Recebe um ID por parâmetro e retorna o usuario correspondente"
+    )
     @GetMapping("/{id}")
     private UsuarioResponse buscar(@PathVariable Long id){
         return usuarioService.buscarUsuario(id);
     }
 
     //Atualizar
-    @PutMapping("/{id}")
-    private Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuario){
-        return usuarioService.atualizarUsuario(id,usuario);
+    @Operation(
+            summary = "Atualiza um usuario",
+            description = "Recebe um usuario e o atualiza no banco com todas as novas informações, retorna o usuario que foi alterado"
+    )
+    @PutMapping
+    private UsuarioResponse atualizar(@RequestBody UsuarioResponse usuario){
+        return usuarioService.atualizarUsuario(usuario);
     }
 
-    //Delete
+    @Operation(
+            summary = "Deleta um usuario",
+            description = "Recebe um ID por parâmetro e deleta o usuario correspondente do banco"
+    )
     @DeleteMapping("/{id}")
     private int deletar(@PathVariable Long id) {
         return usuarioService.deletarUsuario(id);
     }
 
-    //verificar
+    @Operation(
+            summary = "Realiza login de um usuario",
+            description = "Recebe email e senha, retorna 'Login OK' se as credenciais estiverem corretas, 'Senha Errada' ou 'Usuario não encontrado' caso contrário"
+    )
     @PostMapping("/login")
-    private String login(@RequestBody Usuario usuario){
+    private String login(@RequestBody UsuarioResponse usuario){
         return usuarioService.loginUsuario(usuario);
     }
 }
