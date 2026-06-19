@@ -1,6 +1,6 @@
 package com.example.igor.Exception;
 
-import com.example.igor.Campanhna.Exception.CampanhaJaExisteException;
+import com.example.igor.Campanha.Exception.CampanhaJaExisteException;
 import com.example.igor.Combate.Exception.PersonagemPEInsuficienteException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
