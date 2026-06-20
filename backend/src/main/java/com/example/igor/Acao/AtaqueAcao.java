@@ -2,7 +2,6 @@ package com.example.igor.Acao;
 
 import com.example.igor.Acao.Repositories.AtaqueRepository;
 import com.example.igor.Combate.DTO.ContextoAcao;
-import com.example.igor.Combate.Exception.PersonagemPEInsuficienteException;
 import com.example.igor.Combate.Util.UsarAcao;
 import com.example.igor.ficha.Repositories.FichaRepository;
 import com.example.igor.ficha.entity.Ficha;
@@ -59,10 +58,6 @@ public class AtaqueAcao implements UsarAcao {
             alvo.getVida().setAtual(alvo.getVida().getAtual() - contexto.rolagem.getResultadoTotal());
         }
         fichaRepository.save(alvo);
-
-
-
-
         return contexto;
     }
 }

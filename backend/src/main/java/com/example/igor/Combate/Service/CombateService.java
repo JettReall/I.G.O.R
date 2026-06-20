@@ -7,6 +7,7 @@ import com.example.igor.Combate.DTO.ContextoAcao;
 import com.example.igor.Combate.DTO.PericiaDTO;
 import com.example.igor.Combate.Repositories.CombateRepository;
 import com.example.igor.ficha.Repositories.FichaRepository;
+import com.example.igor.ficha.entity.Efeito;
 import com.example.igor.ficha.entity.Ficha;
 import com.example.igor.ficha.entity.Monstro;
 import com.example.igor.ficha.entity.personagem.Personagem;
@@ -112,7 +113,9 @@ public class CombateService{
     public Combate pularVez(Long id){
         Combate combate = repository.findById(id).orElseThrow();
         combate.setTurno(combate.getTurno()+1);
-        resetAcoes(combate);
+        combate = resetAcoes(combate);
+        combate = resetEfeitosCombate(combate);
+        combate = resetEfeitosFichas(combate);
         return repository.save(combate);
     }
 
@@ -123,5 +126,71 @@ public class CombateService{
         return c;
     }
 
+    public Combate resetEfeitosCombate(Combate c){
+        for(Efeito e : c.getEfeitos()){
+            e.setDuracao(e.getDuracao()-1);
+        }
+        return repository.save(c);
+    }
 
+    public Combate resetEfeitosFichas(Combate c){
+        for(Personagem p : c.getPersonagens()){
+            for(Efeito e : p.getEfeito()){
+                e.setDuracao(e.getDuracao()-1);
+            }
+            fichaRepository.save(p);
+        }
+        return repository.save(c);
+    }
+
+
+    public Combate usaAcaoMovimento(Long id){
+        Combate combate = repository.findById(id).orElseThrow();
+        combate.getAcoes().AcaoMovimento = false;
+        return repository.save(combate);
+    }
+
+    public Combate usaAcaoPadrao(Long id){
+        Combate combate = repository.findById(id).orElseThrow();
+        combate.getAcoes().AcaoPadrao = false;
+        return repository.save(combate);
+    }
+
+    public Combate usaAcaoLivre(Long id){
+        Combate combate = repository.findById(id).orElseThrow();
+        combate.getAcoes().AcaoLivre = false;
+        return combate;
+    }
+
+
+
+    public Combate getCombate(Long id){
+        return repository.findById(id).orElseThrow();
+    }
+
+
+    public void deleteCombate(Long id){
+        repository.deleteById(id);
+    }
+
+    public void resetCombate(Long id){
+        Combate combate = repository.findById(id).orElseThrow();
+
+        for(Personagem p : combate.getPersonagens()){
+            p.getPe().setAtual(p.getPe().getMax());
+            p.getPe().setTemporario(0);
+            p.getVida().setAtual(p.getVida().getMax());
+            p.getVida().setTemporario(0);
+            p.getSanidade().setAtual(p.getSanidade().getMax());
+            p.getSanidade().setTemporario(0);
+            fichaRepository.save(p);
+        }
+
+        for(Monstro p : combate.getMonstros()){
+            p.getVida().setAtual(p.getVida().getMax());
+            p.getVida().setTemporario(0);
+            fichaRepository.save(p);
+        }
+        repository.deleteById(id);
+    }
 }

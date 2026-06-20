@@ -1,23 +1,16 @@
 package com.example.igor.ficha.entity.acao;
 
-import java.util.List;
-
 import com.example.igor.Acao.AcoesChave;
 import com.example.igor.Combate.DTO.ContextoAcao;
 import com.example.igor.ficha.FichaUtil.Elemento;
 import com.example.igor.ficha.entity.PreRequisito.PreRequisito;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
