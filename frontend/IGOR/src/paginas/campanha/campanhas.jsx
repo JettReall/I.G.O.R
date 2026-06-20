@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { ConfirmarCriar } from './ConfirmarCriar.jsx'
 import Modal from '../../componentes/Modal.jsx'
+import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes.jsx'
 
 function ContainerCampanhas({ campanhas, aoClicarCampanha }) {
   const classeCampanha = estilos['container-botao-campanha'];
@@ -39,11 +40,12 @@ function ContainerCampanhas({ campanhas, aoClicarCampanha }) {
 }
 
 function Campanhas() {
-  const { user } = useUser();
+  const { user, loginUser } = useUser(); // Adiciona loginUser para popular contexto
   const [campanhas, setCampanhas] = useState([]);
   const navigate = useNavigate();
   const [aberto, setAberto] = useState(false);
   const [carregando, setCarregando] = useState(false);
+  const [mostrarModalLogin, setMostrarModalLogin] = useState(false);
 
   const handleClickCampanha = (id) => {
     if (id) {
@@ -54,53 +56,91 @@ function Campanhas() {
   };
 
   useEffect(() => {
-  const fetchCampanhas = async () => {
-    if (!user?.id) return;
+    const fetchCampanhas = async () => {
+      // Tenta obter o id do usuário do contexto ou do localStorage
+      let userId = user?.id;
 
-    setCarregando(true);
+      // Se não houver user.id no contexto, tenta recuperar do localStorage
+      if (!userId) {
+        const storedUser = localStorage.getItem('usuario');
+        if (storedUser) {
+          try {
+            const parsed = JSON.parse(storedUser);
+            if (parsed?.id) {
+              // Atualiza o contexto com o usuário do localStorage
+              loginUser(parsed);
+              userId = parsed.id;
+              console.log('Usuário recuperado do localStorage:', parsed);
+            }
+          } catch (e) {
+            console.error('Erro ao parsear usuário do localStorage', e);
+          }
+        }
+      }
 
-    // 1. Verifica se já há campanhas no localStorage
-    const storedCampanhas = localStorage.getItem('campanhas');
-    if (storedCampanhas) {
-      try {
-        const parsed = JSON.parse(storedCampanhas);
-        setCampanhas(parsed);
-        console.log('Campanhas carregadas do localStorage:', parsed);
+      // Se ainda não tiver userId, exibe modal de login
+      if (!userId) {
+        setMostrarModalLogin(true);
         setCarregando(false);
-        return; // Não faz requisição
-      } catch (e) {
-        console.error('Erro ao parsear campanhas do localStorage', e);
-        // Se erro no parse, continua para buscar da API
+        return;
       }
-    }
 
-    // 2. Se não houver no localStorage ou erro no parse, busca da API
-    try {
-      const responseCampanha = await axios.get(`api/campanha/${user.id}`);
-      if (responseCampanha.status === 200) {
-        localStorage.setItem('campanhas', JSON.stringify(responseCampanha.data));
-        setCampanhas(responseCampanha.data);
-        console.log('Campanhas salvas da API:', responseCampanha.data);
+      setCarregando(true);
+
+      // 1. Verifica se já há campanhas no localStorage
+      const storedCampanhas = localStorage.getItem('campanhas');
+      if (storedCampanhas) {
+        try {
+          const parsed = JSON.parse(storedCampanhas);
+          setCampanhas(parsed);
+          console.log('Campanhas carregadas do localStorage:', parsed);
+          setCarregando(false);
+          return; // Não faz requisição
+        } catch (e) {
+          console.error('Erro ao parsear campanhas do localStorage', e);
+          // Se erro no parse, continua para buscar da API
+        }
       }
-    } catch (error) {
-      console.error('Erro ao buscar campanhas:', error);
-      navigate('/');
-    } finally {
-      setCarregando(false);
-    }
-  };
 
-  fetchCampanhas();
-}, [user?.id]);
+      // 2. Se não houver no localStorage ou erro no parse, busca da API
+      try {
+        const responseCampanha = await axios.get(`api/campanha/${userId}`);
+        if (responseCampanha.status === 200) {
+          localStorage.setItem('campanhas', JSON.stringify(responseCampanha.data));
+          setCampanhas(responseCampanha.data);
+          console.log('Campanhas salvas da API:', responseCampanha.data);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar campanhas:', error);
+        navigate('/');
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    fetchCampanhas();
+  }, [user?.id, loginUser, navigate]); // Adiciona loginUser como dependência
 
   function TelaCarregando() {
     const stilo = {
       placeSelf: "center",
       justifySelf: 'center',
     }
-
-
     return <h1 style={stilo}>Carregando...</h1>
+  }
+
+  // Se não houver usuário, exibe o modal de login
+  if (mostrarModalLogin) {
+    return (
+      <Modal open={true}>
+        <strong>Entre em uma conta para acessar o site</strong>
+        <BotaoLoginCadastro
+          texto={"Ir para o Login"}
+          corBotao={'escuro'}
+          aoClicar={() => navigate('/login')}
+        />
+      </Modal>
+    );
   }
 
   return (
@@ -115,14 +155,15 @@ function Campanhas() {
 
       <main>
         {carregando ? 
-         <TelaCarregando/> :
+          <TelaCarregando/> :
           <ContainerCampanhas
-          campanhas={campanhas}
-          aoClicarCampanha={handleClickCampanha}
-        />}
+            campanhas={campanhas}
+            aoClicarCampanha={handleClickCampanha}
+          />
+        }
       </main>
 
-      {/* Modal de confirmação */}
+      {/* Modal de confirmação para criar campanha */}
       <ConfirmarCriar
         isAberto={aberto}
         set={setAberto}

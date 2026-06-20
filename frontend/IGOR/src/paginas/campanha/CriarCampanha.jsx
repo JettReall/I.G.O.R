@@ -4,8 +4,10 @@ import axios from 'axios';
 import { useUser } from '../../UserContext.jsx'; // ajuste o caminho conforme sua estrutura
 import estilosCampanha from './campanhaModulos.module.css'
 import clsx from "clsx";
+import { useNavigate } from "react-router-dom";
 
 export default function CriarCampanha({ aberto, set }) {
+     const navigate = useNavigate();
   const { user } = useUser();
   const [campanha, setCampanha] = useState({
     nome: "",
@@ -22,14 +24,32 @@ export default function CriarCampanha({ aberto, set }) {
     }));
   }
 
+  function TelaErro() {
+     return (
+          <Modal open={true}>
+               <h3>Erro na criação</h3>
+               <button onClick={navigate('/campanhas')}>Fechar</button>
+          </Modal>
+     )
+  }
+
   // Função para criar a campanha (POST)
   async function handleConfirmar() {
-    // const response = await axios.post('api/campanha', campanha);
-    // if (response.status === 201) {
-    //   // Sucesso: fechar modal e recarregar lista
-    // }
-    console.log('Campanha criada:', campanha);
-    set(false); 
+     try {
+          const response = await axios.post(`api/campanha/${campanha.usuario}`, campanha);
+          console.log(response.status);
+          
+          if (response.status === 201 || response.status === 200) {
+                    console.log('Campanha criada:', campanha);
+                    localStorage.removeItem('campanhas');
+          }
+     } catch (error) {
+          
+     } finally {
+          set(false); 
+          window.location.reload();
+     }
+    
   }
 
   return (
