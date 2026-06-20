@@ -68,7 +68,14 @@ public class CampanhaController {
     private Campanha removeCombate(@RequestBody CampanhaCombateDTO dto){
         return campanhaService.removerCombate(dto);
     }
-
+      @Operation(
+            summary = "Get Campanha do usuario",
+            description = "Recebe um id de um usuario e retorna a lista de todas as campanhas dele"
+    )
+    @GetMapping("/{id}")
+    private List<Campanha> getCampanhas(@PathVariable Long id){
+        return campanhaService.getCampanhas(id);
+    }
 
 
 }
