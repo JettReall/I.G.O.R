@@ -1,11 +1,11 @@
 package com.example.igor.ficha.repository;
 
-import com.example.igor.ficha.entity.personagem.Personagem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.example.igor.ficha.entity.personagem.Origem;
 
 @Repository
-public interface PersonagemRepository extends JpaRepository<Personagem, Long> {
+public interface OrigemRepository extends JpaRepository<Origem, Long> {
+
 }
