@@ -29,6 +29,7 @@ import { CaixaTexto } from './componentes/criador-ficha/componentes.jsx';
 
 // Importa o UserProvider e o hook useUser
 import { UserProvider, useUser } from './UserContext.jsx';
+import { Combate } from './paginas/Combate/Combate.jsx';
 
 // Componente de rota privada – usa o contexto para verificar autenticação
 const Private = ({ Item }) => {
@@ -60,8 +61,13 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="*" element={<NaoEncontrado />} />
+      <>
       <Route path="/campanhas/:id" element={<TelaCampanhaAgente />} />
       <Route path="campanhas/ficha" element={<Ficha />} />
+
+      </>
+
+    <Route path='/combate' element={<Combate/>}/>
 
       {/* Rotas do criador de ficha */}
       <Route path="criar_ficha/:step" element={<CriadorFicha />} />

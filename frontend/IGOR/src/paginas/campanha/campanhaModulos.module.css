@@ -1,0 +1,26 @@
+.linha {
+     display: flex;
+     flex-direction: row;
+}
+
+.coluna {
+     display: flex;
+     flex-direction: column;
+}
+
+.container-bootes {
+     justify-content: space-between;
+}
+
+.container-criar-campanha {
+     height: 30vh;
+     width: 50vw;
+
+     justify-content: space-evenly;
+
+}
+
+.input-desc {
+     height: 100px;
+     resize: none;
+}

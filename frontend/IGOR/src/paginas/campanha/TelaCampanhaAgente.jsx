@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useUser } from '../../UserContext.jsx'
 import { useEffect, useState } from 'react'
 import { ConfirmarCriar } from './ConfirmarCriar.jsx'
+import estilosCampanha from './campanhaModulos.module.css'
 
 function ContainerCampanhas({ personagens, aoClicarFicha }) {
   const classeFicha = clsx(estilos['container-botao-campanha'], estilos.ficha)
@@ -92,7 +93,7 @@ function TelaCampanhaAgente() {
       <header>
         <HeaderDeCampanha
           titulo={campanha.nome}
-          botao_L={<BotaoRetorno aoClicar={() => navigate('/campanhas')} />}
+          botao_L={<BotaoRetorno />}
           pagina_atual={'campanha'}
         />
       </header>

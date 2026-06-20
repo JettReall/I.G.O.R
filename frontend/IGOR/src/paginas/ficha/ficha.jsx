@@ -11,10 +11,6 @@ import AddIcone from '../../assets/imagens/icones/add.png'
 
 
 
-//className={estilos['corpo']}
-
-
-
 function ContainerPericias() {
      
 
@@ -24,7 +20,7 @@ const periciaExemplo = {
   treino: 5,
   bonus: 2,
   extra: 0,
-  total: 4   // normalmente calculado: (treino ? 2 : 0) + bonus + extra
+  total: 4
 };
 
 

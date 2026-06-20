@@ -76,15 +76,17 @@ const PersonagemNovo = {
     nome: "",
     jogador: "",
     origemId: 0,
-    classeAgenteEscolhida: "",
-    trilhaAgenteEscolhida: "",
+    classeId: 0,
+    trilhaId: 0,
     atributos: [
-        { nome: "for", valor: 0 },
-        { nome: "agi", valor: 0 },
-        { nome: "vig", valor: 0 },
-        { nome: "int", valor: 0 },
-        { nome: "pre", valor: 0 },
+        { nome: "forca", valor: 0 },
+        { nome: "agilidade", valor: 0 },
+        { nome: "vigor", valor: 0 },
+        { nome: "intelecto", valor: 0 },
+        { nome: "presenca", valor: 0 },
     ],
-    periciaLista: [],
+    periciaLista: [], //Ids
 }
+
+
 

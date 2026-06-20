@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { ConfirmarCriar } from './ConfirmarCriar.jsx'
+import Modal from '../../componentes/Modal.jsx'
 
 function ContainerCampanhas({ campanhas, aoClicarCampanha }) {
   const classeCampanha = estilos['container-botao-campanha'];
@@ -42,6 +43,7 @@ function Campanhas() {
   const [campanhas, setCampanhas] = useState([]);
   const navigate = useNavigate();
   const [aberto, setAberto] = useState(false);
+  const [carregando, setCarregando] = useState(false);
 
   const handleClickCampanha = (id) => {
     if (id) {
@@ -52,35 +54,54 @@ function Campanhas() {
   };
 
   useEffect(() => {
-    const fetchCampanhas = async () => {
-      if (!user?.id) return;
+  const fetchCampanhas = async () => {
+    if (!user?.id) return;
 
-      const storedCampanhas = localStorage.getItem('campanhas');
-      if (storedCampanhas) {
-        try {
-          const parsed = JSON.parse(storedCampanhas);
-          setCampanhas(parsed);
-          console.log('Campanhas carregadas do localStorage:', parsed);
-          return;
-        } catch (e) {
-          console.error('Erro ao parsear campanhas do localStorage', e);
-        }
-      }
+    setCarregando(true);
 
+    // 1. Verifica se já há campanhas no localStorage
+    const storedCampanhas = localStorage.getItem('campanhas');
+    if (storedCampanhas) {
       try {
-        const responseCampanha = await axios.get(`api/campanha/${user.id}`);
-        if (responseCampanha.status === 200) {
-          localStorage.setItem('campanhas', JSON.stringify(responseCampanha.data));
-          setCampanhas(responseCampanha.data);
-          console.log('Campanhas salvas da API:', responseCampanha.data);
-        }
-      } catch (error) {
-        console.error('Erro ao buscar campanhas:', error);
+        const parsed = JSON.parse(storedCampanhas);
+        setCampanhas(parsed);
+        console.log('Campanhas carregadas do localStorage:', parsed);
+        setCarregando(false);
+        return; // Não faz requisição
+      } catch (e) {
+        console.error('Erro ao parsear campanhas do localStorage', e);
+        // Se erro no parse, continua para buscar da API
       }
-    };
+    }
 
-    fetchCampanhas();
-  }, [user?.id]);
+    // 2. Se não houver no localStorage ou erro no parse, busca da API
+    try {
+      const responseCampanha = await axios.get(`api/campanha/${user.id}`);
+      if (responseCampanha.status === 200) {
+        localStorage.setItem('campanhas', JSON.stringify(responseCampanha.data));
+        setCampanhas(responseCampanha.data);
+        console.log('Campanhas salvas da API:', responseCampanha.data);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar campanhas:', error);
+      navigate('/');
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  fetchCampanhas();
+}, [user?.id]);
+
+  function TelaCarregando() {
+    const stilo = {
+      placeSelf: "center",
+      justifySelf: 'center',
+    }
+
+
+    return <h1 style={stilo}>Carregando...</h1>
+  }
 
   return (
     <div className="corpo">
@@ -93,10 +114,12 @@ function Campanhas() {
       </nav>
 
       <main>
-        <ContainerCampanhas
+        {carregando ? 
+         <TelaCarregando/> :
+          <ContainerCampanhas
           campanhas={campanhas}
           aoClicarCampanha={handleClickCampanha}
-        />
+        />}
       </main>
 
       {/* Modal de confirmação */}
@@ -104,7 +127,7 @@ function Campanhas() {
         isAberto={aberto}
         set={setAberto}
         texto={"Criar uma nova campanha?"}
-        caminho={'/criar-campanha'} // ajuste conforme a rota real
+        isCampanha={true}
       />
     </div>
   )
