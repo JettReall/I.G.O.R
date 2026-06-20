@@ -2,8 +2,6 @@ package com.example.igor.usuario;
 
 import java.util.List;
 
-import java.util.List;
-
 import com.example.igor.Campanha.Campanha;
 import com.example.igor.ficha.entity.Monstro;
 import com.example.igor.ficha.entity.personagem.Personagem;
