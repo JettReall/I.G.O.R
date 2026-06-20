@@ -113,7 +113,6 @@ function Etapa1() {
   const [fichaTemp, setFichaTemp] = useState({
     nome: "",
     jogador: "",
-    nex: 0,
   });
   const [origemSelecionadaTemp, setOrigemSelecionadaTemp] = useState(null);
   const [abrirOrigem, setAbrirOrigem] = useState(false);
@@ -123,14 +122,12 @@ function Etapa1() {
     // Verifica se há dados salvos (nome, jogador ou origem)
     const temDados = etapa1_dados.nome !== "" || 
                       etapa1_dados.jogador !== "" || 
-                      etapa1_dados.nex !== 0 || 
                       etapa1_dados.origem.id !== 0;
 
     if (temDados) {
       setFichaTemp({
         nome: etapa1_dados.nome,
         jogador: etapa1_dados.jogador,
-        nex: etapa1_dados.nex,
       });
 
       // Se houver origem com id > 0, localiza nos exemplos e seta
@@ -145,44 +142,15 @@ function Etapa1() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "nex") {
-      const num = Number(value);
-      const isValid = !isNaN(num) && num >= 0 && num <= 100 && (num % 5 === 0 || num === 99);
-      if (!isValid) return;
-    }
     setFichaTemp(prev => ({
       ...prev,
       [name]: name === "nex" ? Number(value) : value
     }));
   };
 
-  const incrementarNex = () => {
-    const atual = fichaTemp.nex;
-    let novo = atual + 5;
-    if (novo >= 100) novo = 99;
-    if (novo % 5 === 0 || novo === 99) {
-      setFichaTemp(prev => ({ ...prev, nex: novo }));
-    }
-  };
-
-  const decrementarNex = () => {
-    const atual = fichaTemp.nex;
-    let novo = 0;
-    if (atual === 99) {
-      novo = atual - 4;
-    } else {
-      novo = atual - 5;
-    }
-    if (novo < 0) novo = 0;
-    if (novo % 5 === 0 || novo === 99) {
-      setFichaTemp(prev => ({ ...prev, nex: novo }));
-    }
-  };
 
   const isDesabilitado = fichaTemp.nome === "" || 
-                         fichaTemp.jogador === "" || 
-                         fichaTemp.nex === 0 || 
+                         fichaTemp.jogador === "" ||  
                          !origemSelecionadaTemp;
 
   const handleConfirmarOrigem = (origem) => {
@@ -193,7 +161,6 @@ function Etapa1() {
     // Preenche a variável global com os dados atuais
     etapa1_dados.nome = fichaTemp.nome;
     etapa1_dados.jogador = fichaTemp.jogador;
-    etapa1_dados.nex = fichaTemp.nex;
 
     if (origemSelecionadaTemp) {
       etapa1_dados.origem.id = origemSelecionadaTemp.id;
@@ -240,17 +207,6 @@ function Etapa1() {
             aoAbrirModal={() => setAbrirOrigem(true)}
           />
 
-          <InputComBotao
-            valor={fichaTemp.nex} 
-            aoMudar={handleChange} 
-            aoIncrementar={incrementarNex}
-            aoDecrementar={decrementarNex}
-            nome={"nex"}
-            texto={"NEX:"}
-            classeExtra={"nex"}
-            min={0}
-            max={100}
-          />
           <BotaoAvancarEtapa isDisabled={isDesabilitado} funcaoAntesAvancar={SalvarEtapa1} />
         </div>
 

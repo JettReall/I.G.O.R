@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import estilos from './Botoes.module.css';
 import { Link } from 'react-router-dom';
 
-const BotaoRetorno = ({texto}) => {
+const BotaoRetorno = ({texto, aoClicar}) => {
      return (
-          <button className={estilos["botao-retorno"]} title='Voltar'>{texto}</button>
+          <button className={estilos["botao-retorno"]} title='Voltar' onClick={aoClicar}>{texto}</button>
      )
 }
 
