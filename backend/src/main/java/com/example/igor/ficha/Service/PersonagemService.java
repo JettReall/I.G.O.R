@@ -39,10 +39,10 @@ public class PersonagemService {
 
     //Inicializa um personagem no banco.
     public Personagem criarPersonagem(PersonagemDTO dto, Long Id) {
-        /*
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
+        
+        Usuario usuario = usuarioRepository.findById(Id)
         .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        */
+        
 
         Personagem personagem = new Personagem();
         Classe classe = classeRepository.findById(dto.getClasseId()).orElseThrow();
@@ -74,6 +74,9 @@ public class PersonagemService {
         }
 
         periciaPersonagemRepository.saveAll(periciasDoPersonagem);
+
+        usuario.getPersonagemList().add(salvo);
+        usuarioRepository.save(usuario);
         
         return salvo;
     }
