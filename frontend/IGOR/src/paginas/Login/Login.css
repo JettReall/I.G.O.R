@@ -11,20 +11,15 @@ body {
 
 .container-grande {
      background-color: snow;
-
      width: 60vw;
      height: 60vh;
-
-
      border-radius: 10px;
-
      display: flex;
      flex-direction: row;
      justify-content: center;
      align-items: center;
      padding: 20px;
      gap: 50px;
-
      position: absolute;
      top: 50%;
      left: 50%;
@@ -44,27 +39,30 @@ body {
 .container-dados {
      height: 100%;
      width: 30vw;
-
-
      display: flex;
      flex-direction: column;
-
      justify-content: center;
      
 }
 
 .container-dados form {
      gap:10px;
-     display: flex;
-     flex-direction: column;
-
-     justify-content: center;
-     
-
+     display: grid;
      width: 100%;
      height: 100%;
      
-     position: relative;
+}
+ #form-cadastro {
+     grid-template-rows: repeat(4,1fr);
+     grid-template-columns: 1fr;
+     place-items: center;
+}
+
+#form-login {
+     height: 40vh;
+     grid-template-rows: 2fr 2fr 1fr;
+     grid-template-columns: 1fr;
+     place-items: center;
 }
 
 .container-dados .elemento-input {
@@ -72,33 +70,29 @@ body {
      display: flex;
      flex-direction: column;
      gap: 0px;
-
+     padding: 0px;
+     
 }
 
-
+.container-dados .elemento-input strong {
+     font-weight: 500;
+}
 
 .container-botoes {
      width: 100%;
-
      display: flex;
      flex-direction: row-reverse;
      gap: 10px;
-
-     position: absolute;
-     bottom: 0;
-
 }
 
 .botao-envio {
      height: 50px;
-     width: 100px;
+     min-width: 100px;
      border-radius: 10px;
      border: 1px solid black;
-
      font-size: 24px;
      background-color: snow;
      color: black;
-
      cursor: pointer;
 
 }
@@ -110,11 +104,14 @@ body {
      box-shadow: 2px;
 }
 
+#cadastro {
+     background-color: black;
+     color: snow;
+}
+
 #mensagens-erro {
      color: crimson;
 }
-
-
 
 .botao-envio:disabled {
      background-color: #6c757d;

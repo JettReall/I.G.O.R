@@ -2,7 +2,7 @@ function InputLogin ( {texto,nome,tipo,valor,placeholder,mudar} ) {
      return (
 
           <div className="elemento-input">
-                    <p>{texto}</p>
+                    <strong>{texto}</strong>
                     <input
                     name={nome}
                     type={tipo}

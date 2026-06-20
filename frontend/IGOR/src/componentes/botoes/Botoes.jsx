@@ -1,14 +1,16 @@
 import clsx from 'clsx';
 import estilos from './Botoes.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const BotaoRetorno = ({texto}) => {
+     const voltar = useNavigate();
      return (
-          <button className={estilos["botao-retorno"]} title='Voltar'>{texto}</button>
+          <button className={estilos["botao-retorno"]} title='Voltar' onClick={() => {voltar(-1)}}>{texto}</button>
      )
 }
 
-const BotaoLoginCadastro = ( {linkBotao, texto, corBotao} ) => {
+const BotaoLoginCadastro = ( {texto, corBotao, aoClicar} ) => {
      if(!corBotao) { //Black
           corBotao = "claro"
      }
@@ -25,9 +27,9 @@ const BotaoLoginCadastro = ( {linkBotao, texto, corBotao} ) => {
 
      linkBotao = "/"+linkBotao;
      return (
-          <Link to={linkBotao}>
-               <button className={classe}> {texto} </button>
-          </Link>
+          <button className={classe} onClick={aoClicar}>
+               {texto} 
+          </button>
      )
 }
 

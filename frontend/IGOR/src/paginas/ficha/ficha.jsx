@@ -8,15 +8,20 @@ import estilos from './ficha.module.css'
 import Delete from '../../assets/imagens/icones/lixo.png'
 import AddIcone from '../../assets/imagens/icones/add.png'
 
+
+
 function ContainerPericias() {
-     const periciaExemplo = {
-          nome: "Prestidigitação",
-          atributo: "FOR",
-          treino: 5,
-          bonus: 2,
-          extra: 0,
-          total: 4   
-     };
+     
+
+const periciaExemplo = {
+  nome: "Prestidigitação",
+  atributo: "FOR",
+  treino: 5,
+  bonus: 2,
+  extra: 0,
+  total: 4
+};
+
 
      const periciaExemplo2 = {
           nome: "Nome",

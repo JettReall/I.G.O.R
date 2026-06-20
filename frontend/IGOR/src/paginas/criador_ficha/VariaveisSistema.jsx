@@ -72,5 +72,21 @@ export const pericias_dados = [
   { id: 7, nome: "Vontade", atributo: "Presença", treino: 0 },
 ]; //Essa é a variavel de leitura para as pericias
 
+const PersonagemNovo = {
+    nome: "",
+    jogador: "",
+    origemId: 0,
+    classeId: 0,
+    trilhaId: 0,
+    atributos: [
+        { nome: "forca", valor: 0 },
+        { nome: "agilidade", valor: 0 },
+        { nome: "vigor", valor: 0 },
+        { nome: "intelecto", valor: 0 },
+        { nome: "presenca", valor: 0 },
+    ],
+    periciaLista: [], //Ids
+}
+
 
 

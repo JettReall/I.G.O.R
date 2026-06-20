@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react';
-import './Login.css'
+import { useState } from 'react';
+import './Login.css';
 import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
+
 import {InputLogin, ErroLogin} from './input';
 
+import { InputLogin, ErroLogin } from './ComponentesMenores';
+import { useNavigate } from 'react-router-dom';
+import Modal from '../../componentes/Modal';
+import axios from 'axios';
+
+
 function ContainerLogo() {
-     return (
-          <div className="container-logo">
-               <img src=".\src\assets\imagens\elementos\LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
-               <h3 className="nome-ordem">ORDO REALITAS</h3>
-          </div>
-     )
+  return (
+    <div className="container-logo">
+      <img src=".\src\assets\imagens\elementos\LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
+      <h3 className="nome-ordem">ORDO REALITAS</h3>
+    </div>
+  );
 }
 
 function ContainerDados() {
@@ -24,11 +31,17 @@ function ContainerDados() {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
- 
-   const todosPreenchidos = Object.values(form).every(
+
+  const todosPreenchidos = Object.values(form).every(
     (valor) => typeof valor === "string" && valor.trim() !== ""
   );
 
+  const cadastroValido = todosPreenchidos && form.senha === form.senha_confirmar;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setErro("");
+    setCarregando(true);
 
   //Partes criadas para alteração, temporárias e não 
   const [usuarios, setUsuarios] = useState([]);
@@ -43,17 +56,16 @@ function ContainerDados() {
           form.senha === form.senha_confirmar)
 
   return (
-          <div className="container-dados">
-               <form onSubmit="" id='form-cadastro'>
-                    <InputLogin 
-                         texto={"Digite seu email"}
-                         placeholder={"Exemplo: ElizabethWebber@ordo.com"}
-                         nome={"email"}
-                         tipo={"text"}
-                         valor={form.email}
-                         mudar={handleChange}
-                    />
-               
+    <div className="container-dados">
+      <form onSubmit={handleSubmit} id="form-cadastro">
+        <InputLogin
+          texto="Digite seu email"
+          placeholder="Exemplo: ElizabethWebber@ordo.com"
+          nome="email"
+          tipo="email"
+          valor={form.email}
+          mudar={handleChange}
+        />
 
                     <InputLogin 
                          texto={"Digite um UserName"}
@@ -84,30 +96,40 @@ function ContainerDados() {
                
                     <ErroLogin texto={" "}/>
 
-               <div className="container-botoes">
-                    <button className="botao-envio" type="submit" id='' disabled={!cadastro_valido}>Entrar</button>
-                    <BotaoLoginCadastro texto={"Voltar para o Login"} linkBotao={"login"} corBotao={"escuro"}/>
-               </div>
-               </form>
-               </div>
-     )
+        {/* Exibe mensagem de erro, se houver */}
+        {erro && <ErroLogin texto={erro} />}
+
+        <div className="container-botoes">
+          <button
+            className="botao-envio"
+            type="submit"
+            disabled={!cadastroValido || carregando}
+          >
+            {carregando ? "Criando" : "Criar"}
+          </button>
+          <BotaoLoginCadastro
+            texto="Entrar em uma conta"
+            aoClicar={() => navigate("/login")}
+            corBotao="escuro"
+          />
+        </div>
+      </form>
+    </div>
+  );
 }
 
 function Container() {
-     return (
-          <div className="container-grande">
-            
-               <ContainerLogo/>
-               <ContainerDados></ContainerDados>
-          </div>
-          
-     )
+  return (
+    <div className="container-grande">
+      <ContainerLogo />
+      <ContainerDados />
+    </div>
+  );
 }
 
 function Cadastro() {
-     return (
-          <Container/>
-     )
+  return <Container />;
 }
 
 export default Cadastro
+}

@@ -3,6 +3,7 @@ package com.example.igor.ficha.entity.personagem;
 import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.entity.Efeito;
 import com.example.igor.ficha.entity.Ficha;
+import com.example.igor.ficha.entity.acao.Habilidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,18 +19,7 @@ import java.util.List;
 @Entity
 public class Personagem extends Ficha {
 
-    private String nomePersonagem;
-
     private String nomeJogador;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "atual", column = @Column(name = "vida_atual")),
-            @AttributeOverride(name = "max", column = @Column(name = "vida_max")),
-            @AttributeOverride(name = "temporario", column = @Column(name = "vida_temporario"))
-    })
-    private Stats vida;
-
 
     @Embedded
     @AttributeOverrides({
@@ -47,10 +37,6 @@ public class Personagem extends Ficha {
             @AttributeOverride(name = "temporario", column = @Column(name = "sanidade_temporario"))
     })
     private Stats sanidade;
-
-    @Embedded
-    private AtributoPersonagem atributos;
-
 
     private int defesa;
 
@@ -70,6 +56,9 @@ public class Personagem extends Ficha {
 
 //afinidade
 
+    @ManyToMany
+    private List<Habilidade> habilidades;
+
     @ElementCollection
     private List<Efeito> efeito;
 
@@ -80,7 +69,17 @@ public class Personagem extends Ficha {
     private Origem origem;
 
 
-
     @Embedded
     private Inventario inventario;
+
+    @PostLoad
+    public void initPersonagemEmbeddeds() {
+        if (pe == null) {
+            pe = new Stats(0, 0, 0);
+        }
+        if (sanidade == null) {
+            sanidade = new Stats(0, 0, 0);
+        }
+    }
+
 }

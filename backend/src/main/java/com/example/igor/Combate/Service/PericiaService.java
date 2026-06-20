@@ -23,6 +23,9 @@ public class PericiaService {
 
 
         Ficha personagem = fichaRepository.findById(dto.idPersonagem).orElse(null);
+        System.out.println("PERSONAGEM: " + personagem);
+        System.out.println("ATRIBUTOS: " + personagem.getAtributos());
+        System.out.println("AGILIDADE: " + personagem.getAtributos());
 
 
         int atributo;
