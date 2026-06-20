@@ -1,5 +1,3 @@
-
-
 function InputLogin ( {texto,nome,tipo,valor,placeholder,mudar} ) {
      return (
 

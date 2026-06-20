@@ -6,9 +6,6 @@ import estilos from '../../componentes/campanha/BotaoCampanha.module.css'
 import clsx from 'clsx'
 import { usuario } from '../Login/Usuario.jsx'
 
-
-
-
 function ContainerCampanhas() {
      const classeCampanha = estilos['container-botao-campanha'];
      const campanhaBotaoAdd = clsx(estilos['container-botao-campanha'],estilos['adicionar-campanha']);
@@ -22,8 +19,6 @@ function ContainerCampanhas() {
           </div>
      )
 }
-
-
 
 function Campanhas() {
      return   (

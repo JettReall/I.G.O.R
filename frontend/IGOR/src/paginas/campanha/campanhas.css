@@ -1,12 +1,8 @@
-
-
 .corpo {
      margin: 0 0 0 0;
      background-image: url(../../assets/imagens/fundos/FundoLoginCadastro.png);
-      background-size: cover;
+     background-size: cover;
      background-position: center;
-
-
 
      display: grid;
      margin: 0;

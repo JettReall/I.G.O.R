@@ -3,8 +3,6 @@ import './Login.css'
 import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
 import {InputLogin, ErroLogin} from './input';
 
-
-
 function ContainerLogo() {
      return (
           <div className="container-logo">
@@ -14,11 +12,7 @@ function ContainerLogo() {
      )
 }
 
-
-
-
 function ContainerDados() {
-
      const [form, setForm] = useState({
      email:  "",
      nome_usuario: "",
@@ -36,18 +30,12 @@ function ContainerDados() {
   );
 
 
-
-
   //Partes criadas para alteração, temporárias e não 
   const [usuarios, setUsuarios] = useState([]);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState(null);
 
-
-
 //Código de senha que ainda não produzi, mas é necessário
-
-
      let cadastro_valido = (
           todosPreenchidos && 
           form.senha !== "" &&
@@ -68,16 +56,16 @@ function ContainerDados() {
                
 
                     <InputLogin 
-                         texto={"Digite o Nome de usuário"}
+                         texto={"Digite um UserName"}
                          nome={"nome_usuario"}
                          tipo={"text"}
                          valor={form.nome_usuario}
-                         placeholder={"Insira um nome de usuário"}
+                         placeholder={"ex.: ElizabethWebber"}
                          mudar={handleChange}
                     />
 
                     <InputLogin 
-                         texto={"Digite sua senha"}
+                         texto={"Crie uma senha"}
                          placeholder={""}
                          nome={"senha"}
                          tipo={"text"}
@@ -86,7 +74,7 @@ function ContainerDados() {
                     />
 
                     <InputLogin 
-                         texto={"Confirme sua senha"}
+                         texto={"Confirmar senha"}
                          placeholder={""}
                          nome={"senha_confirmar"}
                          tipo={"text"}
@@ -105,7 +93,6 @@ function ContainerDados() {
      )
 }
 
-
 function Container() {
      return (
           <div className="container-grande">
@@ -117,13 +104,10 @@ function Container() {
      )
 }
 
-
-
 function Cadastro() {
      return (
           <Container/>
      )
 }
-
 
 export default Cadastro
