@@ -6,7 +6,7 @@
      background-color: transparent;
      
      border: 0px;
-
+     padding: 8px 8px;
      width: 50px;
      height: 50px;
 }
@@ -19,13 +19,11 @@
 
 .login-cadastro {
      height: 50px;
-
+     padding: 8px 8px;
      border-radius: 10px;
      border: 0px solid black;
-
      box-shadow: 01px 1px grey;
-
-     font-size: 20px;
+     font-size: 18px;
 
 }
 

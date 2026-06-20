@@ -16,7 +16,6 @@ const BotaoLoginCadastro = ( {linkBotao, texto, corBotao} ) => {
      const classe = clsx(estilos['login-cadastro'],estilos[corBotao]);
 
      if (!texto) {
-
           if (linkBotao === 'cadastro') {
                texto = "Cadastrar"
           } else if (linkBotao === 'login') {
@@ -24,17 +23,13 @@ const BotaoLoginCadastro = ( {linkBotao, texto, corBotao} ) => {
           }
      }
 
-
      linkBotao = "/"+linkBotao;
-
      return (
           <Link to={linkBotao}>
                <button className={classe}> {texto} </button>
           </Link>
      )
 }
-
-
 
 export {
      BotaoRetorno,
