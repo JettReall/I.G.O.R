@@ -1,14 +1,16 @@
-package com.example.igor.Campanhna;
+package com.example.igor.Campanha;
 
-import com.example.igor.Campanhna.DTO.CampanhaCombateDTO;
+import com.example.igor.Campanha.DTO.CampanhaCombateDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/campanha")
-public class CapanhaController {
+public class CampanhaController {
     @Autowired
     private CampanhaService campanhaService;
 
@@ -66,5 +68,7 @@ public class CapanhaController {
     private Campanha removeCombate(@RequestBody CampanhaCombateDTO dto){
         return campanhaService.removerCombate(dto);
     }
+
+
 
 }

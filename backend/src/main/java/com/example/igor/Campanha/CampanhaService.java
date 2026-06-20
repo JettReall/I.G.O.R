@@ -1,13 +1,15 @@
-package com.example.igor.Campanhna;
+package com.example.igor.Campanha;
 
-import com.example.igor.Campanhna.DTO.CampanhaCombateDTO;
-import com.example.igor.Campanhna.Exception.CampanhaJaExisteException;
+import com.example.igor.Campanha.DTO.CampanhaCombateDTO;
+import com.example.igor.Campanha.Exception.CampanhaJaExisteException;
 import com.example.igor.Combate.Combate;
 import com.example.igor.Combate.Repositories.CombateRepository;
 import com.example.igor.usuario.Usuario;
 import com.example.igor.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CampanhaService {
@@ -116,6 +118,10 @@ public class CampanhaService {
                 .removeIf(combate -> combate.getId().equals(dto.combateId));
 
         return repository.save(campanha);
+    }
+
+    public List<Campanha> getCampanhas(Long id){
+        return repository.findByUsuarioId(id);
     }
 
 }
