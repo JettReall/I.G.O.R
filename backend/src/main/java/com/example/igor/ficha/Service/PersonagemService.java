@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.Repositories.PericiaRepository;
 import com.example.igor.ficha.dto.PersonagemDTO;
+import com.example.igor.ficha.entity.personagem.Classe;
 import com.example.igor.ficha.entity.personagem.Pericia;
 import com.example.igor.ficha.entity.personagem.PericiaPersonagem;
 import com.example.igor.ficha.entity.personagem.Personagem;
+import com.example.igor.ficha.repository.ClasseRepository;
 import com.example.igor.ficha.repository.PericiaPersonagemRepository;
 import com.example.igor.ficha.repository.PersonagemRepository;
 import com.example.igor.usuario.Usuario;
@@ -32,7 +34,10 @@ public class PersonagemService {
     @Autowired
     private PericiaPersonagemRepository periciaPersonagemRepository;
 
-    //Inicializa um personagem no banco, com os valores bases e os mutaveis zerados. Define o nome do jogador que tem esse perso e o nome do personagem.
+    @Autowired
+    private ClasseRepository classeRepository;
+
+    //Inicializa um personagem no banco.
     public Personagem criarPersonagem(PersonagemDTO dto, Long Id) {
         /*
         Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
@@ -40,12 +45,14 @@ public class PersonagemService {
         */
 
         Personagem personagem = new Personagem();
+        Classe classe = classeRepository.findById(dto.getClasseId()).orElseThrow();
+
         personagem.setNomePersonagem(dto.getNome());
         personagem.setNomeJogador(dto.getJogador());
 
-        personagem.setVida(new Stats());
-        personagem.setPe(new Stats());
-        personagem.setSanidade(new Stats());
+        personagem.setVida(new Stats(classe.getHp().getInicial(), classe.getHp().getInicial(), 0));
+        personagem.setPe(new Stats(classe.getPe().getInicial(), classe.getPe().getInicial(), 0));
+        personagem.setSanidade(new Stats(classe.getSan().getInicial(), classe.getSan().getInicial(), 0));
 
         personagem.setDefesa(10);
         personagem.setEsquiva(0);
@@ -58,7 +65,7 @@ public class PersonagemService {
 
         for (Pericia pericia : todasPericias) {
             PericiaPersonagem pp = new PericiaPersonagem();
-            pp.setFicha(salvo); // Personagem é um Ficha, então isso é válido
+            pp.setFicha(salvo);
             pp.setPericia(pericia);
             pp.setTreino(0);
             pp.setBonus(0);
