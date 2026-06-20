@@ -31,7 +31,7 @@ public class Pericia {
 }
 
 /*
-Id's:
+Ids:
 1. Acrobacia
 2. Adestramento
 3. Artes
