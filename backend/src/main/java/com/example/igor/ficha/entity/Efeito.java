@@ -14,4 +14,5 @@ import lombok.Setter;
 public class Efeito {
     String nome;
     String descricao;
+    Integer duracao;
 }

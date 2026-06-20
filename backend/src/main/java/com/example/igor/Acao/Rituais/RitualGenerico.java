@@ -4,6 +4,7 @@ import com.example.igor.Acao.AcoesChave;
 import com.example.igor.Acao.Repositories.RitualRepository;
 import com.example.igor.Combate.DTO.ContextoAcao;
 import com.example.igor.Combate.DTO.PericiaDTO;
+import com.example.igor.Combate.Repositories.CombateRepository;
 import com.example.igor.Combate.Service.PericiaService;
 import com.example.igor.Combate.Util.UsarAcao;
 import com.example.igor.ficha.FichaUtil.Elemento;
@@ -12,28 +13,28 @@ import com.example.igor.ficha.entity.Ficha;
 import com.example.igor.ficha.entity.acao.Ritual;
 import com.example.igor.ficha.entity.personagem.Personagem;
 import com.example.igor.global.Dado.RolagemDado;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * Classe base para execução de rituais.
  * Implementa o fluxo genérico de conjuração conforme as regras:
  * custo de PE, teste de Ocultismo, custo paranormal e aplicação de dano.
- *
  * Rituais específicos devem estender essa classe e sobrescrever getTipo()
  * com seu AcoesChave correspondente.
  */
 
 @Service
 public class RitualGenerico implements UsarAcao {
-    private final RitualRepository ritualRepository;
-    private final FichaRepository fichaRepository;
-    private final PericiaService periciaService;
+    protected final RitualRepository ritualRepository;
+    protected final FichaRepository fichaRepository;
+    protected final PericiaService periciaService;
+    protected final CombateRepository combateRepository;
 
-    public RitualGenerico(RitualRepository ritual, FichaRepository ficha, PericiaService pericia) {
+    public RitualGenerico(RitualRepository ritual, FichaRepository ficha, PericiaService pericia,CombateRepository combate) {
         this.fichaRepository = ficha;
         this.ritualRepository = ritual;
         this.periciaService = pericia;
+        this.combateRepository = combate;
     }
 
     /**
