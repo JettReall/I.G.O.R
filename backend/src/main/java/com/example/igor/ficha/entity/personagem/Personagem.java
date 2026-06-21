@@ -106,15 +106,4 @@ public class Personagem extends Ficha {
         }
     }
 
-
-    @PostLoad
-    public void initPersonagemEmbeddeds() {
-        if (pe == null) {
-            pe = new Stats(0, 0, 0);
-        }
-        if (sanidade == null) {
-            sanidade = new Stats(0, 0, 0);
-        }
-    }
-
 }

@@ -20,7 +20,6 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,26 +53,6 @@ public abstract class Ficha {
 
     @Column(columnDefinition = "integer default 0")
     private int iniciativa;
-
-
-    public int getValorAtributo(AtributoEnum atributo){
-        return switch (atributo){
-            case AGILIDADE -> getAtributos().getAgilidade();
-            case INTELECTO -> getAtributos().getIntelecto();
-            case VIGOR -> getAtributos().getVigor();
-            case PRESENCA -> getAtributos().getPresenca();
-            case FORCA -> getAtributos().getForca();
-        };
-    }
-
-    public Stats getVida() {
-        System.out.println("VIDA FIELD: " + vida);
-        if (vida == null) {
-            vida = new Stats(0, 0, 0);
-        }
-        return vida;
-    }
-
 
 
     public int getValorAtributo(AtributoEnum atributo){
