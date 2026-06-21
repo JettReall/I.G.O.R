@@ -17,6 +17,6 @@ public class PersonagemDTO {
     private Long origemId;
     private Long trilhaId;
     private Long classeId;
-    private List<AtributosDTO> atributos;
+    private AtributosDTO atributos;
     private List<Long> periciaLista;
 }
