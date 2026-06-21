@@ -100,7 +100,7 @@ function Etapa3() {
 
   return (
     <>
-      <HeaderBase pagina_atual={"claro"} titulo={"Etapa 3: Atributos"} />
+
       <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa3'])}>
         <div className={estilos['slot-atributo']}>
           <ExibeAtributos atributos={atributosTemp} />

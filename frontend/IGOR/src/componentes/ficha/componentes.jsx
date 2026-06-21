@@ -74,16 +74,7 @@ function Afinidade({elemento}) {
 }
 
 
-function Atributos({atributos_lista}) {
-     const [atributos, setAtributos] = useState([
-     { nome: "for", valor: 0 },
-     { nome: "agi", valor: 0 },
-     { nome: "vig", valor: 0 },
-     { nome: "int", valor: 0 },
-     { nome: "pre", valor: 0 }
-     ]);
-
-
+function Atributos({atributos_lista, afinidade}) {
 
   return (
     <div className={estilos["atributos-container"]}>
@@ -94,7 +85,7 @@ function Atributos({atributos_lista}) {
           valor={atr.valor} 
         />
       ))}
-     <Afinidade elemento={"Sangue"}/> 
+     <Afinidade elemento={afinidade}/> 
     </div>
   );
 }

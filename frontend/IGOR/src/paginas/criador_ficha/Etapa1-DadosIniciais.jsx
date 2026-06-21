@@ -7,6 +7,7 @@ import { handleSelectUnico } from "../../assets/utils/SelecaoUnica";
 import { HeaderBase } from "../../componentes/header/headers";
 import { etapa1_dados } from "./VariaveisSistema";
 import { pericias_dados } from "./VariaveisSistema";
+import { BotaoCancelarCriador } from "../../componentes/botoes/Botoes";
 
 const origensExemplo = [
   { id: 1, nome: "Acadêmico", pericias: [ pericias_dados[5], pericias_dados[6] ] },
@@ -180,7 +181,7 @@ function Etapa1() {
 
   return (
     <>
-      <HeaderBase pagina_atual={'claro'} isFixo={true} titulo={"Etapa 1: Dados iniciais"} />
+
       <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa1'])}>
         <CaixaTexto texto={`Vamos começar. Primeiro, insira algumas informações iniciais:`} tela={'caixa-etapa1'} />
 

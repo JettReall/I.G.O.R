@@ -2,6 +2,9 @@
 import { EtapaProvider, useEtapa } from '../../componentes/EtapaContext';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { HeaderBase } from '../../componentes/header/headers';
+import { BotaoCancelarCriador } from '../../componentes/botoes/Botoes';
+
 
 import Etapa1 from "./Etapa1-DadosIniciais";
 import Etapa2 from './Etapa2-ClasseTrilha';
@@ -9,19 +12,22 @@ import Etapa3 from './Etapa3-Atributos';
 import Etapa4 from './Etapa4-Pericias';
 import { Etapa5 } from './Etapa5-NEX';
 import Modal from '../../componentes/Modal';
+import clsx from 'clsx';
+import estilosEtapas from "./etapas.module.css";
 
 function ConteudoCriador() {
-  const { etapaAtual, updateEtapa } = useEtapa();
+    const { etapaAtual, setEtapa } = useEtapa();
   const { step } = useParams();
 
   useEffect(() => {
     if (step) {
-      const numero = parseInt(step.split('_')[1], 10);
+      const numero = parseInt(step, 10);
       if (!isNaN(numero) && numero !== etapaAtual) {
-        updateEtapa(numero);
+        // Atualiza o estado para refletir a URL, sem navegar
+        setEtapa(numero);
       }
     }
-  }, [step]);
+  }, [step, etapaAtual, setEtapa]);
 
   switch (etapaAtual) {
     case 1: return <Etapa1 />;
@@ -56,6 +62,8 @@ console.log("Salvei, confia");
 function CriadorFicha() {
   return (
     <EtapaProvider>
+            <HeaderBase pagina_atual={'claro'} isFixo={true} titulo={"Etapa 1: Dados iniciais"} 
+      botao_L={<BotaoCancelarCriador />}/>
       <ConteudoCriador />
     </EtapaProvider>
   );

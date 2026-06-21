@@ -20,7 +20,7 @@ export function NEXProvider({ children, initialNEX = 5, onFinish }) {
     if (index < nexList.length - 1) {
       const proximo = nexList[index + 1];
       setNexAtual(proximo);
-      navigate(`/criar_ficha/etapa_5/NEX_${proximo}`);
+ //     navigate(`/criar_ficha/etapa_5/NEX_${proximo}`);
     } else {
       if (onFinish) onFinish(); // finaliza fluxo NEX e vai para etapa 6
     }
@@ -31,7 +31,7 @@ export function NEXProvider({ children, initialNEX = 5, onFinish }) {
     if (index > 0) {
       const anterior = nexList[index - 1];
       setNexAtual(anterior);
-      navigate(`/criar_ficha/etapa_5/NEX_${anterior}`);
+   //   navigate(`/criar_ficha/etapa_5/NEX_${anterior}`);
     }
   };
 

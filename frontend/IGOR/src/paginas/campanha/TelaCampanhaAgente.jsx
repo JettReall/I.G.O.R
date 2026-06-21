@@ -29,7 +29,7 @@ function ContainerCampanhas({ personagens, aoClicarFicha }) {
           key={personagem.id}
           id={personagem.id}
           aba_botao={personagem.nome}
-          nome_botao={personagem.nome}
+          nome_botao={personagem.nomePersonagem}
           classe={classeFicha}
           aoClicar={aoClicarFicha}
         />
@@ -71,6 +71,7 @@ function TelaCampanhaAgente() {
   const handleClickFicha = (fichaId) => {
     if (fichaId) {
       // Navega para a ficha específica dentro da campanha
+
       navigate(`/campanhas/${id}/ficha/${fichaId}`)
     } else {
       // Botão "Criar" – abre o modal de confirmação
@@ -109,15 +110,14 @@ function TelaCampanhaAgente() {
         />
       </main>
 
-      {/* Modal de confirmação para criar nova ficha */}
       <ConfirmarCriar
         isAberto={aberto}
         set={setAberto}
         texto={"Criar uma nova ficha para esta campanha?"}
-        caminho={`/campanhas/${id}/criar-ficha`}
+        caminho={`/campanhas/${id}/criar_ficha/1`}
       />
     </div>
   )
 }
 
-export default TelaCampanhaAgente
+export default TelaCampanhaAgente 

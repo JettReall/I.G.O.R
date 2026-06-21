@@ -3,9 +3,9 @@ import clsx from 'clsx'
 import estilos from './componentes.module.css'
 import estilosFicha from '../ficha/componentes.module.css'
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useEtapa } from '../EtapaContext';
 import { useNEX } from '../NEXContext';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEtapa } from '../EtapaContext';
 
 
 function InputComBotao({ valor, aoMudar, aoIncrementar, aoDecrementar, classeExtra, min, max, nome, texto }) {
@@ -50,12 +50,17 @@ function CaixaTexto({ texto, tela }) {
   );
 }
 
+
 function BotaoAvancarEtapa({ isDisabled, funcaoAntesAvancar }) {
-  const { etapaAtual, updateEtapa } = useEtapa();
+  const { etapaAtual, setEtapa } = useEtapa();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleClick = () => {
     if (funcaoAntesAvancar) funcaoAntesAvancar();
-    updateEtapa(etapaAtual + 1);
+    const novaEtapa = etapaAtual + 1;
+    setEtapa(novaEtapa);
+    navigate(`/campanhas/${id}/criar_ficha/${novaEtapa}`);
   };
 
   return (
@@ -64,19 +69,26 @@ function BotaoAvancarEtapa({ isDisabled, funcaoAntesAvancar }) {
     </button>
   );
 }
-function BotaoVoltarEtapa({ }) {
-  const { etapaAtual, updateEtapa } = useEtapa();
+
+function BotaoVoltarEtapa() {
+  const { etapaAtual, setEtapa } = useEtapa();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleClick = () => {
-    updateEtapa(etapaAtual - 1);
+    const novaEtapa = etapaAtual - 1;
+    if (novaEtapa < 1) return;
+    setEtapa(novaEtapa);
+    navigate(`/campanhas/${id}/criar_ficha/${novaEtapa}`);
   };
 
   return (
-    <button onClick={handleClick} className={clsx(estilos['botao-avancar'],estilos['voltar'])}>
+    <button onClick={handleClick} className={clsx(estilos['botao-avancar'], estilos['voltar'])}>
       Voltar
     </button>
   );
 }
+
 
 function BotaoAvancarNEX({ isDisabled, funcaoAntesAvancar }) {
   const nexContext = useNEX();

@@ -44,7 +44,7 @@ function NaoEncontrado() {
   return (
     <Modal open={true}>
       <CaixaTexto texto="Página não encontrada" />
-      <button onClick={() => retorne('/')}>Voltar</button>
+      <button onClick={() => retorne(-1)}>Voltar</button>
     </Modal>
   );
 }
@@ -63,14 +63,14 @@ function AppRoutes() {
       <Route path="*" element={<NaoEncontrado />} />
       <>
       <Route path="/campanhas/:id" element={<TelaCampanhaAgente />} />
-      <Route path="campanhas/ficha" element={<Ficha />} />
+      <Route path="/campanhas/:id/ficha/:fichaId" element={<Ficha />} />
 
       </>
 
     <Route path='/combate' element={<Combate/>}/>
 
       {/* Rotas do criador de ficha */}
-      <Route path="criar_ficha/:step" element={<CriadorFicha />} />
+      <Route path="/campanhas/:id/criar_ficha/:step" element={<CriadorFicha />} />
       {/* <Route path="/criar_ficha/:step/:nex?" element={<CriadorFicha />} /> */}
 
       {/* Rotas de NEX */}

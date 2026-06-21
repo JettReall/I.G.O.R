@@ -12,6 +12,9 @@
      background-color: whitesmoke;
 
      overflow: hidden;
+
+     position: absolute;
+     bottom: 0;
 }
 
 .container-menor {

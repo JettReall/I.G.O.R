@@ -36,7 +36,7 @@ function Etapa4() {
 
   return (
     <>
-      <HeaderBase pagina_atual={'claro'} titulo={"Etapa 4: Escolha de Perícias"} isFixo={true} />
+
       <SeletorDePericias
         periciasElegiveis={5}
         listaPericias={pericias_dados} // usa a lista global

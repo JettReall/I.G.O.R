@@ -181,7 +181,7 @@ function Etapa2() {
 
   return (
     <>
-      <HeaderBase titulo={"Etapa 2: Escolha de Classe e Trilha"} isFixo={true} pagina_atual={'claro'} />
+
       <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa2'])}>
         <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['slot-imagem-etapa2'], estilosEtapas['coluna'])}>
           <ContainerImagem classe={classesTemp.classeAgente} />

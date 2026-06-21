@@ -1,20 +1,17 @@
-// EtapaContext.jsx
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useState } from 'react';
 
 const EtapaContext = createContext();
 
 export function EtapaProvider({ children }) {
   const [etapaAtual, setEtapaAtual] = useState(1);
-  const navigate = useNavigate();
 
-  const updateEtapa = (novaEtapa) => {
+  // Apenas atualiza o estado, não navega
+  const setEtapa = (novaEtapa) => {
     setEtapaAtual(novaEtapa);
-    navigate(`/criar_ficha/etapa_${novaEtapa}`);
   };
 
   return (
-    <EtapaContext.Provider value={{ etapaAtual, updateEtapa }}>
+    <EtapaContext.Provider value={{ etapaAtual, setEtapa }}>
       {children}
     </EtapaContext.Provider>
   );
