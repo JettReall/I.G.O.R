@@ -16,10 +16,12 @@ public class ClasseDTO
 {
     private Long id;
     private String nome;
+    private int numero_Pericias_Iniciais;
  
     // Converter a entidade Classe para usar apenas o que eu preciso.
     public ClasseDTO(Classe classe) {
         this.id = classe.getId();
         this.nome = classe.getNome();
+        this.numero_Pericias_Iniciais = classe.getNumeroPericiasIniciais();
     }
 }
