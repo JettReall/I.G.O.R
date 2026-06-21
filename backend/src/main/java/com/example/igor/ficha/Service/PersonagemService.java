@@ -107,10 +107,14 @@ public class PersonagemService {
         return new OrigemDTO(origens);
     }
 
-    public List<ClasseDTO> listarClasses(){
+    public List<ClasseDTO> listarClasses() {
         List<Classe> classes = classeRepository.findAll();
         return classes.stream()
         .map(ClasseDTO::new)
         .toList();
+    }
+
+    public List<Pericia> listarPericias() {
+        return periciaRepository.findAll();
     }
 }

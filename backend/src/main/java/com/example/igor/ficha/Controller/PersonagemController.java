@@ -16,6 +16,7 @@ import com.example.igor.ficha.dto.ClasseDTO;
 import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
 import com.example.igor.ficha.entity.personagem.Personagem;
+import com.example.igor.ficha.entity.personagem.Pericia;
 import com.example.igor.ficha.service.PersonagemService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,5 +79,14 @@ public class PersonagemController {
     public ResponseEntity<List<ClasseDTO>> listarClasses() {
         List<ClasseDTO> classe = personagemService.listarClasses();
         return ResponseEntity.ok(classe);
+    }
+    @Operation(
+        summary = "Lista de todas as perícias",
+        description = "Manda uma lista de todas as pericias com id, nome, atributo e descrição"
+    )
+    @GetMapping("/pericias")
+    public ResponseEntity<List<Pericia>> listarPericias() {
+        List<Pericia> pericias = personagemService.listarPericias();
+        return ResponseEntity.ok(pericias);
     }
 }
