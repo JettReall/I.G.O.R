@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'; // adicionado useEffect
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import estilosEtapas from './etapas.module.css';
 import clsx from 'clsx';
 import { CaixaTexto, BotaoAvancarEtapa, BotaoVoltarEtapa } from '../../componentes/criador-ficha/componentes';
@@ -10,7 +11,6 @@ import combatenteImg from '../../assets/imagens/elementos/combatente.png';
 import especialistaImg from '../../assets/imagens/elementos/especialista.png';
 import ocultistaImg from '../../assets/imagens/elementos/ocultista.png';
 import indefinidoImg from '../../assets/imagens/elementos/indefinido.png';
-import { HeaderBase } from '../../componentes/header/headers';
 
 const imagens = {
   combatente: combatenteImg,
@@ -19,14 +19,7 @@ const imagens = {
   indefinido: indefinidoImg,
 };
 
-const classesInfo = ["Combatente", "Especialista", "Ocultista"];
-
-const trilhasPorClasse = {
-  Combatente: ["guerreiro", "Comandante de campo", "Aniquilador", "Tropa de choque"],
-  Especialista: ["Técnico", "Médico de campo", "Negociador", "Atirador de elite","Australupiteco","Camvio","Canario"],
-  Ocultista: ["Graduado", "Intuitivo", "Conduite"],
-};
-
+// Componentes auxiliares (adaptados para trabalhar com objetos)
 function BotaoClasseTrilha({ texto, selecionado, aoClicar }) {
   return (
     <button
@@ -40,18 +33,20 @@ function BotaoClasseTrilha({ texto, selecionado, aoClicar }) {
 }
 
 function ContainerClasseTrilhaInfo({ classe, trilha }) {
+  const nomeClasse = classe?.nome || '';
+  const nomeTrilha = trilha?.nome || '';
   return (
     <div className={clsx(estilosEtapas['container-info-classe-trilha'], estilosEtapas['coluna'])}>
-      <strong>Classe: {classe}</strong>
-      <strong>Trilha: {trilha}</strong>
+      <strong>Classe: {nomeClasse}</strong>
+      <strong>Trilha: {nomeTrilha}</strong>
     </div>
   );
 }
 
 function BotaoAvanco({ classeSelecionada, trilhaSelecionada, flagTrilha, aoAvancar, aoFinalizar }) {
   const isDisabled = flagTrilha
-    ? trilhaSelecionada === ""
-    : classeSelecionada === "";
+    ? !trilhaSelecionada
+    : !classeSelecionada;
 
   if (!flagTrilha) {
     return (
@@ -65,7 +60,7 @@ function BotaoAvanco({ classeSelecionada, trilhaSelecionada, flagTrilha, aoAvanc
         isDisabled={isDisabled}
         funcaoAntesAvancar={() => {
           console.log("Etapa 2 concluída:", { classe: classeSelecionada, trilha: trilhaSelecionada });
-          aoFinalizar(); // chama a função de finalização (que salva)
+          aoFinalizar();
         }}
       />
     );
@@ -74,9 +69,7 @@ function BotaoAvanco({ classeSelecionada, trilhaSelecionada, flagTrilha, aoAvanc
 
 function BotaoVoltar({ flagTrilha, aoRetornar, aoVoltarEtapa }) {
   if (!flagTrilha) {
-    return (
-      <BotaoVoltarEtapa />
-    );
+    return <BotaoVoltarEtapa />;
   } else {
     return (
       <button onClick={aoRetornar} className={estilosEtapas['avanco-etapa2']}>
@@ -86,31 +79,15 @@ function BotaoVoltar({ flagTrilha, aoRetornar, aoVoltarEtapa }) {
   }
 }
 
-function SeletorClasseTrilha({ classeSelecionada, trilhaSelecionada, flagTrilha, aoSelecionar }) {
-  if (flagTrilha) {
-    const trilhas = trilhasPorClasse[classeSelecionada] || [];
-    return (
-      <div className={clsx(estilosEtapas['coluna'], estilosEtapas['botoes-etapa2'])}>
-        {trilhas.map((trilha) => (
-          <BotaoClasseTrilha
-            key={trilha}
-            texto={trilha}
-            selecionado={trilha === trilhaSelecionada}
-            aoClicar={aoSelecionar}
-          />
-        ))}
-      </div>
-    );
-  }
-
+function SeletorClasseTrilha({ itens, selecionado, aoSelecionar }) {
   return (
     <div className={clsx(estilosEtapas['coluna'], estilosEtapas['botoes-etapa2'])}>
-      {classesInfo.map((classe) => (
+      {itens.map((item) => (
         <BotaoClasseTrilha
-          key={classe}
-          texto={classe}
-          selecionado={classe === classeSelecionada}
-          aoClicar={aoSelecionar}
+          key={item.id}
+          texto={item.nome}
+          selecionado={selecionado?.id === item.id}
+          aoClicar={() => aoSelecionar(item)}
         />
       ))}
     </div>
@@ -118,10 +95,11 @@ function SeletorClasseTrilha({ classeSelecionada, trilhaSelecionada, flagTrilha,
 }
 
 function ContainerImagem({ classe }) {
-  const imagem = classe ? imagens[classe.toLowerCase()] : imagens.indefinido;
+  const nomeClasse = classe?.nome?.toLowerCase() || 'indefinido';
+  const imagem = imagens[nomeClasse] || imagens.indefinido;
   return (
     <div className={estilosEtapas['container-imagem']}>
-      <img src={imagem} alt={`Imagem da classe ${classe}`} />
+      <img src={imagem} alt={`Imagem da classe ${nomeClasse}`} />
     </div>
   );
 }
@@ -129,90 +107,170 @@ function ContainerImagem({ classe }) {
 function Etapa2() {
   const { updateEtapa, etapaAtual } = useEtapa();
 
-  // Estados temporários (renomeados com sufixo Temp)
-  const [classesTemp, setClassesTemp] = useState({ classeAgente: "", trilhaAgente: "" });
-  const [flagTrilha, setFlagTrilha] = useState(false);
+  // Estados separados
+  const [classesList, setClassesList] = useState([]);      // todas as classes disponíveis
+  const [trilhasList, setTrilhasList] = useState([]);      // trilhas da classe selecionada
+  const [classeSelecionada, setClasseSelecionada] = useState(null);
+  const [trilhaSelecionada, setTrilhaSelecionada] = useState(null);
+  const [flagTrilha, setFlagTrilha] = useState(false);     // true = escolhendo trilha
+  const [carregando, setCarregando] = useState(true);
+  const [carregandoTrilhas, setCarregandoTrilhas] = useState(false);
 
-  // Carregar dados salvos ao montar o componente
+  // 1. Carregar classes do backend
   useEffect(() => {
-    const temDados = etapa2_dados.classeAgenteEscolhida !== "" || 
-                      etapa2_dados.trilhaAgenteEscolhida !== "";
-
-    if (temDados) {
-      setClassesTemp({
-        classeAgente: etapa2_dados.classeAgenteEscolhida,
-        trilhaAgente: etapa2_dados.trilhaAgenteEscolhida,
-      });
-    }
+    const fetchClasses = async () => {
+      setCarregando(true);
+      try {
+        const response = await axios.get('/api/personagens/classe');
+        if (response.status === 200) {
+          const data = response.data;
+          setClassesList(Array.isArray(data) ? data : []);
+        } else {
+          setClassesList([]);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar classes:', error);
+        setClassesList([]);
+      } finally {
+        setCarregando(false);
+      }
+    };
+    fetchClasses();
   }, []);
 
-  const handleSelecionar = (valor) => {
-    if (!flagTrilha) {
-      const novaClasse = handleSelectUnico(classesTemp.classeAgente, valor);
-      setClassesTemp((prev) => ({ ...prev, classeAgente: novaClasse, trilhaAgente: "" }));
-    } else {
-      const novaTrilha = handleSelectUnico(classesTemp.trilhaAgente, valor);
-      setClassesTemp((prev) => ({ ...prev, trilhaAgente: novaTrilha }));
+  // 2. Carregar dados salvos (se houver) – etapa2_dados guarda objetos
+  useEffect(() => {
+    const carregarDadosSalvos = async () => {
+      const classeSalva = etapa2_dados.classeAgenteEscolhida;
+      const trilhaSalva = etapa2_dados.trilhaAgenteEscolhida;
+
+      if (classeSalva?.id) {
+        setClasseSelecionada(classeSalva);
+        setCarregandoTrilhas(true);
+        try {
+          const response = await axios.post(`/http://localhost:8080/personagens/trilha/${classeSalva.id}`);
+          if (response.status === 200) {
+            const data = response.data;
+            setTrilhasList(Array.isArray(data) ? data : []);
+            setFlagTrilha(true);
+          }
+        } catch (error) {
+          console.error('Erro ao buscar trilhas da classe salva:', error);
+          setTrilhasList([]);
+        } finally {
+          setCarregandoTrilhas(false);
+        }
+        if (trilhaSalva?.id) {
+          setTrilhaSelecionada(trilhaSalva);
+        }
+      }
+    };
+
+    if (classesList.length > 0) {
+      carregarDadosSalvos();
+    }
+  }, [classesList]);
+
+  // Função para selecionar uma classe
+  const handleSelecionarClasse = async (classe) => {
+    setClasseSelecionada(classe);
+    setCarregandoTrilhas(true);
+    try {
+      const response = await axios.post(`/api/personagens/trilha/${classe.id}`);
+      if (response.status === 200) {
+        const data = response.data;
+        setTrilhasList(Array.isArray(data) ? data : []);
+        setFlagTrilha(true);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar trilhas:', error);
+      setTrilhasList([]);
+    } finally {
+      setCarregandoTrilhas(false);
     }
   };
 
-  const handleAvancar = () => {
-    if (!flagTrilha) {
-      setFlagTrilha(true);
-    }
+  // Função para selecionar uma trilha
+  const handleSelecionarTrilha = (trilha) => {
+    setTrilhaSelecionada(trilha);
   };
 
+  // Voltar para a escolha de classes
   const handleRetornar = () => {
-    if (flagTrilha) {
-      setFlagTrilha(false);
-    }
+    setFlagTrilha(false);
+    setTrilhaSelecionada(null);
   };
 
-  const handleVoltarEtapa = () => {
-    updateEtapa(etapaAtual - 1);
-  };
-
-  // Função SalvarEtapa2 – salva os dados na variável global
+  // Salvar etapa2_dados (objetos completos)
   const SalvarEtapa2 = () => {
-    etapa2_dados.classeAgenteEscolhida = classesTemp.classeAgente;
-    etapa2_dados.trilhaAgenteEscolhida = classesTemp.trilhaAgente;
-    console.log("Dados da Etapa 2 salvos em etapa2_dados:", etapa2_dados);
+    etapa2_dados.classeAgenteEscolhida = classeSelecionada;
+    etapa2_dados.trilhaAgenteEscolhida = trilhaSelecionada;
+    console.log('Dados da Etapa 2 salvos em etapa2_dados:', etapa2_dados);
   };
+
+  // Verifica se o botão avançar deve estar desabilitado
+  const isDesabilitado = flagTrilha
+    ? !trilhaSelecionada
+    : !classeSelecionada || carregandoTrilhas;
+
+  if (carregando) {
+    return <div>Carregando classes...</div>;
+  }
 
   return (
-    <>
+    <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa2'])}>
+      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['slot-imagem-etapa2'], estilosEtapas['coluna'])}>
+        <ContainerImagem classe={classeSelecionada} />
+        <ContainerClasseTrilhaInfo classe={classeSelecionada} trilha={trilhaSelecionada} />
+      </div>
 
-      <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa2'])}>
-        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['slot-imagem-etapa2'], estilosEtapas['coluna'])}>
-          <ContainerImagem classe={classesTemp.classeAgente} />
-          <ContainerClasseTrilhaInfo classe={classesTemp.classeAgente} trilha={classesTemp.trilhaAgente} />
-        </div>
-
-        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['seletor-etapa2'], estilosEtapas['coluna'])}>
+      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['seletor-etapa2'], estilosEtapas['coluna'])}>
+        {!flagTrilha ? (
           <SeletorClasseTrilha
-            classeSelecionada={classesTemp.classeAgente}
-            trilhaSelecionada={classesTemp.trilhaAgente}
-            flagTrilha={flagTrilha}
-            aoSelecionar={handleSelecionar}
+            itens={classesList}
+            selecionado={classeSelecionada}
+            aoSelecionar={handleSelecionarClasse}
           />
+        ) : (
+          <SeletorClasseTrilha
+            itens={trilhasList}
+            selecionado={trilhaSelecionada}
+            aoSelecionar={handleSelecionarTrilha}
+          />
+        )}
 
-          <div className={estilosEtapas['container-botoes-avanco']}>
-            <BotaoVoltar
-              flagTrilha={flagTrilha}
-              aoRetornar={handleRetornar}
-              aoVoltarEtapa={handleVoltarEtapa}
+        <div className={estilosEtapas['container-botoes-avanco']}>
+          {/* Botão Voltar */}
+          {flagTrilha ? (
+            <button onClick={handleRetornar} className={estilosEtapas['avanco-etapa2']}>
+              Voltar às classes
+            </button>
+          ) : (
+            <BotaoVoltarEtapa />
+          )}
+
+          {/* Botão Avançar / Confirmar */}
+          {!flagTrilha ? (
+            <button
+              disabled={isDesabilitado}
+              onClick={() => {
+                if (classeSelecionada) {
+                  handleSelecionarClasse(classeSelecionada);
+                }
+              }}
+              className={estilosEtapas['avanco-etapa2']}
+            >
+              {carregandoTrilhas ? 'Carregando...' : 'Avançar'}
+            </button>
+          ) : (
+            <BotaoAvancarEtapa
+              isDisabled={isDesabilitado}
+              funcaoAntesAvancar={SalvarEtapa2}
             />
-            <BotaoAvanco
-              classeSelecionada={classesTemp.classeAgente}
-              trilhaSelecionada={classesTemp.trilhaAgente}
-              flagTrilha={flagTrilha}
-              aoAvancar={handleAvancar}
-              aoFinalizar={SalvarEtapa2}
-            />
-          </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

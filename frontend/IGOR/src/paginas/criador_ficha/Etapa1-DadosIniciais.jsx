@@ -1,22 +1,17 @@
 import clsx from "clsx";
 import estilosEtapas from "./etapas.module.css";
-import { useState, useEffect } from "react"; // adicionado useEffect
-import { BotaoAvancarEtapa, CaixaTexto, InputComBotao } from "../../componentes/criador-ficha/componentes";
+import { useState, useEffect } from "react";
+import { BotaoAvancarEtapa, CaixaTexto } from "../../componentes/criador-ficha/componentes";
 import Modal from "../../componentes/Modal";
 import { handleSelectUnico } from "../../assets/utils/SelecaoUnica";
 import { HeaderBase } from "../../componentes/header/headers";
 import { etapa1_dados } from "./VariaveisSistema";
-import { pericias_dados } from "./VariaveisSistema";
 import { BotaoCancelarCriador } from "../../componentes/botoes/Botoes";
+import Carregando from "../../assets/utils/Carregando";
+import axios from 'axios';
 
-const origensExemplo = [
-  { id: 1, nome: "Acadêmico", pericias: [ pericias_dados[5], pericias_dados[6] ] },
-  { id: 2, nome: "Soldado", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
-  { id: 3, nome: "Policial", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
-  { id: 4, nome: "Ocultista", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
-  { id: 5, nome: "Policial2", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
-  { id: 6, nome: "Ocultista2", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
-];
+// A lista de origens agora virá do backend, então origensExemplo será removido
+// e substituído pelo estado origens.
 
 function InputNome({ texto, nomeCampo, placeholder, valor, aoMudar }) {
   return (
@@ -56,7 +51,7 @@ function BotaoOrigem({ origemSelecionada, aoAbrirModal }) {
 function ContainerOrigens({ origens, origemSelecionada, onSelecionar }) {
   return (
     <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['container-origens'])}>
-      {origens.map((origem) => (
+      {origens?.map((origem) => (
         <div
           key={origem.id}
           onClick={() => onSelecionar(origem)}
@@ -68,20 +63,20 @@ function ContainerOrigens({ origens, origemSelecionada, onSelecionar }) {
           )}
         >
           <strong>{origem.nome}</strong>
-          <p>{origem.pericias[0]?.nome}</p>
-          <p>{origem.pericias[1]?.nome}</p>
+          <p>{origem.pericias?.[0]?.nome || ''}</p>
+          <p>{origem.pericias?.[1]?.nome || ''}</p>
         </div>
       ))}
     </div>
   );
 }
 
-function TelaOrigens({ isAberto, setModalAberto, onConfirmar }) {
+function TelaOrigens({ isAberto, setModalAberto, onConfirmar, origens }) {
   const [origemSelecionada, setOrigemSelecionada] = useState(null);
 
   const handleSelecionar = (origem) => {
     const novaSelecao = handleSelectUnico(origemSelecionada?.id, origem.id);
-    const novaOrigem = novaSelecao ? origensExemplo.find(o => o.id === novaSelecao) : null;
+    const novaOrigem = novaSelecao ? origens.find(o => o.id === novaSelecao) : null;
     setOrigemSelecionada(novaOrigem);
   };
 
@@ -99,7 +94,7 @@ function TelaOrigens({ isAberto, setModalAberto, onConfirmar }) {
       <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['coluna'], estilosEtapas['tela-origens'])}>
         <CaixaTexto texto={"Escolha uma origem"} tela={'caixa-etapa1'}/>
         <ContainerOrigens
-          origens={origensExemplo}
+          origens={origens}
           origemSelecionada={origemSelecionada}
           onSelecionar={handleSelecionar}
         />
@@ -110,13 +105,42 @@ function TelaOrigens({ isAberto, setModalAberto, onConfirmar }) {
 }
 
 function Etapa1() {
-  // Estados temporários (renomeados com sufixo Temp)
+  // Estados temporários
   const [fichaTemp, setFichaTemp] = useState({
     nome: "",
     jogador: "",
   });
   const [origemSelecionadaTemp, setOrigemSelecionadaTemp] = useState(null);
   const [abrirOrigem, setAbrirOrigem] = useState(false);
+  
+  // Estado para armazenar a lista de origens vinda do backend
+  const [origens, setOrigens] = useState([]);
+  const [carregandoOrigens, setCarregandoOrigens] = useState(true);
+
+  // Carregar origens do backend ao montar o componente
+  useEffect(() => {
+    const fetchOrigens = async () => {
+      setCarregandoOrigens(true);
+      try {
+        const response = await axios.get('/api/personagens/origens');
+        console.log(response);
+        
+        if (response.status === 200) {
+          const data = response.data;
+          console.log(data);
+          setOrigens(Array.isArray(data.origens) ? data.origens : []);
+        } else {
+          setOrigens([]);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar origens:', error);
+        setOrigens([]);
+      } finally {
+        setCarregandoOrigens(false);
+      }
+    };
+    fetchOrigens();
+  }, []);
 
   // Carregar dados salvos ao montar o componente
   useEffect(() => {
@@ -131,57 +155,67 @@ function Etapa1() {
         jogador: etapa1_dados.jogador,
       });
 
-      // Se houver origem com id > 0, localiza nos exemplos e seta
-      if (etapa1_dados.origem.id > 0) {
-        const origemEncontrada = origensExemplo.find(o => o.id === etapa1_dados.origem.id);
+      // Se houver origem com id > 0, localiza na lista carregada
+      if (etapa1_dados.origem.id > 0 && origens.length > 0) {
+        const origemEncontrada = origens.find(o => o.id === etapa1_dados.origem.id);
         if (origemEncontrada) {
           setOrigemSelecionadaTemp(origemEncontrada);
         }
       }
     }
-  }, []); // executa apenas na montagem
+  }, [origens]); // depende da lista carregada para encontrar a origem salva
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFichaTemp(prev => ({
       ...prev,
-      [name]: name === "nex" ? Number(value) : value
+      [name]: value
     }));
   };
 
-
   const isDesabilitado = fichaTemp.nome === "" || 
                          fichaTemp.jogador === "" ||  
-                         !origemSelecionadaTemp;
+                         !origemSelecionadaTemp ||
+                         carregandoOrigens;
 
   const handleConfirmarOrigem = (origem) => {
     setOrigemSelecionadaTemp(origem);
   };
 
+  // Função SalvarEtapa1 – adaptada para a estrutura de etapa1_dados
   const SalvarEtapa1 = () => {
-    // Preenche a variável global com os dados atuais
+    // Salva nome e jogador
     etapa1_dados.nome = fichaTemp.nome;
     etapa1_dados.jogador = fichaTemp.jogador;
 
+    // Salva a origem selecionada (se houver)
     if (origemSelecionadaTemp) {
       etapa1_dados.origem.id = origemSelecionadaTemp.id;
       etapa1_dados.origem.nome = origemSelecionadaTemp.nome;
-      etapa1_dados.origem.pericias = origemSelecionadaTemp.pericias.map((nomePericia, index) => ({
-        id: index,
-        nome: nomePericia,
-        atributo: { nome: "", valor: "" },
-        descricao: ""
+      // Mapeia as perícias da origem para o formato esperado
+      etapa1_dados.origem.pericias = origemSelecionadaTemp.pericias.map(p => ({
+        id: p.id,
+        nome: p.nome,
+        atributo: { 
+          nome: p.atributo || "",  // ex: "Presenca", "Intelecto"
+          valor: ""                // sem valor definido, pode ser preenchido depois
+        },
+        descricao: p.descricao || ""
       }));
     } else {
+      // Se não houver origem, reseta o campo
       etapa1_dados.origem = { id: 0, nome: "", pericias: [] };
     }
 
     console.log("Dados da Etapa 1 salvos em etapa1_dados:", etapa1_dados);
   };
 
+  if (carregandoOrigens) {
+    return <Carregando aberto={true} />;
+  }
+
   return (
     <>
-
       <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa1'])}>
         <CaixaTexto texto={`Vamos começar. Primeiro, insira algumas informações iniciais:`} tela={'caixa-etapa1'} />
 
@@ -215,6 +249,7 @@ function Etapa1() {
           isAberto={abrirOrigem}
           setModalAberto={setAbrirOrigem}
           onConfirmar={handleConfirmarOrigem}
+          origens={origens}
         />
       </div>
     </>

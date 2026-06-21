@@ -30,7 +30,7 @@ export function UserProvider({ children }) {
   // Função de logout – limpa estado e localStorage
   const logoutUser = () => {
     setUser(null);
-    localStorage.removeItem('usuario');
+    localStorage.clear();
   };
 
   return (

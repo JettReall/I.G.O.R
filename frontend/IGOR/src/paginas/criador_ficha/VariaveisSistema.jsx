@@ -40,7 +40,6 @@ export const FichaEmBranco = {
 export const etapa1_dados = {
     nome: "",
     jogador: "",
-    nex: 0,
     origem: {
     id: 0,
     nome: "",
@@ -49,28 +48,20 @@ export const etapa1_dados = {
 }
 
 export const etapa2_dados = {
-   classeAgenteEscolhida: "",
-    trilhaAgenteEscolhida: "" 
+   classeAgenteEscolhida: {},
+    trilhaAgenteEscolhida: {}, 
 }
 
 export const etapa3_dados = [
 
-  { nome: "for", valor: 0 },
-  { nome: "agi", valor: 0 },
-  { nome: "vig", valor: 0 },
-  { nome: "int", valor: 0 },
-  { nome: "pre", valor: 0 },
+  { nome: "forca", valor: 0 },
+  { nome: "agilidade", valor: 0 },
+  { nome: "vigor", valor: 0 },
+  { nome: "intelecto", valor: 0 },
+  { nome: "presenca", valor: 0 },
 ] 
 
-export const pericias_dados = [
-  { id: 1, nome: "Atletismo", atributo: "Força", treino: 0 },
-  { id: 2, nome: "Acrobacia", atributo: "Agilidade", treino: 0 },
-  { id: 3, nome: "Percepção", atributo: "Intelecto", treino: 0 },
-  { id: 4, nome: "Furtividade", atributo: "Agilidade", treino: 0 },
-  { id: 5, nome: "Investigação", atributo: "Intelecto", treino: 0 },
-  { id: 6, nome: "Diplomacia", atributo: "Presença", treino: 0 },
-  { id: 7, nome: "Vontade", atributo: "Presença", treino: 0 },
-]; //Essa é a variavel de leitura para as pericias
+export let etapa4_dados = []; //Essa é a variavel de leitura para as pericias
 
 const PersonagemNovo = {
     nome: "",

@@ -148,7 +148,7 @@ function Pericia({ dados, isHeader}) {   // ← recebe um objeto chamado "dados"
   );
 }
 
-function AtaqueRitual({dados_ataque_ritual, isHeader}) {
+function AtaqueRitual({dados_ataque_ritual, isHeader, imagem, tootlip}) {
 
           let classeHeader = "";
      if (isHeader) {
@@ -162,7 +162,7 @@ function AtaqueRitual({dados_ataque_ritual, isHeader}) {
                <strong className={estilos['ataque-ritual-categoria']}>{dados_ataque_ritual.categoria}</strong>
                <strong className={estilos['ataque-ritual-tipo']}>{dados_ataque_ritual.tipo}</strong>
                <button className={estilos['informacao-ataque-ritutal']}>
-                    <img src={AddIcone} alt="" style={estiloImg} title='Adicionar Ataque' />
+                    <img src={imagem} alt="" style={estiloImg} title={tootlip} />
                </button>
           </div>
      )

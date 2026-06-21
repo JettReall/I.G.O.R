@@ -7,6 +7,18 @@ import { useEtapa } from "../../componentes/EtapaContext";
 import { HeaderBase } from "../../componentes/header/headers";
 import { etapa3_dados } from "./VariaveisSistema";
 
+// Mapeamento de nomes curtos (usados internamente) para nomes completos (usados na variável global)
+const mapeamentoNomes = {
+  for: "forca",
+  agi: "agilidade",
+  vig: "vigor",
+  int: "intelecto",
+  pre: "presenca",
+};
+
+// Nomes curtos para uso interno (botões, exibição)
+const nomesInternos = ["for", "agi", "vig", "int", "pre"];
+
 function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosDistribuir }) {
   const handleIncrementar = (nomeAttr) => {
     const attr = atributos.find((a) => a.nome === nomeAttr);
@@ -45,7 +57,7 @@ function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosD
       {atributos.map((attr) => (
         <InputComBotao
           key={attr.nome}
-          texto={attr.nome.toUpperCase()}
+          texto={mapeamentoNomes[attr.nome].toUpperCase()} // exibe o nome completo em maiúsculas
           valor={attr.valor}
           aoIncrementar={() => handleIncrementar(attr.nome)}
           aoDecrementar={() => handleDecrementar(attr.nome)}
@@ -61,16 +73,10 @@ function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosD
 function Etapa3() {
   const { updateEtapa, etapaAtual } = useEtapa();
 
-  // Dados padrão (valores iniciais)
-  const dadosPadrao = [
-    { nome: "for", valor: 0 },
-    { nome: "agi", valor: 0 },
-    { nome: "vig", valor: 0 },
-    { nome: "int", valor: 0 },
-    { nome: "pre", valor: 0 },
-  ];
+  // Dados padrão com nomes internos (curtos)
+  const dadosPadrao = nomesInternos.map((nome) => ({ nome, valor: 0 }));
 
-  // Estados temporários com sufixo Temp
+  // Estados temporários
   const [atributosTemp, setAtributosTemp] = useState(dadosPadrao);
   const [pontosDistribuir, setPontosDistribuir] = useState(9);
 
@@ -80,27 +86,39 @@ function Etapa3() {
     const temDados = etapa3_dados.some(item => item.valor !== 0);
 
     if (temDados) {
-      setAtributosTemp(etapa3_dados);
-      // Recalcula os pontos restantes com base nos valores carregados
-      const totalUsado = etapa3_dados.reduce((acc, item) => acc + item.valor, 0);
+      // Mapeia os dados salvos (com nomes completos) para os nomes internos
+      const dadosCarregados = nomesInternos.map((nomeCurto) => {
+        const nomeCompleto = mapeamentoNomes[nomeCurto];
+        const itemSalvo = etapa3_dados.find(item => item.nome === nomeCompleto);
+        return { nome: nomeCurto, valor: itemSalvo ? itemSalvo.valor : 0 };
+      });
+      setAtributosTemp(dadosCarregados);
+      // Recalcula os pontos restantes
+      const totalUsado = dadosCarregados.reduce((acc, item) => acc + item.valor, 0);
       setPontosDistribuir(9 - totalUsado);
     }
   }, []);
 
   const isBotaoAvancarDesabilitado = pontosDistribuir !== 0;
 
-  // Função SalvarEtapa3 – copia os dados atuais para a variável global
+  // Função SalvarEtapa3 – mapeia os valores para a estrutura global com nomes completos
   const SalvarEtapa3 = () => {
-    // Atualiza o array global com os valores atuais
-    etapa3_dados.length = 0; // limpa o array
-    atributosTemp.forEach(item => etapa3_dados.push({ ...item })); // copia os objetos
+    // Constrói o array com os nomes completos e valores atuais
+    const dadosParaSalvar = atributosTemp.map((item) => ({
+      nome: mapeamentoNomes[item.nome],
+      valor: item.valor,
+    }));
+
+    // Atualiza o array global
+    etapa3_dados.length = 0; // limpa
+    dadosParaSalvar.forEach(item => etapa3_dados.push(item));
 
     console.log("Dados da Etapa 3 salvos em etapa3_dados:", etapa3_dados);
   };
 
   return (
     <>
-
+      <HeaderBase pagina_atual={"claro"} titulo={"Etapa 3: Atributos"} />
       <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa3'])}>
         <div className={estilos['slot-atributo']}>
           <ExibeAtributos atributos={atributosTemp} />

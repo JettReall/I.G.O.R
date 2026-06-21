@@ -1,7 +1,7 @@
 // CriadorFicha.jsx
 import { EtapaProvider, useEtapa } from '../../componentes/EtapaContext';
 import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HeaderBase } from '../../componentes/header/headers';
 import { BotaoCancelarCriador } from '../../componentes/botoes/Botoes';
 
@@ -15,19 +15,30 @@ import Modal from '../../componentes/Modal';
 import clsx from 'clsx';
 import estilosEtapas from "./etapas.module.css";
 
-function ConteudoCriador() {
-    const { etapaAtual, setEtapa } = useEtapa();
+function ConteudoCriador({setHeader}) {
+  const { etapaAtual, setEtapa } = useEtapa();
   const { step } = useParams();
 
   useEffect(() => {
     if (step) {
       const numero = parseInt(step, 10);
       if (!isNaN(numero) && numero !== etapaAtual) {
-        // Atualiza o estado para refletir a URL, sem navegar
         setEtapa(numero);
       }
     }
   }, [step, etapaAtual, setEtapa]);
+
+  // Atualiza o título do header quando a etapa mudar
+  useEffect(() => {
+    const titulos = {
+      1: "Etapa 1: Dados iniciais",
+      2: "Etapa 2: Classe e Trilha",
+      3: "Etapa 3: Atributos",
+      4: "Etapa 4: Pericias",
+      5: "Finalizar"
+    };
+    setHeader(titulos[etapaAtual] || "");
+  }, [etapaAtual, setHeader]);
 
   switch (etapaAtual) {
     case 1: return <Etapa1 />;
@@ -35,9 +46,9 @@ function ConteudoCriador() {
     case 3: return <Etapa3 />;
     case 4: return <Etapa4 />;
     case 5: return <Finalizar />;
+    default: return null;
   }
 }
-
 function Finalizar() {
   return (
     <Modal open={true}>
@@ -60,11 +71,12 @@ console.log("Salvei, confia");
 
 
 function CriadorFicha() {
+  const [texto, setTexto] = useState("");
   return (
     <EtapaProvider>
-            <HeaderBase pagina_atual={'claro'} isFixo={true} titulo={"Etapa 1: Dados iniciais"} 
+            <HeaderBase pagina_atual={'claro'} isFixo={true} titulo={texto} 
       botao_L={<BotaoCancelarCriador />}/>
-      <ConteudoCriador />
+      <ConteudoCriador setHeader={setTexto} />
     </EtapaProvider>
   );
 }

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { ConfirmarCriar } from './ConfirmarCriar.jsx'
 import Modal from '../../componentes/Modal.jsx'
 import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes.jsx'
+import Carregando from '../../assets/utils/Carregando.jsx'
 
 function ContainerCampanhas({ campanhas, aoClicarCampanha }) {
   const classeCampanha = estilos['container-botao-campanha'];
@@ -121,13 +122,6 @@ function Campanhas() {
     fetchCampanhas();
   }, [user?.id, loginUser, navigate]); // Adiciona loginUser como dependência
 
-  function TelaCarregando() {
-    const stilo = {
-      placeSelf: "center",
-      justifySelf: 'center',
-    }
-    return <h1 style={stilo}>Carregando...</h1>
-  }
 
   // Se não houver usuário, exibe o modal de login
   if (mostrarModalLogin) {
@@ -150,12 +144,12 @@ function Campanhas() {
       </header>
 
       <nav className="latertal">
-        <Nav usuario={user?.nome || ''} />
+        <Nav usuario={user} />
       </nav>
 
       <main>
         {carregando ? 
-          <TelaCarregando/> :
+          <Carregando aberto={carregando}/> :
           <ContainerCampanhas
             campanhas={campanhas}
             aoClicarCampanha={handleClickCampanha}

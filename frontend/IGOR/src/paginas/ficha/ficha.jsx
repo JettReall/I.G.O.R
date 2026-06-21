@@ -16,6 +16,11 @@ import {
 import estilos from './ficha.module.css';
 import Modal from "../../componentes/Modal";
 import { useUser } from '../../UserContext.jsx';
+import Lapis from '../../assets/imagens/icones/lapis.png'
+import LevelUP from '../../assets/imagens/icones/level-up.png'
+import AddIcone from '../../assets/imagens/icones/add.png'
+import Delete from '../../assets/imagens/icones/lixo.png'
+import InfoIcone from '../../assets/imagens/icones/simbolo-de-informacao.png'
 
 // Componentes auxiliares – agora recebem o objeto ficha diretamente
 function ContainerPericias({ ficha }) {
@@ -47,7 +52,7 @@ function ContainerAtaques({ ficha }) {
 
   return (
     <div className={estilos['container-ataque-ritual']}>
-      <AtaqueRitual dados_ataque_ritual={headerAtaque} isHeader={true} />
+      <AtaqueRitual dados_ataque_ritual={headerAtaque} isHeader={true} imagem={AddIcone} tootlip={'Adicionar ataque'}/>
       {ficha.ataques?.map((ataque, index) => (
         <AtaqueRitual key={index} dados_ataque_ritual={ataque} />
       ))}
@@ -64,7 +69,7 @@ function ContainerRituais({ ficha }) {
 
   return (
     <div className={estilos['container-ataque-ritual']}>
-      <AtaqueRitual dados_ataque_ritual={headerRitual} isHeader={true} />
+      <AtaqueRitual dados_ataque_ritual={headerRitual} isHeader={true} imagem={AddIcone} tootlip={'Adicionar Ritual'}/>
       {ficha.rituais?.map((ritual, index) => (
         <AtaqueRitual key={index} dados_ataque_ritual={ritual} />
       ))}
@@ -85,7 +90,7 @@ function ContainerItems({ ficha }) {
 
   return (
     <div className={estilos['container-itens']}>
-      <Item dados_item={headerItem} isHeader={true} />
+      <Item dados_item={headerItem} isHeader={true} imagem={AddIcone} />
       {itens.map((item, index) => (
         <Item key={index} dados_item={item} />
       ))}

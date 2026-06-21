@@ -94,7 +94,7 @@ function TelaCampanhaAgente() {
       <header>
         <HeaderDeCampanha
           titulo={campanha.nome}
-          botao_L={<BotaoRetorno />}
+          botao_L={<BotaoRetorno caminho={'/campanhas'}/>}
           pagina_atual={'campanha'}
         />
       </header>
