@@ -82,7 +82,7 @@
 }
 
 .botoes-topo {
-     padding: 15px;
-     gap: 24px;
-     display: flex;
+  display: flex;
+  align-items: center; /* Centraliza verticalmente o texto e o botão */
+  gap: 20px;           /* Espaçamento horizontal entre eles */
 }

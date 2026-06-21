@@ -28,13 +28,24 @@ function Homepage() {
   }
 
   const BotoesHome = () => {
-    return (    
-      <div className={estilos['botoes-topo']}>      
-        <BotaoLoginCadastro texto={'Cadastrar'} corBotao={"escuro"} aoClicar={() => navegar('/cadastro')} />
-        <BotaoLoginCadastro texto={'Login'} aoClicar={HandleClick} /> {/* corrigido */}
-      </div>
-    )
-  }
+      return (    
+        <div className={estilos['botoes-topo']}>      
+          {/* Alterado texto para 'Criar conta' e removido o fundo escuro */}
+          <BotaoLoginCadastro 
+            texto={'Criar conta'} 
+            corBotao={"claro"} // ou remova se o padrão for sem fundo
+            aoClicar={() => navegar('/cadastro')} 
+          />
+          
+          {/* Adicionado o fundo escuro para o Login conforme o Figma */}
+          <BotaoLoginCadastro 
+            texto={'Login'} 
+            corBotao={"escuro"} 
+            aoClicar={HandleClick} 
+          />
+        </div>
+      )
+    }
 
   return (
     <div className={estilos.homepage}>  
