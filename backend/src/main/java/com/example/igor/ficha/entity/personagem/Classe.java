@@ -24,8 +24,12 @@ import lombok.Setter;
 public class Classe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; //1- Combatente, 2- Especialista, 3- Ocultista
     private String nome;
+    
+    @Column(name = "numero_pericias_iniciais")
+    private int numeroPericiasIniciais;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "inicial", column = @Column(name = "hp_inicial")),

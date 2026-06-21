@@ -1,9 +1,15 @@
 package com.example.igor.Campanha;
 
 import com.example.igor.Campanha.DTO.CampanhaCombateDTO;
+import com.example.igor.Campanha.DTO.CampanhaFichaDTO;
 import com.example.igor.Campanha.Exception.CampanhaJaExisteException;
 import com.example.igor.Combate.Combate;
 import com.example.igor.Combate.Repositories.CombateRepository;
+import com.example.igor.ficha.FichaUtil.TipoFicha;
+import com.example.igor.ficha.Repositories.MonstroRepository;
+import com.example.igor.ficha.entity.Monstro;
+import com.example.igor.ficha.entity.personagem.Personagem;
+import com.example.igor.ficha.Repositories.PersonagemRepository;
 import com.example.igor.usuario.Usuario;
 import com.example.igor.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +25,12 @@ public class CampanhaService {
     private UsuarioRepository usuarioRepository;
 
     //TODO
-    /*
+
     @Autowired
     private MonstroRepository monstroRepository;
     @Autowired
     private PersonagemRepository personagemRepository;
 
-     */
     @Autowired
     private CombateRepository combateRepository;
 
@@ -49,21 +54,21 @@ public class CampanhaService {
         }
     }
 
-    /*
+
     //TODO adicionar o repository de ficha pra verificar se a ficha existe
     public Campanha addFicha(CampanhaFichaDTO dto) {
         Campanha campanha = repository.findById(dto.campanhaId)
                 .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
 
-        if (dto.ficha.getTipo() == TipoFicha.PERSONAGEM) {
-            Personagem personagem = personagemRepository.findById(dto.ficha.getId())
+        if (dto.fichaDTO.getTipo() == TipoFicha.PERSONAGEM) {
+            Personagem personagem = personagemRepository.findById(dto.fichaDTO.getId())
                     .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
 
             campanha.getPersonagens().add(personagem);
         }
 
-        if (dto.ficha.getTipo() == TipoFicha.MONSTRO) {
-            Monstro monstro = monstroRepository.findById(dto.ficha.getId())
+        if (dto.fichaDTO.getTipo() == TipoFicha.MONSTRO) {
+            Monstro monstro = monstroRepository.findById(dto.fichaDTO.getId())
                     .orElseThrow(() -> new RuntimeException("Monstro não encontrado"));
 
             campanha.getMonstros().add(monstro);
@@ -76,27 +81,27 @@ public class CampanhaService {
         Campanha campanha = repository.findById(dto.campanhaId)
                 .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
 
-        if (dto.ficha.getTipo() == TipoFicha.PERSONAGEM) {
-            campanha.getPersonagens().removeIf(p -> p.getId().equals(dto.ficha.getId()));
+        if (dto.fichaDTO.getTipo() == TipoFicha.PERSONAGEM) {
+            campanha.getPersonagens().removeIf(p -> p.getId().equals(dto.fichaDTO.getId()));
         }
 
-        if (dto.ficha.getTipo() == TipoFicha.MONSTRO) {
-            campanha.getMonstros().removeIf(m -> m.getId().equals(dto.ficha.getId()));
+        if (dto.fichaDTO.getTipo() == TipoFicha.MONSTRO) {
+            campanha.getMonstros().removeIf(m -> m.getId().equals(dto.fichaDTO.getId()));
         }
 
         for (Combate combate : campanha.getCombates()) {
             combate.getPersonagens()
-                    .removeIf(personagem -> personagem.getId().equals(dto.ficha.getId()));
+                    .removeIf(personagem -> personagem.getId().equals(dto.fichaDTO.getId()));
         }
         for (Combate combate : campanha.getCombates()) {
             combate.getMonstros()
-                    .removeIf(monstro -> monstro.getId().equals(dto.ficha.getId()));
+                    .removeIf(monstro -> monstro.getId().equals(dto.fichaDTO.getId()));
         }
 
         return repository.save(campanha);
     }
 
-     */
+
 
     public Campanha addCombate(CampanhaCombateDTO dto){
         Campanha campanha = repository.findById(dto.campanhaId)
@@ -124,4 +129,7 @@ public class CampanhaService {
         return repository.findByUsuarioId(id);
     }
 
+    public List<Combate> getCombates(Long id){
+        return combateRepository.findByCampanhaId(id);
+    }
 }
