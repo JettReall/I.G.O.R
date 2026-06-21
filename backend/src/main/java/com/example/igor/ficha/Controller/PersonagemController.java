@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.igor.ficha.dto.ClasseDTO;
 import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
 import com.example.igor.ficha.entity.personagem.Personagem;
@@ -68,5 +69,14 @@ public class PersonagemController {
     public ResponseEntity<OrigemDTO> listarOrigens() {
         OrigemDTO origens = personagemService.listarOrigens();
         return ResponseEntity.ok(origens);
+    }
+    @Operation(
+            summary = "Lista de todas as classes",
+            description = "Manda uma lista de todas as classes resumidas com id e nome"
+    )//manda todas as classes
+    @GetMapping("/classe")
+    public ResponseEntity<List<ClasseDTO>> listarClasses() {
+        List<ClasseDTO> classe = personagemService.listarClasses();
+        return ResponseEntity.ok(classe);
     }
 }
