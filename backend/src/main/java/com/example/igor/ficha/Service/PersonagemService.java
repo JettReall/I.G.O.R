@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.Repositories.PericiaRepository;
+import com.example.igor.ficha.dto.ClasseDTO;
 import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
 import com.example.igor.ficha.entity.personagem.Classe;
@@ -95,14 +96,21 @@ public class PersonagemService {
      
     //Lista os personagens de um usuario
     public List<Personagem> listarPorUsuario(Long idUsuario) {
-    Usuario usuario = usuarioRepository.findById(idUsuario)
+        Usuario usuario = usuarioRepository.findById(idUsuario)
         .orElseThrow(() -> new RuntimeException("Usuário com id " + idUsuario + " não encontrado"));
         
-    return usuario.getPersonagemList();
+        return usuario.getPersonagemList();
     }
 
     public OrigemDTO listarOrigens() {
-    List<Origem> origens = origemRepository.findAllComPericias();
-    return new OrigemDTO(origens);
-}
+        List<Origem> origens = origemRepository.findAllComPericias();
+        return new OrigemDTO(origens);
+    }
+
+    public List<ClasseDTO> listarClasses(){
+        List<Classe> classes = classeRepository.findAll();
+        return classes.stream()
+        .map(ClasseDTO::new)
+        .toList();
+    }
 }
