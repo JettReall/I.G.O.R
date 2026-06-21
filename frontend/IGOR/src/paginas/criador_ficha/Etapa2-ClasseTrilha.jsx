@@ -148,7 +148,7 @@ function Etapa2() {
         setClasseSelecionada(classeSalva);
         setCarregandoTrilhas(true);
         try {
-          const response = await axios.post(`/http://localhost:8080/personagens/trilha/${classeSalva.id}`);
+          const response = await axios.get(`/api/personagens/trilha/${classeSalva.id}`);
           if (response.status === 200) {
             const data = response.data;
             setTrilhasList(Array.isArray(data) ? data : []);
@@ -176,7 +176,7 @@ function Etapa2() {
     setClasseSelecionada(classe);
     setCarregandoTrilhas(true);
     try {
-      const response = await axios.post(`/api/personagens/trilha/${classe.id}`);
+      const response = await axios.get(`/api/personagens/trilha/${classe.id}`);
       if (response.status === 200) {
         const data = response.data;
         setTrilhasList(Array.isArray(data) ? data : []);
