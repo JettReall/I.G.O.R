@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.igor.ficha.dto.ClasseDTO;
+import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
 import com.example.igor.ficha.entity.personagem.Personagem;
 import com.example.igor.ficha.Service.PersonagemService;
@@ -57,5 +59,24 @@ public class PersonagemController {
     public ResponseEntity<List<Personagem>> listarPorJogador(@PathVariable Long id) {
         List<Personagem> personagens = personagemService.listarPorUsuario(id);
         return ResponseEntity.ok(personagens);
+    }
+
+    @Operation(
+            summary = "Lista de todas as origens",
+            description = "Manda uma lista com todas as origens e as pericias associadas a elas"
+    )//manda todas as origens pro front
+    @GetMapping("/origens")
+    public ResponseEntity<OrigemDTO> listarOrigens() {
+        OrigemDTO origens = personagemService.listarOrigens();
+        return ResponseEntity.ok(origens);
+    }
+    @Operation(
+            summary = "Lista de todas as classes",
+            description = "Manda uma lista de todas as classes resumidas com id e nome"
+    )//manda todas as classes
+    @GetMapping("/classe")
+    public ResponseEntity<List<ClasseDTO>> listarClasses() {
+        List<ClasseDTO> classe = personagemService.listarClasses();
+        return ResponseEntity.ok(classe);
     }
 }
