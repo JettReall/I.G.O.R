@@ -1,5 +1,6 @@
 package com.example.igor.Campanha;
 
+import java.util.List;
 import com.example.igor.Campanha.DTO.CampanhaCombateDTO;
 import com.example.igor.Campanha.DTO.CampanhaFichaDTO;
 import com.example.igor.Combate.Combate;
