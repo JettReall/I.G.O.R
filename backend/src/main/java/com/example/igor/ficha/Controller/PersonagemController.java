@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.igor.ficha.dto.ClasseDTO;
+import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
+import com.example.igor.ficha.dto.TrilhaDTO;
+import com.example.igor.ficha.entity.personagem.Pericia;
 import com.example.igor.ficha.entity.personagem.Personagem;
 import com.example.igor.ficha.service.PersonagemService;
 
@@ -57,5 +61,45 @@ public class PersonagemController {
     public ResponseEntity<List<Personagem>> listarPorJogador(@PathVariable Long id) {
         List<Personagem> personagens = personagemService.listarPorUsuario(id);
         return ResponseEntity.ok(personagens);
+    }
+
+    @Operation(
+            summary = "Lista de todas as origens",
+            description = "Manda uma lista com todas as origens e as pericias associadas a elas"
+    )//manda todas as origens pro front
+    @GetMapping("/origens")
+    public ResponseEntity<OrigemDTO> listarOrigens() {
+        OrigemDTO origens = personagemService.listarOrigens();
+        return ResponseEntity.ok(origens);
+    }
+
+    @Operation(
+            summary = "Lista de todas as classes",
+            description = "Manda uma lista de todas as classes resumidas com id e nome"
+    )//manda todas as classes
+    @GetMapping("/classe")
+    public ResponseEntity<List<ClasseDTO>> listarClasses() {
+        List<ClasseDTO> classe = personagemService.listarClasses();
+        return ResponseEntity.ok(classe);
+    }
+
+     @Operation(
+            summary = "Lista de todas as trilhas",
+            description = "Manda uma lista de opções de trilhas que podem ser escolhidas pela classe enviada."
+    )//manda as opções de trilha baseado na classe
+    @PostMapping("/trilha")
+    public ResponseEntity<List<TrilhaDTO>> listarTrilhas(@RequestBody ClasseDTO dto) {
+    List<TrilhaDTO> trilhas = personagemService.listarTrilhas(dto.getId());
+    return ResponseEntity.ok(trilhas);
+}
+
+    @Operation(
+        summary = "Lista de todas as perícias",
+        description = "Manda uma lista de todas as pericias com id, nome, atributo e descrição"
+    )//manda todas as pericia
+    @GetMapping("/pericias")
+    public ResponseEntity<List<Pericia>> listarPericias() {
+        List<Pericia> pericias = personagemService.listarPericias();
+        return ResponseEntity.ok(pericias);
     }
 }
