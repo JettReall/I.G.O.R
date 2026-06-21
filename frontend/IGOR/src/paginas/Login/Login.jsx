@@ -17,12 +17,68 @@ function ContainerLogo() {
   );
 }
 
-function ContainerDados() {
+function ContainerDados({ abrirModal, carregando, email, setEmail, senha, setSenha, erro, handleSubmit }) {
+  const navigate = useNavigate();
+
+  return (
+    <div className="container-dados">
+      <form onSubmit={handleSubmit} id='form-login'>
+        <div className="elemento-input">
+          <label htmlFor="email">E-mail</label>
+          <input 
+            type="email" 
+            id="email" 
+            placeholder="email@example.com" 
+            required 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+        </div>
+
+        <div className="elemento-input">
+          <label htmlFor="senha">Senha</label>
+          <input 
+            type="password" 
+            id="senha" 
+            placeholder="Digite sua senha" 
+            required 
+            value={senha} 
+            onChange={(e) => setSenha(e.target.value)} 
+          />
+          <button type="button" className="link-esqueceu" onClick={abrirModal}>
+            Esqueceu a senha?
+          </button>
+        </div>
+
+        {erro && <p id="mensagens-erro">{erro}</p>}
+
+        <div className="container-botoes">
+          <BotaoLoginCadastro 
+            texto="Criar conta" 
+            corBotao="claro" 
+            aoClicar={(e) => { e.preventDefault(); navigate('/cadastro'); }} 
+          />
+
+          <BotaoLoginCadastro 
+            texto={carregando ? 'Logando...' : 'Entrar'} 
+            corBotao="escuro"
+            type="submit" 
+            disabled={!(email && senha) || carregando}
+          />
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function Container() {
+  const navigate = useNavigate();
+  const { loginUser } = useUser();
+
+  // Estados do Login
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
-  const navigate = useNavigate();
-  const { loginUser } = useUser();
   const [carregando, setCarregando] = useState(false);
 
   // Estados para o Overlay do Esqueceu a Senha
@@ -59,7 +115,7 @@ function ContainerDados() {
     setMsgModal({ tipo: '', texto: '' });
     try {
       await axios.post('api/usuarios/esqueceu-senha', { email: emailRecuperacao });
-      setEtapaEsqueceu(2); // Avança para colocar o código
+      setEtapaEsqueceu(2); 
     } catch (err) {
       setMsgModal({ tipo: 'erro', texto: 'E-mail não encontrado ou erro no servidor.' });
     }
@@ -86,39 +142,26 @@ function ContainerDados() {
   };
 
   return (
-    <div className="container-dados">
-      <form onSubmit={handleSubmit} id='form-login'>
-        <div className="elemento-input">
-          <label htmlFor="email">E-mail</label>
-          <input type="email" id="email" placeholder="email@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
+    <div className="tela-fundo-login">
+      <div className="posicionar-botao-voltar">
+        <BotaoRetorno texto="‹" />
+      </div>
+      
+      <div className="container-grande">
+        <ContainerLogo />
+        <ContainerDados 
+          abrirModal={() => setModalAberto(true)}
+          carregando={carregando}
+          email={email}
+          setEmail={setEmail}
+          senha={senha}
+          setSenha={setSenha}
+          erro={erro}
+          handleSubmit={handleSubmit}
+        />
+      </div>
 
-        <div className="elemento-input">
-          <label htmlFor="senha">Senha</label>
-          <input type="password" id="senha" placeholder="Digite sua senha" required value={senha} onChange={(e) => setSenha(e.target.value)} />
-          {/* Link alterado para abrir o modal */}
-          <button type="button" className="link-esqueceu" onClick={() => setModalAberto(true)}>Esqueceu a senha?</button>
-        </div>
-
-        {erro && <p id="mensagens-erro">{erro}</p>}
-
-        <div className="container-botoes">
-          <BotaoLoginCadastro 
-            texto="Criar conta" 
-            corBotao="claro" 
-            aoClicar={(e) => { e.preventDefault(); navigate('/cadastro'); }} 
-          />
-
-          <BotaoLoginCadastro 
-            texto={carregando ? 'Logando...' : 'Entrar'} 
-            corBotao="escuro" // Criando a variação escura padronizada
-            type="submit"    // Mantém a função de enviar o formulário
-            disabled={!(email && senha) || carregando}
-          />
-        </div>
-      </form>
-
-      {/* Janela Overlay (Modal) */}
+      {/* Janela Overlay (Modal) - Isolado na raiz da tela */}
       {modalAberto && (
         <div className="overlay-esqueceu">
           <div className="modal-esqueceu">
@@ -127,7 +170,7 @@ function ContainerDados() {
             {etapaEsqueceu === 1 ? (
               <form onSubmit={enviarEmailRecuperacao}>
                 <h3>Recuperar Senha</h3>
-                <p>Insira seu e-mail cadastrado na Ordem para receber o código de verificação.</p>
+                <p>Insira seu e-mail cadastrado para receber o código de verificação.</p>
                 <div className="elemento-input">
                   <input 
                     type="email" 
@@ -137,7 +180,14 @@ function ContainerDados() {
                     onChange={(e) => setEmailRecuperacao(e.target.value)}
                   />
                 </div>
-                <button type="submit" className="botao-envio-login" style={{ marginTop: '15px', width: '100%' }}>Enviar Código</button>
+                <div style={{ marginTop: '15px' }}>
+                  <BotaoLoginCadastro 
+                    texto="Enviar Código" 
+                    corBotao="escuro" 
+                    type="submit" 
+                    style={{ width: '100%' }}
+                  />
+                </div>
               </form>
             ) : (
               <form onSubmit={redefinirSenhaFinal}>
@@ -146,15 +196,34 @@ function ContainerDados() {
                 
                 <div className="elemento-input" style={{ marginBottom: '10px' }}>
                   <label>Código de Verificação</label>
-                  <input type="text" placeholder="Digite o código" required value={codigoVerificacao} onChange={(e) => setCodigoVerificacao(e.target.value)} />
+                  <input 
+                    type="text" 
+                    placeholder="Digite o código" 
+                    required 
+                    value={codigoVerificacao} 
+                    onChange={(e) => setCodigoVerificacao(e.target.value)} 
+                  />
                 </div>
 
                 <div className="elemento-input">
                   <label>Nova Senha</label>
-                  <input type="password" placeholder="Digite a nova senha" required value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} />
+                  <input 
+                    type="password" 
+                    placeholder="Digite a nova senha" 
+                    required 
+                    value={novaSenha} 
+                    onChange={(e) => setNovaSenha(e.target.value)} 
+                  />
                 </div>
 
-                <button type="submit" className="botao-envio-login" style={{ marginTop: '15px', width: '100%' }}>Alterar Senha</button>
+                <div style={{ marginTop: '15px' }}>
+                  <BotaoLoginCadastro 
+                    texto="Alterar Senha" 
+                    corBotao="escuro" 
+                    type="submit" 
+                    style={{ width: '100%' }}
+                  />
+                </div>
               </form>
             )}
 
@@ -166,21 +235,6 @@ function ContainerDados() {
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-function Container() {
-  return (
-    <div className="tela-fundo-login">
-      {/* Botão de retorno fixado no canto superior esquerdo da tela */}
-      <div className="posicionar-botao-voltar">
-        <BotaoRetorno texto="‹" />
-      </div>
-      <div className="container-grande">
-        <ContainerLogo />
-        <ContainerDados />
-      </div>
     </div>
   );
 }
