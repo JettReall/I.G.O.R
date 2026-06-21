@@ -86,12 +86,68 @@ public class CombateController {
 
     @Operation(
             summary = "Pula a vez",
-            description = "recebe um id de um combate.\n\nPula a vez = turno+1, aumenta 1 no numero de turno e restaura acoes atuais(ACAO_PADRAO,ACAO_LIvre etc)"
+            description = "recebe um id de um combate.\n\nPula a vez = turno+1, aumenta 1 no numero de turno e restaura acoes atuais(ACAO_PADRAO,ACAO_LIvre etc)" +
+                    "\n\nTbm diminui o contador de efeitos do combate e dos personagens em 1"
     )
     @GetMapping("/skip/{id}")
     private Combate pularVez(@PathVariable Long id){
         return combateService.pularVez(id);
     }
 
+
+    @Operation(
+            summary = "Gasta uma acao de movimento",
+            description = "Recebe um id de um combate e seta o acao movimento dele pra false"
+    )
+    @GetMapping("/acao/movimento/{id}")
+    private Combate usaAcaoMovimento(@PathVariable Long id){
+        return combateService.usaAcaoMovimento(id);
+    }
+
+    @Operation(
+            summary = "Gasta uma acao Padrao",
+            description = "Recebe um id de um combate e seta o acao padrao dele pra false"
+    )
+    @GetMapping("/acao/padrao/{id}")
+    private Combate usaAcaoPadrao(@PathVariable Long id){
+        return combateService.usaAcaoPadrao(id);
+    }
+
+    @Operation(
+            summary = "Gasta uma acao livre",
+            description = "Recebe um id de um combate e seta o acao livre dele pra false"
+    )
+    @GetMapping("/acao/livre/{id}")
+    private Combate usaAcaoLivre(@PathVariable Long id){
+        return combateService.usaAcaoLivre(id);
+    }
+
+
+    @Operation(
+            summary = "Recebe um combate por id",
+            description = "Recebe um id de combate e retorna o combate com esse id"
+    )
+    @GetMapping("/{id}")
+    private Combate getCombate(@PathVariable Long id){
+        return combateService.getCombate(id);
+    }
+
+    @Operation(
+            summary = "Deleta um combate",
+            description = "Recebe um id de um combate e deleta ele"
+    )
+    @DeleteMapping("/{id}")
+    private void deleteCombate(@PathVariable Long id){
+        combateService.deleteCombate(id);
+    }
+
+    @Operation(
+            summary = "Reseta os personagens de um combate",
+            description = "Recebe um id de combate e reseta todos os personagens dele, e apaga o combate logo após"
+    )
+    @DeleteMapping("/reset/{id}")
+    private void resetCombate(@PathVariable Long id){
+        combateService.resetCombate(id);
+    }
 }
 
