@@ -1,4 +1,4 @@
-package com.example.igor.ficha.repository;
+package com.example.igor.ficha.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

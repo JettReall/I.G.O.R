@@ -9,7 +9,7 @@ import com.example.igor.ficha.FichaUtil.TipoFicha;
 import com.example.igor.ficha.Repositories.MonstroRepository;
 import com.example.igor.ficha.entity.Monstro;
 import com.example.igor.ficha.entity.personagem.Personagem;
-import com.example.igor.ficha.repository.PersonagemRepository;
+import com.example.igor.ficha.Repositories.PersonagemRepository;
 import com.example.igor.usuario.Usuario;
 import com.example.igor.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.igor.ficha.repository;
+package com.example.igor.ficha.Repositories;
 
 import com.example.igor.ficha.entity.personagem.Classe; //outro pacote
 import org.springframework.data.jpa.repository.JpaRepository;
