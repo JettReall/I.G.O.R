@@ -1,19 +1,21 @@
-# <h1>I.G.O.R.</h1>
-### Interface de Gerenciamento da Ordo Realitas  
-Sistema de gerenciamento de fichas e combate para RPG de mesa, com suporte a personagens, monstros, campanhas, perícias, ações (ataques, rituais, habilidades) e progressão de NEX.  
+# I.G.O.R. — Interface de Gerenciamento da Ordo Realitas
+
+**Disciplina:** Programação Orientada a Objetos (POO)  
+**Professor:** Igor Valente  
+**Instituição:** Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE) — Campus Maracanaú  
+**Período Letivo:** 2026.1  
+
+--- 
   
-> Programação Orientada a Objetos  
-> Professor Igor Valente    
-> IFCE Maracanaú  
-> 2026.1    
-  
-## Equipe
-```Hosana```: UX / FrontEnd / Coord  
-```Milo```: UX / FrontEnd  
-```Leonel```: Banco de Dados / BackEnd  
-```Guilherme```: Banco de Dados / Backend  
+## Equipe e Organização
+* **Hosana** (Coordenadora, UX/UI Design & Desenvolvimento Front-End)
+* **Milo** (UX/UI Design & Desenvolvimento Front-End)
+* **Leonel** (Arquitetura de Banco de Dados & Desenvolvimento Back-End)
+* **Guilherme** (Arquitetura de Banco de Dados & Desenvolvimento Back-End)
 
 ---
+## Sobre o sistema
+**O Diferencial do I.G.O.R.:** Unir a criação de fichas/campanhas com a validação automática de regras do Sistema *Ordem Paranormal*, dispondo de interface focada em usabilidade.
 
 ## Tecnologias
 
