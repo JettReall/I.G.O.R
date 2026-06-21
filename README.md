@@ -1,6 +1,19 @@
-# I.G.O.R.
+# <h1>I.G.O.R.</h1>
+### Interface de Gerenciamento da Ordo Realitas  
+Sistema de gerenciamento de fichas e combate para RPG de mesa, com suporte a personagens, monstros, campanhas, perícias, ações (ataques, rituais, habilidades) e progressão de NEX.  
+  
+> Programação Orientada a Objetos  
+> Professor Igor Valente    
+> IFCE Maracanaú  
+> 2026.1    
+  
+## Equipe
+```Hosana```: UX / FrontEnd / Coord  
+```Milo```: UX / FrontEnd  
+```Leonel```: Banco de Dados / BackEnd  
+```Guilherme```: Banco de Dados / Backend  
 
-Sistema de gerenciamento de fichas e combate para RPG de mesa, com suporte a personagens, monstros, campanhas, perícias, ações (ataques, rituais, habilidades) e progressão de NEX.
+---
 
 ## Tecnologias
 
