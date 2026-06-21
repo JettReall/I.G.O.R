@@ -7,19 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.igor.ficha.FichaUtil.Stats;
+import com.example.igor.ficha.Repositories.ClasseRepository;
+import com.example.igor.ficha.Repositories.OrigemRepository;
+import com.example.igor.ficha.Repositories.PericiaPersonagemRepository;
 import com.example.igor.ficha.Repositories.PericiaRepository;
+import com.example.igor.ficha.Repositories.PersonagemRepository;
+import com.example.igor.ficha.Repositories.TrilhaRepository;
 import com.example.igor.ficha.dto.ClasseDTO;
 import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
+import com.example.igor.ficha.dto.TrilhaDTO;
 import com.example.igor.ficha.entity.personagem.Classe;
 import com.example.igor.ficha.entity.personagem.Origem;
 import com.example.igor.ficha.entity.personagem.Pericia;
 import com.example.igor.ficha.entity.personagem.PericiaPersonagem;
 import com.example.igor.ficha.entity.personagem.Personagem;
-import com.example.igor.ficha.Repositories.ClasseRepository;
-import com.example.igor.ficha.Repositories.OrigemRepository;
-import com.example.igor.ficha.Repositories.PericiaPersonagemRepository;
-import com.example.igor.ficha.Repositories.PersonagemRepository;
+import com.example.igor.ficha.entity.personagem.Trilha;
 import com.example.igor.usuario.Usuario;
 import com.example.igor.usuario.UsuarioRepository;
 
@@ -43,6 +46,9 @@ public class PersonagemService {
 
     @Autowired
     private OrigemRepository origemRepository;
+
+    @Autowired
+    private TrilhaRepository trilhaRepository;
 
     //Inicializa um personagem no banco.
     public Personagem criarPersonagem(PersonagemDTO dto, Long Id) {
@@ -102,19 +108,30 @@ public class PersonagemService {
         return usuario.getPersonagemList();
     }
 
+    //Listar todas as origens
     public OrigemDTO listarOrigens() {
         List<Origem> origens = origemRepository.findAllComPericias();
         return new OrigemDTO(origens);
     }
-
-    public List<ClasseDTO> listarClasses() {
+    
+    //Listar todas as classes
+    public List<ClasseDTO> listarClasses(){
         List<Classe> classes = classeRepository.findAll();
         return classes.stream()
         .map(ClasseDTO::new)
         .toList();
     }
 
+    //Listar todas as pericias
     public List<Pericia> listarPericias() {
         return periciaRepository.findAll();
     }
+
+    //Listar as trilhas disponiveis da classe
+    public List<TrilhaDTO> listarTrilhas(Long classeId) {
+    List<Trilha> trilhas = trilhaRepository.findByClasseId(classeId);
+    return trilhas.stream()
+        .map(TrilhaDTO::new)
+        .toList();
+}
 }

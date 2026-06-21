@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.igor.ficha.dto.ClasseDTO;
 import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
-import com.example.igor.ficha.entity.personagem.Personagem;
+import com.example.igor.ficha.dto.TrilhaDTO;
 import com.example.igor.ficha.entity.personagem.Pericia;
+import com.example.igor.ficha.entity.personagem.Personagem;
 import com.example.igor.ficha.service.PersonagemService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -71,6 +72,7 @@ public class PersonagemController {
         OrigemDTO origens = personagemService.listarOrigens();
         return ResponseEntity.ok(origens);
     }
+
     @Operation(
             summary = "Lista de todas as classes",
             description = "Manda uma lista de todas as classes resumidas com id e nome"
@@ -80,10 +82,21 @@ public class PersonagemController {
         List<ClasseDTO> classe = personagemService.listarClasses();
         return ResponseEntity.ok(classe);
     }
+
+     @Operation(
+            summary = "Lista de todas as trilhas",
+            description = "Manda uma lista de opções de trilhas que podem ser escolhidas pela classe enviada."
+    )//manda as opções de trilha baseado na classe
+    @PostMapping("/trilha")
+    public ResponseEntity<List<TrilhaDTO>> listarTrilhas(@RequestBody ClasseDTO dto) {
+    List<TrilhaDTO> trilhas = personagemService.listarTrilhas(dto.getId());
+    return ResponseEntity.ok(trilhas);
+}
+
     @Operation(
         summary = "Lista de todas as perícias",
         description = "Manda uma lista de todas as pericias com id, nome, atributo e descrição"
-    )
+    )//manda todas as pericia
     @GetMapping("/pericias")
     public ResponseEntity<List<Pericia>> listarPericias() {
         List<Pericia> pericias = personagemService.listarPericias();
