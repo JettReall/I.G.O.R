@@ -38,7 +38,8 @@
 
 }
 
-.botao-avancar {
+.botao-avancar,
+.botao-avancar-nex {
      height: 50px;
 
      border-radius: 10px;
@@ -51,7 +52,12 @@
      font-size: 20px;
 }
 
-.botao-avancar:disabled {
+.voltar {
+     background-color: crimson;
+}
+
+.botao-avancar:disabled,
+.botao-avancar-nex:disabled {
      opacity: 0.7;
      cursor: default;
      background-color: grey;

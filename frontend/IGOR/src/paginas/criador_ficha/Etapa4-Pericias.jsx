@@ -1,24 +1,52 @@
+// Etapa4-Pericias.jsx
+import { useState } from "react";
 import { HeaderBase } from "../../componentes/header/headers";
-import { SeletorDePericias } from "../../assets/utils/ContainerPericias"; // importa o componente reutilizável
-
-// Lista de perícias de exemplo (pode ficar aqui ou ser movida para um arquivo de dados)
-const listaPericiasDisponiveis = [
-  { id: 1, nome: "Atletismo", atributo: "Força", treino: 2 },
-  { id: 2, nome: "Acrobacia", atributo: "Agilidade", treino: 1 },
-  { id: 3, nome: "Percepção", atributo: "Intelecto", treino: 3 },
-  { id: 4, nome: "Furtividade", atributo: "Agilidade", treino: 0 },
-  { id: 5, nome: "Investigação", atributo: "Intelecto", treino: 2 },
-  { id: 6, nome: "Diplomacia", atributo: "Presença", treino: 1 },
-  { id: 7, nome: "Vontade", atributo: "Presença", treino: 3 },
-];
+import { SeletorDePericias } from "../../assets/utils/ContainerPericias";
+import { BotaoAvancarEtapa, BotaoVoltarEtapa } from "../../componentes/criador-ficha/componentes";
+import { useEtapa } from "../../componentes/EtapaContext";
+import { pericias_dados } from "./VariaveisSistema"; // import da lista global
+import estilosEtapas from "./etapas.module.css";
+import clsx from "clsx";
 
 function Etapa4() {
+  const { updateEtapa, etapaAtual } = useEtapa();
+
+  const [selecionados, setSelecionados] = useState([]);
+
+  // Função para alternar a seleção de uma perícia
+  const handleTogglePericia = (id) => {
+    setSelecionados((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  function SalvarEtapa4() {
+    // Quando chamada, lê a fila das pericias escolhidas e aumenta o treino de cada uma em um
+    selecionados.forEach((id) => {
+      const pericia = pericias_dados.find(p => p.id === id);
+      if (pericia) {
+        pericia.treino = (pericia.treino || 0) + 1;
+      }
+      console.log(selecionados);
+      console.log(pericias_dados);
+      
+      
+    });
+  }
+
   return (
     <>
-
+      <HeaderBase pagina_atual={'claro'} titulo={"Etapa 4: Escolha de Perícias"} isFixo={true} />
       <SeletorDePericias
         periciasElegiveis={5}
-        listaPericias={listaPericiasDisponiveis}
+        listaPericias={pericias_dados} // usa a lista global
+        selecionados={selecionados}
+        onToggle={handleTogglePericia}
+        isEtapa4={true}
+        botoes={{
+          esquerdo: <BotaoVoltarEtapa />,
+          direito: <BotaoAvancarEtapa funcaoAntesAvancar={SalvarEtapa4} />
+        }}
       />
     </>
   );

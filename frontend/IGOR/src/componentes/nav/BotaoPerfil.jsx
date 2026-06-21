@@ -1,9 +1,10 @@
 import './Nav.css'
+import Modal from '../Modal'
+import Edit from '../../assets/imagens/icones/edit-traco.png'
 
-function BotaoPerfil( {foto, nomeperfil} ) {
+function BotaoPerfil( {nomeperfil} ) {
      return (
           <div className="container-botao-perfil">
-               <img src={foto} alt="" className="foto-perfil" />
                <p className="nome-perfil">Olá, {nomeperfil}</p>
           </div>
      )

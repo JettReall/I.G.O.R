@@ -1,4 +1,4 @@
-import { BotaoAvancarNEX, CaixaTexto } from '../../../componentes/criador-ficha/componentes';
+import { BotaoAvancarNEX, BotaoVoltarNEX, CaixaTexto } from '../../../componentes/criador-ficha/componentes';
 import { HeaderBase } from '../../../componentes/header/headers';
 import { useState } from 'react';
 import estilosNEX from './nex.module.css'
@@ -14,7 +14,6 @@ const listaPoderesExemplo = [
 ];
 
  // Número de poderes que podem ser escolhidos (fixo para teste)
-
 function PoderClasse({ poder, isSelected, onSelect }) {
   const handleClick = () => {
     if (isSelected) {
@@ -26,7 +25,7 @@ function PoderClasse({ poder, isSelected, onSelect }) {
 
   return (
     <div className={clsx(estilosNEX['poder-classe'])}>
-      <div className={estilosNEX['coluna'], estilosNEX['dados-poder-classe']}>
+      <div className={`${estilosNEX['coluna']} ${estilosNEX['dados-poder-classe']}`}>
         <strong>{poder.nome}</strong>
         <p>{poder.isAtivo ? "Ativo" : "Passivo"}</p>
       </div>
@@ -61,21 +60,9 @@ function EscolherPoderClasse() {
   };
 
   const desabilitar = selectedId === null;
-  const nex = 20;
-
-  let texto = "";
-  if (selectedId === null) {
-    texto = `Escolha um poder de classe`;
-  } else {
-    texto = `Poder escolhido. Clique em avançar para confirmar`;
-  }
+  let texto = desabilitar ?  `Escolha um poder de classe` : `Poder escolhido. Clique em avançar para confirmar`;
 
   return (
-    <>
-      <HeaderBase
-        pagina_atual={'claro'}
-        titulo={`NEX ${nex}: Escolha um poder de classe`}
-      />
       <div className={clsx(estilosNEX['container-principal-nex'], estilosNEX['container-tela-poderes'])}>
         <CaixaTexto texto={texto} tela={'caixa-etapa5'} />
         <div>
@@ -84,11 +71,13 @@ function EscolherPoderClasse() {
             selectedId={selectedId}
             onSelect={handleSelect}
           />
-
         </div>
+        <div className={estilosNEX['container-botoes-avanco']}>
+
+        <BotaoVoltarNEX />
         <BotaoAvancarNEX isDisabled={desabilitar} />
+        </div>
       </div>
-    </>
   );
 }
 

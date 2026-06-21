@@ -3,6 +3,9 @@ import clsx from 'clsx'
 import estilos from './componentes.module.css'
 import estilosFicha from '../ficha/componentes.module.css'
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEtapa } from '../EtapaContext';
+import { useNEX } from '../NEXContext';
 
 
 function InputComBotao({ valor, aoMudar, aoIncrementar, aoDecrementar, classeExtra, min, max, nome, texto }) {
@@ -47,16 +50,72 @@ function CaixaTexto({ texto, tela }) {
   );
 }
 
-function BotaoAvancarEtapa( {isDisabled} ) {
-//Sem funcionalidade por agora
-return <button disabled={isDisabled} className={estilos['botao-avancar']}>Avançar</button>
+function BotaoAvancarEtapa({ isDisabled, funcaoAntesAvancar }) {
+  const { etapaAtual, updateEtapa } = useEtapa();
+
+  const handleClick = () => {
+    if (funcaoAntesAvancar) funcaoAntesAvancar();
+    updateEtapa(etapaAtual + 1);
+  };
+
+  return (
+    <button disabled={isDisabled} onClick={handleClick} className={estilos['botao-avancar']}>
+      Avançar
+    </button>
+  );
+}
+function BotaoVoltarEtapa({ }) {
+  const { etapaAtual, updateEtapa } = useEtapa();
+
+  const handleClick = () => {
+    updateEtapa(etapaAtual - 1);
+  };
+
+  return (
+    <button onClick={handleClick} className={clsx(estilos['botao-avancar'],estilos['voltar'])}>
+      Voltar
+    </button>
+  );
 }
 
-function BotaoAvancarNEX( {isDisabled} ) {
-//Sem funcionalidade por agora
-return <button disabled={isDisabled} className={estilos['botao-avancar']}>Avançar</button>
+function BotaoAvancarNEX({ isDisabled, funcaoAntesAvancar }) {
+  const nexContext = useNEX();
+  const etapaContext = useEtapa();
+
+  const handleClick = () => {
+    if (funcaoAntesAvancar) funcaoAntesAvancar();
+    if (nexContext) {
+      nexContext.avancarNex();
+    } else if (etapaContext) {
+      etapaContext.updateEtapa(etapaContext.etapaAtual + 1);
+    }
+  };
+
+  return (
+    <button disabled={isDisabled} onClick={handleClick} className={estilos['botao-avancar-nex']}>
+      Avançar
+    </button>
+  );
 }
 
+function BotaoVoltarNEX({ isDisabled,  }) {
+  const nexContext = useNEX();
+  const etapaContext = useEtapa();
+
+  const handleClick = () => {
+    if (nexContext) {
+      nexContext.voltarNex();
+    } else if (etapaContext) {
+      etapaContext.updateEtapa(etapaContext.etapaAtual - 1);
+    }
+  };
+
+  return (
+    <button disabled={isDisabled} onClick={handleClick} className={clsx(estilos['botao-avancar-nex'],estilos['voltar'])}>
+      Voltar
+    </button>
+  );
+}
 
 function BotaoCancelarCriacao() {
      //Vazio por agora
@@ -88,8 +147,10 @@ export {
      InputComBotao,
      CaixaTexto,
     BotaoAvancarEtapa,
+    BotaoVoltarEtapa,
      BotaoCancelarCriacao,
      BotaoAvancarNEX,
      ExibeAtributos,
+     BotaoVoltarNEX
   
 }

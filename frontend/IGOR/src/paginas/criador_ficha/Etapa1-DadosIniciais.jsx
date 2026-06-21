@@ -1,17 +1,20 @@
 import clsx from "clsx";
 import estilosEtapas from "./etapas.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // adicionado useEffect
 import { BotaoAvancarEtapa, CaixaTexto, InputComBotao } from "../../componentes/criador-ficha/componentes";
 import Modal from "../../componentes/Modal";
 import { handleSelectUnico } from "../../assets/utils/SelecaoUnica";
+import { HeaderBase } from "../../componentes/header/headers";
+import { etapa1_dados } from "./VariaveisSistema";
+import { pericias_dados } from "./VariaveisSistema";
 
 const origensExemplo = [
-  { id: 1, nome: "Acadêmico", pericias: ["Conhecimento", "Investigação"] },
-  { id: 2, nome: "Soldado", pericias: ["Atletismo", "Vontade"] },
-  { id: 3, nome: "Policial", pericias: ["Investigação", "Percepção"] },
-  { id: 4, nome: "Ocultista", pericias: ["Ocultismo", "Vontade"] },
-  { id: 5, nome: "Policial2", pericias: ["Investigação", "Percepção"] },
-  { id: 6, nome: "Ocultista2", pericias: ["Ocultismo", "Vontade"] },
+  { id: 1, nome: "Acadêmico", pericias: [ pericias_dados[5], pericias_dados[6] ] },
+  { id: 2, nome: "Soldado", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 3, nome: "Policial", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 4, nome: "Ocultista", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 5, nome: "Policial2", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
+  { id: 6, nome: "Ocultista2", pericias: [ {nome:"Vontade", id: 7}, {nome:"Diplomacia", id: 6}] },
 ];
 
 function InputNome({ texto, nomeCampo, placeholder, valor, aoMudar }) {
@@ -64,8 +67,8 @@ function ContainerOrigens({ origens, origemSelecionada, onSelecionar }) {
           )}
         >
           <strong>{origem.nome}</strong>
-          <p>{origem.pericias[0]}</p>
-          <p>{origem.pericias[1]}</p>
+          <p>{origem.pericias[0]?.nome}</p>
+          <p>{origem.pericias[1]?.nome}</p>
         </div>
       ))}
     </div>
@@ -106,104 +109,114 @@ function TelaOrigens({ isAberto, setModalAberto, onConfirmar }) {
 }
 
 function Etapa1() {
-  const [ficha, setFicha] = useState({
+  // Estados temporários (renomeados com sufixo Temp)
+  const [fichaTemp, setFichaTemp] = useState({
     nome: "",
     jogador: "",
-    nex: 0,
   });
-  const [origemSelecionada, setOrigemSelecionada] = useState(null);
+  const [origemSelecionadaTemp, setOrigemSelecionadaTemp] = useState(null);
   const [abrirOrigem, setAbrirOrigem] = useState(false);
+
+  // Carregar dados salvos ao montar o componente
+  useEffect(() => {
+    // Verifica se há dados salvos (nome, jogador ou origem)
+    const temDados = etapa1_dados.nome !== "" || 
+                      etapa1_dados.jogador !== "" || 
+                      etapa1_dados.origem.id !== 0;
+
+    if (temDados) {
+      setFichaTemp({
+        nome: etapa1_dados.nome,
+        jogador: etapa1_dados.jogador,
+      });
+
+      // Se houver origem com id > 0, localiza nos exemplos e seta
+      if (etapa1_dados.origem.id > 0) {
+        const origemEncontrada = origensExemplo.find(o => o.id === etapa1_dados.origem.id);
+        if (origemEncontrada) {
+          setOrigemSelecionadaTemp(origemEncontrada);
+        }
+      }
+    }
+  }, []); // executa apenas na montagem
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "nex") {
-      const num = Number(value);
-      const isValid = !isNaN(num) && num >= 0 && num <= 100 && (num % 5 === 0 || num === 99);
-      if (!isValid) return;
-    }
-    setFicha(prev => ({
+    setFichaTemp(prev => ({
       ...prev,
       [name]: name === "nex" ? Number(value) : value
     }));
   };
 
-  const incrementarNex = () => {
-    const atual = ficha.nex;
-    let novo = atual + 5;
-    if (novo >= 100) novo = 99;
-    if (novo % 5 === 0 || novo === 99) {
-      setFicha(prev => ({ ...prev, nex: novo }));
-    }
-  };
 
-  const decrementarNex = () => {
-    const atual = ficha.nex;
-    let novo = 0;
-    if (atual === 99) {
-      novo = atual - 4;
-    } else {
-      novo = atual - 5;
-    }
-    if (novo < 0) novo = 0;
-    if (novo % 5 === 0 || novo === 99) {
-      setFicha(prev => ({ ...prev, nex: novo }));
-    }
-  };
-
-  const isDesabilitado = ficha.nome === "" || ficha.jogador === "" || ficha.nex === 0 || !origemSelecionada;
+  const isDesabilitado = fichaTemp.nome === "" || 
+                         fichaTemp.jogador === "" ||  
+                         !origemSelecionadaTemp;
 
   const handleConfirmarOrigem = (origem) => {
-    setOrigemSelecionada(origem);  
+    setOrigemSelecionadaTemp(origem);
+  };
+
+  const SalvarEtapa1 = () => {
+    // Preenche a variável global com os dados atuais
+    etapa1_dados.nome = fichaTemp.nome;
+    etapa1_dados.jogador = fichaTemp.jogador;
+
+    if (origemSelecionadaTemp) {
+      etapa1_dados.origem.id = origemSelecionadaTemp.id;
+      etapa1_dados.origem.nome = origemSelecionadaTemp.nome;
+      etapa1_dados.origem.pericias = origemSelecionadaTemp.pericias.map((nomePericia, index) => ({
+        id: index,
+        nome: nomePericia,
+        atributo: { nome: "", valor: "" },
+        descricao: ""
+      }));
+    } else {
+      etapa1_dados.origem = { id: 0, nome: "", pericias: [] };
+    }
+
+    console.log("Dados da Etapa 1 salvos em etapa1_dados:", etapa1_dados);
   };
 
   return (
-    <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa1'])}>
-      <CaixaTexto texto={`Vamos começar. Primeiro, insira algumas informações iniciais:`} tela={'caixa-etapa1'}/>
+    <>
+      <HeaderBase pagina_atual={'claro'} isFixo={true} titulo={"Etapa 1: Dados iniciais"} />
+      <div className={clsx(estilosEtapas['container-principal'], estilosEtapas['principal-etapa1'])}>
+        <CaixaTexto texto={`Vamos começar. Primeiro, insira algumas informações iniciais:`} tela={'caixa-etapa1'} />
 
-      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['coluna'], estilosEtapas['inputs-etapa1'])}>
-        <InputNome 
-          texto="Nome do personagem" 
-          nomeCampo="nome" 
-          placeholder="Personagem" 
-          valor={ficha.nome}
-          aoMudar={handleChange}
-        />
-        <InputNome 
-          texto="Nome do Jogador" 
-          nomeCampo="jogador" 
-          placeholder="Jogador" 
-          valor={ficha.jogador}
-          aoMudar={handleChange}
+        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['coluna'], estilosEtapas['inputs-etapa1'])}>
+          <InputNome 
+            texto="Nome do personagem" 
+            nomeCampo="nome" 
+            placeholder="Personagem" 
+            valor={fichaTemp.nome}
+            aoMudar={handleChange}
+          />
+          <InputNome 
+            texto="Nome do Jogador" 
+            nomeCampo="jogador" 
+            placeholder="Jogador" 
+            valor={fichaTemp.jogador}
+            aoMudar={handleChange}
+          />
+        </div>
+
+        <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['linha'], estilosEtapas['botoes-etapa1'])}>
+          <BotaoOrigem 
+            origemSelecionada={origemSelecionadaTemp}
+            aoAbrirModal={() => setAbrirOrigem(true)}
+          />
+
+          <BotaoAvancarEtapa isDisabled={isDesabilitado} funcaoAntesAvancar={SalvarEtapa1} />
+        </div>
+
+        <TelaOrigens
+          isAberto={abrirOrigem}
+          setModalAberto={setAbrirOrigem}
+          onConfirmar={handleConfirmarOrigem}
         />
       </div>
-
-      <div className={clsx(estilosEtapas['container-menor'], estilosEtapas['linha'], estilosEtapas['botoes-etapa1'])}>
-        <BotaoOrigem 
-          origemSelecionada={origemSelecionada}
-          aoAbrirModal={() => setAbrirOrigem(true)}
-        />
-
-        <InputComBotao
-          valor={ficha.nex} 
-          aoMudar={handleChange} 
-          aoIncrementar={incrementarNex}
-          aoDecrementar={decrementarNex}
-          nome={"nex"}
-          texto={"NEX:"}
-          classeExtra={"nex"}
-          min={0}
-          max={100}
-        />
-        <BotaoAvancarEtapa isDisabled={isDesabilitado} />
-      </div>
-
-      <TelaOrigens
-        isAberto={abrirOrigem}
-        setModalAberto={setAbrirOrigem}
-        onConfirmar={handleConfirmarOrigem}
-      />
-    </div>
+    </>
   );
 }
 

@@ -6,36 +6,28 @@ import estilos from '../../componentes/campanha/BotaoCampanha.module.css'
 import clsx from 'clsx'
 import { BotaoRetorno } from '../../componentes/botoes/Botoes.jsx'
 
-
-
-
 function ContainerCampanhas() {
      const classeFicha = clsx(estilos['container-botao-campanha'],estilos.ficha);
      const campanhaBotaoAdd = clsx(estilos['container-botao-campanha'],estilos['adicionar-ficha']);
-
      return (
           <div className="container-campanhas">
                <BotaoCampanha aba_botao={"adicionar"} nome_botao={"Criar uma ficha de Agente"} classe={campanhaBotaoAdd}/>
                <BotaoCampanha aba_botao={"Teste"} nome_botao={"Placeholder"} classe={classeFicha}/>
-
-
           </div>
      )
 }
-
-
 
 function TelaCampanhaAgente({usuario}) {
       if (usuario == undefined) {
           usuario = "Usuário"
      }
-     return   (
+     return (
                <div className="corpo">
                     <header>
-                         <HeaderDeCampanha titulo={"Campanhas"} botao_L={<BotaoRetorno/>}/> 
+                         <HeaderDeCampanha titulo={"Campanhas"} botao_L={<BotaoRetorno/>} pagina_atual={'campanha'} /> 
                     </header>                
                
-                    <nav className="latertal">
+                    <nav className="lateral">
                          <Nav usuario={usuario}></Nav>
                     </nav>
 
@@ -43,8 +35,6 @@ function TelaCampanhaAgente({usuario}) {
                          <ContainerCampanhas/>
                     </main>
                </div>
-              
-
      )
 }
 

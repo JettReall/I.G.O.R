@@ -1,84 +1,118 @@
-
+/* Base para todos os cards (Ativos e de Adicionar) */
 .container-botao-campanha {
-     width: 200px;
-     height: 250px;
-     
-     
-     border: 1px solid black;
+     width: 210px;
+     height: 300px;
+     border: 1px solid rgba(0, 0, 0, 0.15);
      background-color: snow;
-     border-radius: 10px;
+     border-radius: 14px;
      
      display: flex;
      flex-direction: column;
+     justify-content: space-between;
      position: relative;
+     box-sizing: border-box;
 
      background-size: cover;
      background-position: center;
+     background-repeat: no-repeat;
+     overflow: hidden; /* Garante que a imagem de fundo respeite o arredondamento dos cantos */
+     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
+/* Hover suave e refinado, sem a borda roxa antiga */
 .container-botao-campanha:hover {
-          cursor: pointer;
-          transform: scale(1.05);
-          border: 3px solid purple;
-           transition: all 0.3s;
+     cursor: pointer;
+     transform: translateY(-5px);
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+     border-color: rgba(161, 27, 27, 0.4); /* Vermelho sutil no hover */
 }
 
-
-.botao-altera-campanha {
-     width: 25px;
-     height: 25px;
-     border-radius: 5px;
-
-     background-size: 80%;
-     background-position: center;
-     background-repeat: no-repeat
+/* Estilo exclusivo do card pontilhado/translúcido de ADICIONAR */
+.adicionar-campanha {
+     background: rgba(255, 255, 255, 0.4);
+     border: 2px dashed rgba(0, 0, 0, 0.2);
+     display: flex;
+     justify-content: center;
+     align-items: center;
 }
 
+/* O sinal de mais vermelho e gigante centralizado */
+.icone-mais {
+     color: #a11b1b; /* Vermelho temático Ordem Paranormal */
+     font-size: 4rem;
+     font-weight: 300;
+     line-height: 1;
+     user-select: none;
+}
+
+/* Container de ações posicionado no topo superior esquerdo igual ao Figma */
 .container-botoes {
      display: flex;
      position: absolute;
-     right: 5%;
-     top: 5%;
-     gap: 5px;
-
+     left: 12px;
+     top: 12px;
+     gap: 6px;
+     z-index: 2;
 }
 
-.nome-campanha {
-     position: absolute;
-     bottom: 5%;
-     left: 5%;
-     color: crimson;
+/* Botões de ação transformados em círculos perfeitos */
+.botao-altera-campanha {
+     width: 24px;
+     height: 24px;
+     border-radius: 50%;
+     border: none;
+     cursor: pointer;
+     background-size: 55%;
+     background-position: center;
+     background-repeat: no-repeat;
+     transition: transform 0.1s ease;
+}
+
+.botao-altera-campanha:hover {
+     transform: scale(1.1);
+}
+
+/* Customização dos botões de ação */
+.apagar {
+     background-color: #a11b1b; /* Vermelho escuro */
+     background-image: url(../../assets/imagens/icones/lixo.png);
 }
 
 .editar {
-     background-color: beige;
+     background-color: #666666; /* Cinza escuro */
      background-image: url(../../assets/imagens/icones/lapis.png);
-
-
 }
 
-.apagar {
-     background-color: crimson;
-     background-image: url(../../assets/imagens/icones/lixo.png);
-     
+.opcoes {
+     background-color: #000000; /* Preto */
+     /* Se futuramente tiver um ícone de 3 pontos, adicione aqui */
 }
 
-.adicionar-ficha{
-     background-color: rgb(187, 187, 187);
-     background-image: url(../../assets/imagens/icones/adicionar-ficha.png);
-
-     grid-column: 1;
+/* Container inferior para agrupar os textos sobre um fundo legível */
+.info-campanha {
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     padding: 16px;
+     box-sizing: border-box;
+     display: flex;
+     flex-direction: column;
+     background: linear-gradient(transparent, rgba(255, 255, 255, 0.9) 70%); /* Gradiente para dar leitura caso o fundo seja escuro */
 }
 
-.ficha {
-     background-image: url(../../assets/imagens/icones/ficha.png);
+.nome-campanha {
+     font-family: 'Inter', sans-serif;
+     font-size: 1.15rem;
+     color: #000000;
+     font-weight: 700;
+     line-height: 1.2;
 }
 
-.campanha {
-
-}
-
-.adicionar-campanha {
-     background-color: rgb(187, 187, 187);
-     grid-column: 1;
+.subtitulo-exemplo {
+     font-family: 'Inter', sans-serif;
+     font-size: 0.8rem;
+     color: #a11b1b;
+     font-style: italic;
+     margin-top: 2px;
 }

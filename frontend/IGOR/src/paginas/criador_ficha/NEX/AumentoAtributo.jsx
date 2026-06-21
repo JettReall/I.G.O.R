@@ -52,7 +52,7 @@ function ContainerBotaoAtributo({ atributos, selectedNome, onSelect }) {
   );
 }
 
-function EscolherAumentoAtributo() {
+function EscolherAumentoAtributo( {botao}) {
   const [atributoEscolhido, setAtributoEscolhido] = useState(null);
   const desativar = atributoEscolhido === null;
 
@@ -77,7 +77,6 @@ function EscolherAumentoAtributo() {
 
   return (
      <>
-     <HeaderBase titulo={`NEX XX: Aumento de Atributo`} pagina_atual={'claro'} isFixo={true}/>
     <div className={clsx(estilosNEX['container-principal-nex'],estilosNEX['container-aumento-atributo'])}>
       <div className={estilosNEX['container-exibe-atributos']}>
           <ExibeAtributos atributos={atributos} />
@@ -93,7 +92,7 @@ function EscolherAumentoAtributo() {
                selectedNome={atributoEscolhido}
                onSelect={handleSelect}
                />
-               <BotaoAvancarNEX isDisabled={desativar} />
+               {!desativar ? botao : <p>Escolha um</p> }
       </div>
     </div>
      </>

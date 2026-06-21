@@ -2,8 +2,6 @@
  
      width: auto;
      height: auto;
-
-     /* border: 2px solid purple;  */
      
      display: flex;
      align-items: end;
@@ -12,14 +10,19 @@
      font-size: 50px;
 }
 
-
+.linha {
+     display: flex;
+     flex-direction: row;
+}
 
 .atributos-container {
      width: 600px;
      height: 600px;
      background-image: url(../../assets/imagens/elementos/Atributos.png);
+     
      background-position: center;
      background-repeat: no-repeat;
+     background-blend-mode: hue;
 
      /* VocÊ NAO VAI saber ajeitar pra deixar alinhado, só não mexa em nada do display grid e não mude nada do background*/
 
@@ -79,7 +82,7 @@
 }
 
 .circulo-afinidade {
-     background-color: aquamarine;
+    
      border-radius: 100px ;
 
 
@@ -107,6 +110,7 @@
 
 .container-menor {
      width: 100%;
+
 
 
      display: flex;
@@ -155,6 +159,7 @@
      background-color: snow;
 
      font-size: 30px;
+     border-radius: 10px;
 }
 
 .elemento-container {
@@ -183,7 +188,8 @@
 
 .header {
      font-size: 16px;
-     background-color: grey;
+     background-color: #d6bd8a;
+     color: rgb(0, 0, 0);
      top: 0;
 }
 
@@ -194,8 +200,10 @@
 
 .informacao-ataque-ritutal,
 .botao-item {
-     width: 30px;
-     height: 30px;
+     width: 75px;
+     height: 100%;
+     background: none;
+     border: 0;
 }
 
 .item-carga,
@@ -213,11 +221,21 @@
      justify-content: space-around;
      align-items: center;
      
+     border-radius: 20px;
+     opacity: 0.7;
 
      font-size: 24px;
 
      background-color: snow;
      border: 1px solid black;
+}
+
+.classe-trilha-nomes {
+     gap: 20px;
+}
+
+.classe-trilha-nomes strong {
+     place-self: end;
 }
 
 .container-persona strong {
@@ -230,15 +248,11 @@
 
 .aumentarNEX,
 .editar-ficha {
-     height: 50px;
-     width: 50px;
+     height: 100px;
+     width: 128px;
+     background-color: transparent;
+     border: none;
+
 }
 
-.editar-ficha {
-      background-image: url(../../assets/imagens/icones/lapis.png);
-      background-color: aqua;
-}
 
-.aumentarNEX {
-     background-image: url(../../assets/imagens/icones/menu-hamburguer.png);
-}

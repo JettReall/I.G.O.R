@@ -6,15 +6,10 @@
      background-color: transparent;
      
      border: 0px;
-
+     padding: 8px 8px;
      width: 50px;
      height: 50px;
-
-     position: absolute;
-     left: 0;
-
 }
-
 
 .botao-retorno:hover {
      transform: scale(1.1);
@@ -22,23 +17,36 @@
 }
 
 .login-cadastro {
-     height: 50px;
-
-     border-radius: 10px;
-     border: 0px solid black;
-
-     box-shadow: 01px 1px grey;
-
-     font-size: 20px;
-
+  font-family: 'Texto-Ordem', sans-serif;
+  font-size: 14px;      /* Tamanho unificado para os dois botões */
+  font-weight: 500;
+  height: 40px;         /* Altura idêntica para os dois */
+  padding: 0 24px;      /* Espaçamento interno padronizado */
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.claro {
-     background-color: snow;
-     color: black;
+.clraw, .claro {
+  background-color: transparent;
+  color: #111111;
+}
+.claro:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Cinza bem claro no hover */
 }
 
 .escuro {
-     background-color: black;
-     color: snow;
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
+.escuro:hover {
+  background-color: #333333;
+}
+.escuro:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
 }

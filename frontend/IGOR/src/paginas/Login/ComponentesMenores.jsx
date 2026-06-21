@@ -1,28 +1,25 @@
-
-
-function InputLogin ( {texto,nome,tipo,valor,placeholder,mudar} ) {
+function InputLogin({ texto, nome, name, tipo, valor, placeholder, mudar }) {
      return (
-
           <div className="elemento-input">
-                    <p>{texto}</p>
-                    <input
-                    name={nome}
+               <strong>{texto}</strong>
+               <input
+                    name={name || nome}
                     type={tipo}
                     placeholder={placeholder}
                     value={valor}
                     required
                     onChange={mudar}
-                    />
-               </div>
-     )
+               />
+          </div>
+     );
 }
 
-const ErroLogin = ({texto}) => {
+const ErroLogin = ({ texto }) => {
      return (
           <p className="erro-login-cadastro">
                {texto}
           </p>
-     )
-}
+     );
+};
 
-export { InputLogin, ErroLogin}
+export { InputLogin, ErroLogin };
