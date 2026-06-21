@@ -87,9 +87,9 @@ public class PersonagemController {
             summary = "Lista de todas as trilhas",
             description = "Manda uma lista de opções de trilhas que podem ser escolhidas pela classe enviada."
     )//manda as opções de trilha baseado na classe
-    @PostMapping("/trilha")
-    public ResponseEntity<List<TrilhaDTO>> listarTrilhas(@RequestBody ClasseDTO dto) {
-    List<TrilhaDTO> trilhas = personagemService.listarTrilhas(dto.getId());
+    @GetMapping("/trilha/{id}")
+    public ResponseEntity<List<TrilhaDTO>> listarTrilhas(@PathVariable Long id) {
+    List<TrilhaDTO> trilhas = personagemService.listarTrilhas(id);
     return ResponseEntity.ok(trilhas);
 }
 

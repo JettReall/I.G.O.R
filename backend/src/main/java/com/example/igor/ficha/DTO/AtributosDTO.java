@@ -16,6 +16,6 @@ public class AtributosDTO
     private Integer forca;
     private Integer agilidade;
     private Integer vigor;
-    private Integer inteligencia;
-    private Integer presensa;
+    private Integer intelecto;
+    private Integer presenca;
 }
