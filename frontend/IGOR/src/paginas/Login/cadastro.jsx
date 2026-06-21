@@ -3,6 +3,7 @@ import './Login.css'; // Compartilha a mesma folha de estilos padronizada
 import { BotaoRetorno, BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
 import { InputLogin, ErroLogin } from "./ComponentesMenores";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function ContainerLogo() {
   return (
@@ -28,7 +29,7 @@ function ContainerDados() {
   const [erro, setErro] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target; // Vincula corretamente com a propriedade name mapeada abaixo
+    const { name, value } = e.target; 
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -38,24 +39,33 @@ function ContainerDados() {
 
   const cadastroValido = todosPreenchidos && form.senha === form.senha_confirmar;
 
-  const handleSubmit = async (event) => {
+ const handleSubmit = async (event) => {
   event.preventDefault();
-  
-  // LOG PARA TESTE: Abra o console (F12) e veja se isso aparece ao clicar!
-  console.log("Tentando enviar o formulário...", form);
-
-  if (form.senha !== form.senha_confirmar) {
-    setErro("As senhas não coincidem!");
-    return;
-  }
-
   setErro("");
   setCarregando(true);
+  
+  console.log("Tentando enviar o formulário...", form);
+
   try {
-    alert("O formulário funcionou! Dados prontos para o back-end.");
-    setCarregando(false);
+    
+    await axios.post('api/usuarios', {
+      email: form.email,
+      nome_usuario: form.nome_usuario,
+      senha: form.senha
+    });
+    
+    alert("Usuário criado com sucesso!");
+    navigate("/login"); // Se der certo, ele vai para o login aqui
   } catch (err) {
-    setErro("Erro ao realizar o cadastro.");
+    // ESSA LINHA É CRUCIAL: Abre o objeto de erro para ver o que o Spring Boot respondeu!
+    console.error("Erro retornado pela API:", err.response ? err.response.data : err.message);
+    
+    if (err.response && err.response.data) {
+      setErro(typeof err.response.data === 'string' ? err.response.data : "Erro nos dados enviados.");
+    } else {
+      setErro("Não foi possível conectar ao servidor.");
+    }
+  } finally {
     setCarregando(false);
   }
 };
