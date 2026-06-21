@@ -1,7 +1,8 @@
-package com.example.igor.ficha.dto;
+package com.example.igor.ficha.DTO;
 
 import java.util.List;
 
+import com.example.igor.ficha.dto.AtributosDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,6 @@ public class PersonagemDTO {
     private Long origemId;
     private Long trilhaId;
     private Long classeId;
-    private List<com.example.igor.ficha.dto.AtributosDTO> atributos;
+    private AtributosDTO atributos;
     private List<Long> periciaLista;
 }

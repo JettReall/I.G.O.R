@@ -1,10 +1,11 @@
-package com.example.igor.ficha.service;
+package com.example.igor.ficha.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.example.igor.ficha.DTO.PersonagemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,6 @@ import com.example.igor.ficha.Repositories.PersonagemRepository;
 import com.example.igor.ficha.Repositories.TrilhaRepository;
 import com.example.igor.ficha.dto.ClasseDTO;
 import com.example.igor.ficha.dto.OrigemDTO;
-import com.example.igor.ficha.dto.PersonagemDTO;
 import com.example.igor.ficha.dto.TrilhaDTO;
 import com.example.igor.ficha.entity.personagem.AtributoPersonagem;
 import com.example.igor.ficha.entity.personagem.Classe;
