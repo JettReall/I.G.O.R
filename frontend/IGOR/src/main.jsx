@@ -12,6 +12,7 @@ import Campanhas from './paginas/campanha/campanhas.jsx';
 import TelaCampanhaAgente from './paginas/campanha/TelaCampanhaAgente';
 import Cadastro from './paginas/Login/cadastro';
 import Ficha from './paginas/ficha/ficha.jsx';
+import ConfiguracoesModal from './paginas/Login/ConfiguracoesModal.jsx';
 
 import CriadorFicha from './paginas/criador_ficha/CriadorFicha.jsx';
 import Etapa1 from './paginas/criador_ficha/Etapa1-DadosIniciais.jsx';
@@ -59,6 +60,7 @@ function AppRoutes() {
       {/* /campanhas agora não recebe prop fixa; o próprio componente usará o contexto */}
       <Route path="/campanhas" element={<Campanhas />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/configuracoes" element={<ConfiguracoesModal />} />
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="*" element={<NaoEncontrado />} />
       <>
