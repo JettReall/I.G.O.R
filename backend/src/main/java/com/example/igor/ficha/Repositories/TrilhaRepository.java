@@ -10,4 +10,5 @@ import com.example.igor.ficha.entity.personagem.Trilha;
 @Repository
 public interface TrilhaRepository extends JpaRepository<Trilha, Long> {
     List<Trilha> findByClasseId(Long classeId);
+    boolean existsByHabilidadesContaining(Habilidade habilidade);
 }
