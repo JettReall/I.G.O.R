@@ -2,17 +2,17 @@ import { useState } from "react";
 import Modal from "../../componentes/Modal";
 import { useNavigate } from "react-router-dom";
 import CriarCampanha from "./CriarCampanha";
-import estilosCampanha from './campanhaModulos.module.css'
+import estilosCampanha from './campanhaModulos.module.css';
 
-import './campanhas.css'
+import './campanhas.css';
 
-export function ConfirmarCriar({ isAberto, set, texto, caminho, isCampanha }) {
+/* 1. ADICIONADO: onCampanhaCriada nas propriedades recebidas */
+export function ConfirmarCriar({ isAberto, set, texto, caminho, isCampanha, onCampanhaCriada }) {
   const navigate = useNavigate();
   const [modo, setModo] = useState('confirmar'); // 'confirmar' ou 'criar'
 
   const handleConfirmar = () => {
     if (isCampanha) {
-      // Em vez de navegar, muda para o modo de criar campanha
       setModo('criar');
     } else {
       navigate(caminho);
@@ -22,11 +22,9 @@ export function ConfirmarCriar({ isAberto, set, texto, caminho, isCampanha }) {
 
   const handleCancelar = () => {
     set(false);
-    // Resetar modo ao fechar
     setModo('confirmar');
   };
 
-  // Se o modal foi fechado, resetar modo
   if (!isAberto && modo === 'criar') {
     setModo('confirmar');
   }
@@ -37,13 +35,17 @@ export function ConfirmarCriar({ isAberto, set, texto, caminho, isCampanha }) {
         <div className={estilosCampanha['coluna']}>
           <strong>{texto}</strong>
           <div className={estilosCampanha['linha']}>
-          <button onClick={handleCancelar} id="cancelar">Cancelar</button>
-          <button onClick={handleConfirmar} id="avancar">Confirmar</button>
+            <button onClick={handleCancelar} id="cancelar">Cancelar</button>
+            <button onClick={handleConfirmar} id="avancar">Confirmar</button>
           </div>
         </div>
       ) : (
-        // Modo de criação de campanha – reutiliza o mesmo aberto e set
-        <CriarCampanha aberto={isAberto} set={set} />
+        /* 2. CORRIGIDO: Agora usa isAberto, set e repassa o onCampanhaCriada */
+        <CriarCampanha 
+          aberto={isAberto} 
+          set={set} 
+          onCampanhaCriada={onCampanhaCriada} 
+        />
       )}
     </Modal>
   );
