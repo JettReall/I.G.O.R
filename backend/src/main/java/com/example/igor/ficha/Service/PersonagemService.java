@@ -5,10 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.example.igor.ficha.DTO.PersonagemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.igor.ficha.DTO.AlterarPersonagemDTO;
+import com.example.igor.ficha.DTO.PersonagemDTO;
 import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.Repositories.ClasseRepository;
 import com.example.igor.ficha.Repositories.OrigemRepository;
@@ -53,7 +54,7 @@ public class PersonagemService {
     @Autowired
     private TrilhaRepository trilhaRepository;
 
-    //Inicializa um personagem no banco.
+    //Inicializa um personagem no banco e cria tudo que precisa.
     public Personagem criarPersonagem(PersonagemDTO dto, Long Id) {
         
         Usuario usuario = usuarioRepository.findById(Id)
@@ -112,6 +113,7 @@ public class PersonagemService {
         return salvo;
     }
 
+    //Seleciona as pericias recebidas, seta o bonus base e aumenta o treino em 1
     public void treinarPericias(Long personagemId, List<Long> periciaIds) {
 
         Personagem personagem = buscarPorId(personagemId);
@@ -170,6 +172,48 @@ public class PersonagemService {
         .toList();
     }
 
+    //Edita o personagem já criado (o id passado é o do personagem e não do usuario)
+    public Personagem editarPersonagem(Long id, AlterarPersonagemDTO dto) {
+        Personagem personagem = buscarPorId(id);
 
+        personagem.setNomePersonagem(dto.getNome());
+        personagem.setNomeJogador(dto.getJogador());
 
+        personagem.getAtributos().setForca(dto.getAtributos().getForca());
+        personagem.getAtributos().setAgilidade(dto.getAtributos().getAgilidade());
+        personagem.getAtributos().setVigor(dto.getAtributos().getVigor());
+        personagem.getAtributos().setIntelecto(dto.getAtributos().getIntelecto());
+        personagem.getAtributos().setPresenca(dto.getAtributos().getPresenca());
+
+        personagem.getVida().setAtual(dto.getVidaAtual());
+        personagem.getPe().setAtual(dto.getPeAtual());
+        personagem.getSanidade().setAtual(dto.getSanidadeAtual());
+
+        personagem.setDefesa(10 + personagem.getAtributos().getAgilidade());
+
+        if (dto.getPericiaLista() != null) {
+            treinarPericias(personagem.getId(), dto.getPericiaLista());
+        }
+
+        personagem.setAnotacoes(dto.getAnotacoes());
+        personagem.setInventario(dto.getInventario());
+        personagem.setProeficiencia(dto.getProeficiencia());
+        personagem.setEsquiva(dto.getEsquiva());
+        personagem.setDeslocamento(dto.getDeslocamento());
+        
+        return personagemRepository.save(personagem);
+}
+
+    //Deleta o personagem do banco
+    public void deletarPersonagem(Long personagemId, Long usuarioId) {
+        Personagem personagem = buscarPorId(personagemId);
+
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        usuario.getPersonagemList().remove(personagem);
+        usuarioRepository.save(usuario);
+
+        personagemRepository.deleteById(personagemId);
+    }
 }
