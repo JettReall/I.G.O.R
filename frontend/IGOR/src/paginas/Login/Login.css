@@ -7,14 +7,12 @@ body {
   height: 100vh;
 }
 
-/* Envolvedor da tela para posicionar o botão de voltar */
 .tela-fundo-login {
   position: relative;
   width: 100vw;
   height: 100vh;
 }
 
-/* Posiciona o botão exatamente no topo esquerdo */
 .posicionar-botao-voltar {
   position: absolute;
   top: 40px;
@@ -73,7 +71,6 @@ body {
   width: 45%;
 }
 
-/* Alterado de grid para flex para controlar melhor os espaçamentos */
 .container-dados form {
   display: flex;
   flex-direction: column;
@@ -115,6 +112,8 @@ body {
   text-decoration: underline;
   align-self: flex-start;
   margin-top: 8px;
+  outline: none;
+  border:none;
 }
 
 .container-botoes {
@@ -128,31 +127,64 @@ body {
   margin-top: 10px;
 }
 
-.botao-envio-login {
-  height: 40px;
-  padding: 0 28px;
-  border-radius: 8px;
-  border: none;
-  font-size: 14px;
-  font-weight: 500;
-  background-color: #1f1f1f;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
 
-.botao-envio-login:hover {
-  background-color: #333333;
-}
 
-.botao-envio-login:disabled {
-  background-color: #9ca3af;
-  cursor: not-allowed;
-}
 
 #mensagens-erro {
   font-family: 'Texto-Ordem';
   color: #dc2626;
   font-size: 13px;
   margin: 0;
+}
+
+.overlay-esqueceu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Escurece o fundo */
+  backdrop-filter: blur(4px);            /* Efeito borrado nos elementos de trás */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-esqueceu {
+  background-color: #f3f4f6;
+  font-family: 'Texto-Ordem';
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-esqueceu h3 {
+  margin-top: 0;
+  font-size: 22px;
+  color: #111;
+}
+
+.modal-esqueceu p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Botão de fechar (X) no topo direito do modal */
+.botao-fechar-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+.botao-fechar-modal:hover {
+  color: #000;
 }
