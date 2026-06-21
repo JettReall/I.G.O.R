@@ -15,9 +15,7 @@ function CaixaTexto({ valor }) {
   return <p className={clsx(estilosUtil['texto-etapa4'])}>Perícias selecionadas.</p>;
 }
 
-// Função auxiliar para extrair os dados da perícia de forma compatível
 function extrairDadosPericia(item) {
-  // Se o item tem a propriedade 'pericia' (formato etapa4_dados)
   if (item.pericia) {
     return {
       id: item.pericia.id,
@@ -27,7 +25,6 @@ function extrairDadosPericia(item) {
       descricao: item.pericia.descricao || ""
     };
   }
-  // Caso contrário, assume que é o formato antigo (dados diretamente no item)
   return {
     id: item.id,
     nome: item.nome,
@@ -38,7 +35,6 @@ function extrairDadosPericia(item) {
 }
 
 function PericiaSeletor({ dados, isChecked, onChange }) {
-  // Extrai os dados do item (seja formato novo ou antigo)
   const pericia = extrairDadosPericia(dados);
 
   const handleClick = () => {
@@ -63,7 +59,6 @@ function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
   return (
     <div className={clsx(estilosUtil['container-menor'], estilosUtil['pericias-etapa4'])}>
       {pericias.map((pericia) => {
-        // Extrai o id para usar como key
         const id = pericia.pericia ? pericia.pericia.id : pericia.id;
         return (
           <PericiaSeletor
@@ -78,8 +73,18 @@ function ContainerPericiasSelecionaveis({ pericias, selecionados, onToggle }) {
   );
 }
 
-export function SeletorDePericias({ periciasElegiveis, listaPericias, botoes, selecionados, onToggle, isEtapa4 }) {
-  const restantes = periciasElegiveis - selecionados.length;
+export function SeletorDePericias({ 
+  periciasElegiveis, 
+  listaPericias, 
+  botoes, 
+  selecionados, 
+  onToggle, 
+  isEtapa4,
+  constExtra = 0  // renomeado
+}) {
+  // constExtra = número de perícias fixas já selecionadas (origem + classe)
+  // restantes = periciasElegiveis - (selecionados.length - constExtra)
+  const restantes = periciasElegiveis - selecionados.length + constExtra;
 
   const handleTogglePericia = (id) => {
     const isSelecionado = selecionados.includes(id);

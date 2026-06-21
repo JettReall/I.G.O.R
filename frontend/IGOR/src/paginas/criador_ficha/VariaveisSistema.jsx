@@ -63,7 +63,9 @@ export const etapa3_dados = [
 
 export let etapa4_dados = []; //Essa é a variavel de leitura para as pericias
 
-const PersonagemNovo = {
+export let pericias_personagem = [];
+
+export let PersonagemNovo = {
     nome: "",
     jogador: "",
     origemId: 0,
@@ -76,7 +78,7 @@ const PersonagemNovo = {
         { nome: "intelecto", valor: 0 },
         { nome: "presenca", valor: 0 },
     ],
-    periciaLista: [], //Ids
+    periciaLista: [], //Ids (ints)
 }
 
 

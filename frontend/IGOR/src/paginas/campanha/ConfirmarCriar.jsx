@@ -30,13 +30,27 @@ export function ConfirmarCriar({ isAberto, set, texto, caminho, isCampanha }) {
   if (!isAberto && modo === 'criar') {
     setModo('confirmar');
   }
+    const stilo = {
+    'display': 'flex',
+    'flexDirection':'column',
+    'justifyItems':'center',
+    'alignItems':'center',
+    'gap':'20px',
+  }
+
+  const justificar = {
+    'justifyContent':'space-around',
+    'width':'100%',
+    'display': 'flex',
+    'flexDirection':'row',
+  }
 
   return (
     <Modal open={isAberto}>
       {modo === 'confirmar' ? (
-        <div className={estilosCampanha['coluna']}>
+        <div style={stilo}>
           <strong>{texto}</strong>
-          <div className={estilosCampanha['linha']}>
+          <div style={justificar}>
           <button onClick={handleCancelar} id="cancelar">Cancelar</button>
           <button onClick={handleConfirmar} id="avancar">Confirmar</button>
           </div>

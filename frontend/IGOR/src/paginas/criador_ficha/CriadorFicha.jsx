@@ -14,6 +14,7 @@ import { Etapa5 } from './Etapa5-NEX';
 import Modal from '../../componentes/Modal';
 import clsx from 'clsx';
 import estilosEtapas from "./etapas.module.css";
+import { PersonagemNovo } from './VariaveisSistema';
 
 function ConteudoCriador({setHeader}) {
   const { etapaAtual, setEtapa } = useEtapa();
@@ -50,23 +51,61 @@ function ConteudoCriador({setHeader}) {
   }
 }
 function Finalizar() {
+
+  const stilo = {
+    'display': 'flex',
+    'flexDirection':'column',
+    'justifyItems':'center',
+    'alignItems':'center',
+    'gap':'20px',
+  }
+
   return (
     <Modal open={true}>
-      <div className="">
+      <div className="" style={stilo}>
         <strong>Personagem criado com Sucesso</strong>
         <Link to={"/campanhas"}>
-          <button onClick={SalvarEtapas1a4}>Encerrar</button>
+          <button onClick={SalvarEtapas1a4} id='avancar'>Encerrar</button>
         </Link>
       </div>
     </Modal>
   )
 }
 
+function construirPersonagem() {
+  // Extrai os dados relevantes
+  const { nome, jogador, origem } = etapa1_dados;
+  const { classeAgenteEscolhida, trilhaAgenteEscolhida } = etapa2_dados;
+  const atributos = etapa3_dados; // já está no formato esperado
+
+  // Extrai apenas os IDs (se existirem)
+  const origemId = origem?.id || 0;
+  const classeId = classeAgenteEscolhida?.id || 0;
+  const trilhaId = trilhaAgenteEscolhida?.id || 0;
+
+  // Mapeia as perícias para obter apenas os IDs
+  const periciaIds = pericias_personagem.map(p => p.id);
+
+  // Monta o objeto final
+  return {
+    nome,
+    jogador,
+    origemId,
+    classeId,
+    trilhaId,
+    atributos,   // spread do array de atributos
+    periciaLista: periciaIds,
+  };
+}
+
+// Uso:
+
+
 function SalvarEtapas1a4() {
 //Essa função pega o conteúdo de todas as etapaX_dados e salva em FichaEmBranco, nos locais de mesmo nome, exceto o da Etapa4.
-console.log("Salvei, confia");
+PersonagemNovo = construirPersonagem();
+console.log(PersonagemNovo);
 
-//A etapa 4 (e somente ela) pegará o array de pericias do usuário e aumentará Ficha.pericia[i].treino em 1, sendo i um ID da lista de pericias escolhidas. Isso aconetecerá para todas.
 }
 
 

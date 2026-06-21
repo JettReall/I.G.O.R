@@ -11,6 +11,7 @@ import combatenteImg from '../../assets/imagens/elementos/combatente.png';
 import especialistaImg from '../../assets/imagens/elementos/especialista.png';
 import ocultistaImg from '../../assets/imagens/elementos/ocultista.png';
 import indefinidoImg from '../../assets/imagens/elementos/indefinido.png';
+import Carregando from '../../assets/utils/Carregando';
 
 const imagens = {
   combatente: combatenteImg,
@@ -214,7 +215,7 @@ function Etapa2() {
     : !classeSelecionada || carregandoTrilhas;
 
   if (carregando) {
-    return <div>Carregando classes...</div>;
+    return <Carregando aberto={carregando}></Carregando>;
   }
 
   return (
