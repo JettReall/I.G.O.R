@@ -1,4 +1,4 @@
-package com.example.igor.ficha.repository;
+package com.example.igor.ficha.Repositories;
 
 import java.util.List;
 
