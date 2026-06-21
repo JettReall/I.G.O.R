@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.example.igor.ficha.FichaUtil.Stats;
 import com.example.igor.ficha.Repositories.PericiaRepository;
+import com.example.igor.ficha.dto.OrigemDTO;
 import com.example.igor.ficha.dto.PersonagemDTO;
 import com.example.igor.ficha.entity.personagem.Classe;
+import com.example.igor.ficha.entity.personagem.Origem;
 import com.example.igor.ficha.entity.personagem.Pericia;
 import com.example.igor.ficha.entity.personagem.PericiaPersonagem;
 import com.example.igor.ficha.entity.personagem.Personagem;
 import com.example.igor.ficha.repository.ClasseRepository;
+import com.example.igor.ficha.repository.OrigemRepository;
 import com.example.igor.ficha.repository.PericiaPersonagemRepository;
 import com.example.igor.ficha.repository.PersonagemRepository;
 import com.example.igor.usuario.Usuario;
@@ -36,6 +39,9 @@ public class PersonagemService {
 
     @Autowired
     private ClasseRepository classeRepository;
+
+    @Autowired
+    private OrigemRepository origemRepository;
 
     //Inicializa um personagem no banco.
     public Personagem criarPersonagem(PersonagemDTO dto, Long Id) {
@@ -93,5 +99,10 @@ public class PersonagemService {
         .orElseThrow(() -> new RuntimeException("Usuário com id " + idUsuario + " não encontrado"));
         
     return usuario.getPersonagemList();
+    }
+
+    public OrigemDTO listarOrigens() {
+    List<Origem> origens = origemRepository.findAllComPericias();
+    return new OrigemDTO(origens);
 }
 }
