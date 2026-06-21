@@ -27,11 +27,9 @@
   color: #ffffff;
   text-decoration: none;
   font-size: 1rem;
-  
   display: block;
   padding: 10px 16px;
   border-radius: 8px; /* Cantos suavemente arredondados */
-  
   background-color: transparent; 
   border: 1px solid transparent;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -58,37 +56,6 @@
   width: 100%;
 }
 
-.perfil-usuario {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Corta o excesso da foto quadrada */
-  position: relative;
-}
-
-.imagem-foto-perfil-nav {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Recorta proporcionalmente */
-  display: block;
-}
-.texto-ola {
-  font-family: 'Texto-Ordem';
-  color: #ffffff;
-  font-size: 0.95rem;
-}
-
-.nome-destaque {
-  color: #ffffff;
-  font-weight: 500;
-}
-
 /* Container que agrupa o perfil e o botão lado a lado */
 .perfil-container {
   display: flex;
@@ -102,6 +69,38 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+/* AVATAR AJUSTADO: Agora cria o círculo perfeito e limita o tamanho */
+.avatar {
+  width: 48px;  /* Define a largura fixa idêntica à de configurações */
+  height: 48px; /* Define a altura fixa idêntica à de configurações */
+  border-radius: 50%; /* Torna o container perfeitamente circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Corta o excesso da foto quadrada externo ao círculo */
+  position: relative;
+  background-color: #2a2a2a; /* Fundo escuro reserva para quando não houver foto */
+}
+
+/* IMAGEM AJUSTADA: Força o preenchimento e o crop proporcional */
+.imagem-foto-perfil-nav {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta proporcionalmente sem distorcer a imagem */
+  display: block;
+}
+
+.texto-ola {
+  font-family: 'Texto-Ordem';
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.nome-destaque {
+  color: #ffffff;
+  font-weight: 500;
 }
 
 /* Botão dos Três Pontinhos (estilo invisível/sutil) */
