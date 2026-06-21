@@ -1,4 +1,4 @@
-package com.example.igor.ficha.service;
+package com.example.igor.ficha.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +13,9 @@ import com.example.igor.ficha.entity.personagem.Classe;
 import com.example.igor.ficha.entity.personagem.Pericia;
 import com.example.igor.ficha.entity.personagem.PericiaPersonagem;
 import com.example.igor.ficha.entity.personagem.Personagem;
-import com.example.igor.ficha.repository.ClasseRepository;
-import com.example.igor.ficha.repository.PericiaPersonagemRepository;
-import com.example.igor.ficha.repository.PersonagemRepository;
+import com.example.igor.ficha.Repositories.ClasseRepository;
+import com.example.igor.ficha.Repositories.PericiaPersonagemRepository;
+import com.example.igor.ficha.Repositories.PersonagemRepository;
 import com.example.igor.usuario.Usuario;
 import com.example.igor.usuario.UsuarioRepository;
 

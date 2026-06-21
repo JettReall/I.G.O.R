@@ -1,4 +1,4 @@
-package com.example.igor.ficha.controller;
+package com.example.igor.ficha.Controller;
  
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.igor.ficha.dto.PersonagemDTO;
 import com.example.igor.ficha.entity.personagem.Personagem;
-import com.example.igor.ficha.service.PersonagemService;
+import com.example.igor.ficha.Service.PersonagemService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
