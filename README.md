@@ -82,3 +82,22 @@ Todos os detalhes de request/response de cada endpoint estão disponíveis no Sw
 - **Strategy + Registry**: cada tipo de ação (`Ataque`, `Ritual`, `Habilidade`) implementa a interface `UsarAcao`, e o `AcaoService` registra todas as implementações automaticamente via injeção de dependência do Spring, despachando a execução pelo enum `AcoesChave`.
 - **Pré-requisitos polimórficos**: habilidades podem exigir NEX mínimo, atributo mínimo, classe específica ou outra habilidade já adquirida, através da hierarquia `PreRequisito` (`PreRequisitoNex`, `PreRequisitoAtributo`, `PreRequisitoClasse`, `PreRequisitoHabilidade`).
 - **Herança JOINED**: `Ficha` é a superclasse de `Personagem` e `Monstro`; `Acao` é a superclasse de `Ataque`, `Ritual` e `Habilidade`.
+
+
+## Como rodar o projeto localmente
+* Java 17 instalado
+* PostgreSQL configurado e rodando
+* Node.js instalado (versão 18+)
+
+**Executando o backend**
+1. Configure as credenciais do seu banco PostgreSQL no arquivo backend/src/main/resources/application.properties.
+2. Abra a pasta backend na sua IDE de preferência e execute o método main da classe IgorApplication.java.
+
+**Executando o frontend**
+```bash
+cd frontend/IGOR
+npm install
+npm run dev
+Acesse o endereço impresso no terminal (Geralmente http://localhost:5173).
+```
+
