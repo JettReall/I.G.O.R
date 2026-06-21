@@ -47,7 +47,7 @@ function HabilidadeTrilha({ trilha, isSelected, onSelect }) {
 
   return (
     <div className={clsx(estilosNEX['poder-classe'])}>
-      <div className={estilosNEX['coluna'], estilosNEX['dados-poder-classe']}>
+      <div className={`${estilosNEX['coluna']} ${estilosNEX['dados-poder-classe']}`}>
         <strong>{trilha.habilidadeTrilha[0]}</strong>
         <p>{trilha.nome}</p>
       </div>

@@ -1,31 +1,34 @@
 import { useState } from 'react';
 import './Login.css';
 import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
-
-import {InputLogin, ErroLogin} from './input';
-
-import { InputLogin, ErroLogin } from './ComponentesMenores';
+import { InputLogin, ErroLogin } from "./ComponentesMenores";
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../componentes/Modal';
 import axios from 'axios';
 
-
 function ContainerLogo() {
   return (
     <div className="container-logo">
-      <img src=".\src\assets\imagens\elementos\LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
+      <img src="./src/assets/imagens/elementos/LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
       <h3 className="nome-ordem">ORDO REALITAS</h3>
     </div>
   );
 }
 
 function ContainerDados() {
-     const [form, setForm] = useState({
-     email:  "",
-     nome_usuario: "",
-     senha: "",
-     senha_confirmar: "",
- })
+  const navigate = useNavigate(); // Instanciado aqui para poder usar no botão
+  
+  const [form, setForm] = useState({
+    email: "",
+    nome_usuario: "",
+    senha: "",
+    senha_confirmar: "",
+  });
+
+  // States movidos para o escopo correto do componente
+  const [usuarios, setUsuarios] = useState([]);
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,17 +46,15 @@ function ContainerDados() {
     setErro("");
     setCarregando(true);
 
-  //Partes criadas para alteração, temporárias e não 
-  const [usuarios, setUsuarios] = useState([]);
-  const [carregando, setCarregando] = useState(false);
-  const [erro, setErro] = useState(null);
-
-//Código de senha que ainda não produzi, mas é necessário
-     let cadastro_valido = (
-          todosPreenchidos && 
-          form.senha !== "" &&
-          form.senha_confirmar !== "" &&
-          form.senha === form.senha_confirmar)
+    try {
+      // Exemplo de envio real (insira sua rota do back-end aqui depois):
+      // await axios.post('http://localhost:3000/usuarios', form);
+      setCarregando(false);
+    } catch (err) {
+      setErro("Erro ao realizar o cadastro. Tente novamente.");
+      setCarregando(false);
+    }
+  }; // Função fechada corretamente aqui
 
   return (
     <div className="container-dados">
@@ -67,34 +68,34 @@ function ContainerDados() {
           mudar={handleChange}
         />
 
-                    <InputLogin 
-                         texto={"Digite um UserName"}
-                         nome={"nome_usuario"}
-                         tipo={"text"}
-                         valor={form.nome_usuario}
-                         placeholder={"ex.: ElizabethWebber"}
-                         mudar={handleChange}
-                    />
+        <InputLogin 
+          texto={"Digite um UserName"}
+          nome={"nome_usuario"}
+          tipo={"text"}
+          valor={form.nome_usuario}
+          placeholder={"ex.: ElizabethWebber"}
+          mudar={handleChange}
+        />
 
-                    <InputLogin 
-                         texto={"Crie uma senha"}
-                         placeholder={""}
-                         nome={"senha"}
-                         tipo={"text"}
-                         valor={form.senha}
-                         mudar={handleChange}
-                    />
+        <InputLogin 
+          texto={"Crie uma senha"}
+          placeholder={""}
+          nome={"senha"}
+          tipo={"password"} // Alterado para password para ocultar os caracteres
+          valor={form.senha}
+          mudar={handleChange}
+        />
 
-                    <InputLogin 
-                         texto={"Confirmar senha"}
-                         placeholder={""}
-                         nome={"senha_confirmar"}
-                         tipo={"text"}
-                         valor={form.senha_confirmar}
-                         mudar={handleChange}
-                    />
+        <InputLogin 
+          texto={"Confirmar senha"}
+          placeholder={""}
+          nome={"senha_confirmar"}
+          tipo={"password"} // Alterado para password
+          valor={form.senha_confirmar}
+          mudar={handleChange}
+        />
                
-                    <ErroLogin texto={" "}/>
+        <ErroLogin texto={" "}/>
 
         {/* Exibe mensagem de erro, se houver */}
         {erro && <ErroLogin texto={erro} />}
@@ -105,8 +106,9 @@ function ContainerDados() {
             type="submit"
             disabled={!cadastroValido || carregando}
           >
-            {carregando ? "Criando" : "Criar"}
+            {carregando ? "Criando..." : "Criar"}
           </button>
+          
           <BotaoLoginCadastro
             texto="Entrar em uma conta"
             aoClicar={() => navigate("/login")}
@@ -127,9 +129,9 @@ function Container() {
   );
 }
 
+// Corrigido a estrutura da função e fechamento
 function Cadastro() {
   return <Container />;
 }
 
-export default Cadastro
-}
+export default Cadastro;

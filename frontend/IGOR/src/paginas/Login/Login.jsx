@@ -1,17 +1,18 @@
-// Login.jsx – adaptado para usar UserContext
+// Login.jsx – adaptado para usar UserContext e layout corrigido
 import { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../UserContext'; // Ajuste o caminho conforme sua estrutura
+import { useUser } from '../../UserContext'; 
 import Modal from '../../componentes/Modal';
-import { BotaoRetorno } from '../../componentes/botoes/Botoes';
+import { BotaoRetorno, BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
 
 function ContainerLogo() {
   return (
     <div className="container-logo">
-      <img src=".\src\assets\imagens\elementos\LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
+      <img src="./src/assets/imagens/elementos/LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
       <h3 className="nome-ordem">ORDO REALITAS</h3>
+      <span className="subtitulo-logo">acessar conta</span>
     </div>
   );
 }
@@ -25,18 +26,12 @@ function ContainerDados() {
   const [carregando, setCarregando] = useState(false);
 
   const handleSubmit = async (event) => {
-    setCarregando(true);
     event.preventDefault();
+    setCarregando(true);
     setErro('');
 
     try {
-      const response = await axios.post('api/usuarios/login', {
-        email,
-        senha,
-      });
-
-      console.log('Login efetuado com sucesso!', response.data);
-      console.log(response.status, response);
+      const response = await axios.post('api/usuarios/login', { email, senha });
 
       if (response.data === 'Senha Errada') {
         setErro('Email ou senha incorretos');
@@ -44,10 +39,7 @@ function ContainerDados() {
       }
 
       const responseGet = await axios.get(`api/usuarios/${response.data.id}`);
-
       loginUser(responseGet.data);
-      console.log('Usuário logado:', responseGet.data);
-
       navigate('/campanhas');
     } catch (error) {
       console.error('Erro no login', error);
@@ -61,11 +53,11 @@ function ContainerDados() {
     <div className="container-dados">
       <form onSubmit={handleSubmit} id='form-login'>
         <div className="elemento-input">
-          <strong>Digite seu Email</strong>
+          <label htmlFor="email">E-mail</label>
           <input
             type="email"
             id="email"
-            placeholder="example@example.com"
+            placeholder="email@example.com"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -73,7 +65,7 @@ function ContainerDados() {
         </div>
 
         <div className="elemento-input">
-          <strong>Digite sua senha</strong>
+          <label htmlFor="senha">Senha</label>
           <input
             type="password"
             id="senha"
@@ -82,20 +74,26 @@ function ContainerDados() {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
           />
-          <a href="#esqueceu-senha">Esqueceu sua senha?</a>
+          <a href="#esqueceu-senha" className="link-esqueceu">Esqueceu a senha?</a>
         </div>
 
-        {erro && <p style={{ color: 'red', fontSize: '14px' }}>{erro}</p>}
+        {erro && <p id="mensagens-erro">{erro}</p>}
 
         <div className="container-botoes">
+          {/* Alinhado com o padrão global do Figma: Criar conta na esquerda, Entrar na direita */}
+          <BotaoLoginCadastro 
+            texto="Criar conta" 
+            corBotao="claro" 
+            aoClicar={(e) => { e.preventDefault(); navigate('/cadastro'); }} 
+          />
+          
           <button 
-          className="botao-envio" 
-          type="submit"
-          disabled={!(email && senha) || carregando}
+            className="botao-envio-login" 
+            type="submit"
+            disabled={!(email && senha) || carregando}
           >
-            {carregando ? 'Logando' : 'Entrar' }
+            {carregando ? 'Logando...' : 'Entrar'}
           </button>
-          <button className="botao-envio" id='cadastro' onClick={() => {navigate('/cadastro')}}>Criar Conta</button>
         </div>
       </form>
     </div>
@@ -104,9 +102,15 @@ function ContainerDados() {
 
 function Container() {
   return (
-    <div className="container-grande">
-      <ContainerLogo />
-      <ContainerDados />
+    <div className="tela-fundo-login">
+      {/* Botão de retorno fixado no canto superior esquerdo da tela */}
+      <div className="posicionar-botao-voltar">
+        <BotaoRetorno texto="‹" />
+      </div>
+      <div className="container-grande">
+        <ContainerLogo />
+        <ContainerDados />
+      </div>
     </div>
   );
 }
@@ -115,11 +119,9 @@ function Login() {
   const { user, logoutUser } = useUser();
   const navigate = useNavigate();
 
-  // Verifica se há um usuário logado (com id)
   const isLoggedIn = user && user.id;
 
   if (isLoggedIn) {
-    // Exibe o modal informando que já há um usuário logado
     return (
       <Modal open={true}>
         <h3>Já há um usuário logado.</h3>
@@ -127,8 +129,8 @@ function Login() {
           <button onClick={() => navigate(-1)}>Voltar</button>
           <button
             onClick={() => {
-              logoutUser(); // Limpa contexto e localStorage
-              navigate('/'); // Redireciona para a homepage
+              logoutUser();
+              navigate('/');
             }}
           >
             Fazer Logout
@@ -138,7 +140,6 @@ function Login() {
     );
   }
 
-  // Se não houver usuário, renderiza a tela de login normal
   return <Container />;
 }
 
