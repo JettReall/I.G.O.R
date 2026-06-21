@@ -127,8 +127,12 @@ body {
   margin-top: 10px;
 }
 
-
-
+#form-cadastro {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; 
+  width: 100%;
+}
 
 #mensagens-erro {
   font-family: 'Texto-Ordem';
@@ -143,8 +147,8 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6); /* Escurece o fundo */
-  backdrop-filter: blur(4px);            /* Efeito borrado nos elementos de trás */
+  background-color: rgba(0, 0, 0, 0.6); 
+  backdrop-filter: blur(4px);           
   display: flex;
   justify-content: center;
   align-items: center;
