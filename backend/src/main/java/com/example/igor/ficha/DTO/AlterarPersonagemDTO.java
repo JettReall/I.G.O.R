@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.example.igor.ficha.dto.AtributosDTO;
 import com.example.igor.ficha.entity.personagem.Anotacoes;
-import com.example.igor.ficha.entity.personagem.Inventario;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +27,6 @@ public class AlterarPersonagemDTO {
     private Integer peAtual;
     private Integer sanidadeAtual;
     private Anotacoes anotacoes;
-    private Inventario inventario;
+    //não deu tempo implementar private Inventario inventario;
     private String proeficiencia;
 }

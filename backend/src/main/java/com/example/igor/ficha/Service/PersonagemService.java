@@ -196,7 +196,7 @@ public class PersonagemService {
         }
 
         personagem.setAnotacoes(dto.getAnotacoes());
-        personagem.setInventario(dto.getInventario());
+        //não deu tempo implementar personagem.setInventario(dto.getInventario());
         personagem.setProeficiencia(dto.getProeficiencia());
         personagem.setEsquiva(dto.getEsquiva());
         personagem.setDeslocamento(dto.getDeslocamento());
