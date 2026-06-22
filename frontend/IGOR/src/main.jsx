@@ -18,12 +18,12 @@ import Etapa1 from './paginas/criador_ficha/Etapa1-DadosIniciais.jsx';
 import Etapa2 from './paginas/criador_ficha/Etapa2-ClasseTrilha.jsx';
 import Etapa3 from './paginas/criador_ficha/Etapa3-Atributos.jsx';
 import Etapa4 from './paginas/criador_ficha/Etapa4-Pericias.jsx';
-import { Etapa5 } from './paginas/criador_ficha/Etapa5-NEX.jsx';
+import { Etapa5 } from './paginas/criador_ficha/LevelUP.jsx';
 
 import { EscolherPoderClasse } from './paginas/criador_ficha/NEX/PoderClasse.jsx';
 import EscolherAumentoAtributo from './paginas/criador_ficha/NEX/AumentoAtributo.jsx';
 import Versatilidade from './paginas/criador_ficha/NEX/Versatilidade.jsx';
-import { EscolherAfinidade } from './paginas/criador_ficha/Etapa5-NEX.jsx';
+import { EscolherAfinidade } from './paginas/criador_ficha/LevelUP.jsx';
 import EscolhidoOutroLado from './paginas/criador_ficha/NEX/EscolhidoOutroLado.jsx';
 import { CaixaTexto } from './componentes/criador-ficha/componentes.jsx';
 

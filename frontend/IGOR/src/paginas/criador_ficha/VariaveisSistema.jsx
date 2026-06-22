@@ -52,14 +52,13 @@ export const etapa2_dados = {
     trilhaAgenteEscolhida: {}, 
 }
 
-export const etapa3_dados = [
-
-  { nome: "forca", valor: 0 },
-  { nome: "agilidade", valor: 0 },
-  { nome: "vigor", valor: 0 },
-  { nome: "intelecto", valor: 0 },
-  { nome: "presenca", valor: 0 },
-] 
+export const etapa3_dados = {
+  forca: 0,
+  agilidade: 0,
+  vigor: 0,
+  intelecto: 0,
+  presenca: 0
+};
 
 export let etapa4_dados = []; //Essa é a variavel de leitura para as pericias
 

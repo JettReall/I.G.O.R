@@ -26,15 +26,6 @@ const Ficha = {
   afinidadeSelecionada: "",
 };
 
-const listaPericiasDisponiveis = [
-  { id: 1, nome: "Atletismo", atributo: "Força", treino: 2 },
-  { id: 2, nome: "Acrobacia", atributo: "Agilidade", treino: 1 },
-  { id: 3, nome: "Percepção", atributo: "Intelecto", treino: 3 },
-  { id: 4, nome: "Furtividade", atributo: "Agilidade", treino: 0 },
-  { id: 5, nome: "Investigação", atributo: "Intelecto", treino: 2 },
-  { id: 6, nome: "Diplomacia", atributo: "Presença", treino: 1 },
-  { id: 7, nome: "Vontade", atributo: "Presença", treino: 3 },
-];
 
 // Funções corrigidas com Modal funcional
 function AprimorarHabTrilha({ Habilidade, nivel, nex }) {

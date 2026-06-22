@@ -270,11 +270,11 @@ function Ficha() {
 
   // Monta o objeto dados_persona para o componente InfoPersona
   const dadosPersona = {
-    jogador: ficha.jogador || "",
-    origem: ficha.origem?.nome || "",
-    classe: ficha.classe || "",
-    trilha: ficha.trilha || "",
-  };
+  jogador: ficha.jogador || "",
+  origem: ficha.origem?.nome || "",
+  classe: typeof ficha.classe === 'object' ? ficha.classe?.nome || '' : ficha.classe || '',
+  trilha: typeof ficha.trilha === 'object' ? ficha.trilha?.nome || '' : ficha.trilha || '',
+};
 
   const atributos = Array.isArray(ficha.atributos) ? ficha.atributos : [
   { nome: "for", valor: 0 },

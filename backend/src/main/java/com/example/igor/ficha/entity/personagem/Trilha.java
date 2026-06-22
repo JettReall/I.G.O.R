@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 @Getter
@@ -21,5 +22,6 @@ public class Trilha {
     @ManyToMany
     private List<Habilidade> habilidades;
     @ManyToOne
-    private Classe classe;
+        @JsonIgnore
+        private Classe classe;
 }

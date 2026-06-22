@@ -1,22 +1,33 @@
 // CriadorFicha.jsx
 import { EtapaProvider, useEtapa } from '../../componentes/EtapaContext';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { HeaderBase } from '../../componentes/header/headers';
 import { BotaoCancelarCriador } from '../../componentes/botoes/Botoes';
-
+import axios from 'axios';
+import { useUser } from '../../UserContext';
 
 import Etapa1 from "./Etapa1-DadosIniciais";
 import Etapa2 from './Etapa2-ClasseTrilha';
 import Etapa3 from './Etapa3-Atributos';
 import Etapa4 from './Etapa4-Pericias';
-import { Etapa5 } from './Etapa5-NEX';
+
 import Modal from '../../componentes/Modal';
 import clsx from 'clsx';
 import estilosEtapas from "./etapas.module.css";
-import { PersonagemNovo } from './VariaveisSistema';
+import {
+  PersonagemNovo,
+  etapa1_dados,
+  etapa2_dados,
+  etapa3_dados,
+  etapa4_dados,
+  pericias_personagem
+} from './VariaveisSistema';
+import Carregando from '../../assets/utils/Carregando';
 
-function ConteudoCriador({setHeader}) {
+// ------------------------------------------------------------
+// Componente que renderiza a etapa atual
+function ConteudoCriador({ setHeader }) {
   const { etapaAtual, setEtapa } = useEtapa();
   const { step } = useParams();
 
@@ -29,7 +40,6 @@ function ConteudoCriador({setHeader}) {
     }
   }, [step, etapaAtual, setEtapa]);
 
-  // Atualiza o título do header quando a etapa mudar
   useEffect(() => {
     const titulos = {
       1: "Etapa 1: Dados iniciais",
@@ -50,71 +60,172 @@ function ConteudoCriador({setHeader}) {
     default: return null;
   }
 }
-function Finalizar() {
 
-  const stilo = {
-    'display': 'flex',
-    'flexDirection':'column',
-    'justifyItems':'center',
-    'alignItems':'center',
-    'gap':'20px',
-  }
-
-  return (
-    <Modal open={true}>
-      <div className="" style={stilo}>
-        <strong>Personagem criado com Sucesso</strong>
-        <Link to={"/campanhas"}>
-          <button onClick={SalvarEtapas1a4} id='avancar'>Encerrar</button>
-        </Link>
-      </div>
-    </Modal>
-  )
-}
-
+// ------------------------------------------------------------
+// Função que constrói o objeto PersonagemNovo a partir das etapas
 function construirPersonagem() {
-  // Extrai os dados relevantes
   const { nome, jogador, origem } = etapa1_dados;
   const { classeAgenteEscolhida, trilhaAgenteEscolhida } = etapa2_dados;
-  const atributos = etapa3_dados; // já está no formato esperado
+  const atributos = etapa3_dados;
 
-  // Extrai apenas os IDs (se existirem)
   const origemId = origem?.id || 0;
   const classeId = classeAgenteEscolhida?.id || 0;
   const trilhaId = trilhaAgenteEscolhida?.id || 0;
 
-  // Mapeia as perícias para obter apenas os IDs
-  const periciaIds = pericias_personagem.map(p => p.id);
+  const periciaIds = pericias_personagem;
 
-  // Monta o objeto final
   return {
     nome,
     jogador,
     origemId,
     classeId,
     trilhaId,
-    atributos,   // spread do array de atributos
+    atributos,
     periciaLista: periciaIds,
   };
 }
 
-// Uso:
+// ------------------------------------------------------------
+// Componente Finalizar (etapa 5)
+function Finalizar() {
+  const { user } = useUser();
+  const navigate = useNavigate();
+  const { id: campanhaId } = useParams(); // captura o ID da campanha da URL
+  const [flagSalvar, setFlagSalvar] = useState(false);
+  const [erro, setErro] = useState(null);
 
+  const stilo = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyItems: 'center',
+    alignItems: 'center',
+    gap: '20px',
+  };
 
-function SalvarEtapas1a4() {
-//Essa função pega o conteúdo de todas as etapaX_dados e salva em FichaEmBranco, nos locais de mesmo nome, exceto o da Etapa4.
-PersonagemNovo = construirPersonagem();
-console.log(PersonagemNovo);
+  // Função para limpar todas as variáveis globais das etapas
+  function limparVariaveis() {
+    // Etapa 1
+    etapa1_dados.nome = "";
+    etapa1_dados.jogador = "";
+    etapa1_dados.origem = { id: 0, nome: "", pericias: [] };
 
+    // Etapa 2
+    etapa2_dados.classeAgenteEscolhida = {};
+    etapa2_dados.trilhaAgenteEscolhida = {};
+
+    // Etapa 3 (objeto)
+    Object.keys(etapa3_dados).forEach(key => {
+      etapa3_dados[key] = 0;
+    });
+
+    // Etapa 4 (array)
+    etapa4_dados.length = 0;
+
+    // Perícias do personagem
+    pericias_personagem.length = 0;
+
+    console.log('✅ Variáveis globais limpas.');
+  }
+
+  async function salvarEtapas1a4() {
+    if (!user?.id) {
+      setErro('Usuário não está logado. Faça login novamente.');
+      return;
+    }
+
+    if (!campanhaId) {
+      setErro('ID da campanha não encontrado. Tente novamente.');
+      return;
+    }
+
+    setFlagSalvar(true);
+    setErro(null);
+
+    try {
+      // 1. Cria o personagem
+      const personagem = construirPersonagem();
+      console.log('Personagem a ser salvo:', personagem);
+
+      // 2. POST para criar o personagem
+      const responsePersonagem = await axios.post(`/api/personagens/${user.id}`, personagem);
+      console.log('Resposta do personagem:', responsePersonagem.data);
+
+      if (responsePersonagem.status === 201 || responsePersonagem.status === 200) {
+        const fichaId = responsePersonagem.data?.id; // supondo que o backend retorne o ID da ficha criada
+
+        // 3. POST para adicionar a ficha à campanha
+        const payloadFicha = {
+          campanhaId: parseInt(campanhaId, 10),
+          fichaDTO: {
+            id: fichaId || 0,
+            tipo: "PERSONAGEM" // fixo
+          }
+        };
+
+        console.log('Enviando ficha para campanha:', payloadFicha);
+
+        const responseFicha = await axios.post('/api/campanha/ficha/add', payloadFicha);
+        console.log('Resposta da campanha:', responseFicha.data);
+
+        if (responseFicha.status === 200 || responseFicha.status === 201) {
+          console.log('Personagem salvo e vinculado à campanha com sucesso!');
+
+          // Limpa todas as variáveis globais
+          limparVariaveis();
+
+          // Remove cache de campanhas para forçar recarga
+          localStorage.removeItem('campanhas');
+
+          // Redireciona para a lista de campanhas
+          navigate('/campanhas');
+        } else {
+          throw new Error(`Erro ao vincular ficha à campanha: ${responseFicha.status}`);
+        }
+      } else {
+        throw new Error(`Erro ao salvar personagem: ${responsePersonagem.status}`);
+      }
+    } catch (error) {
+      console.error('Erro no salvamento:', error);
+      setErro(error.response?.data?.message || error.message || 'Erro ao salvar personagem.');
+      setFlagSalvar(false);
+    } finally {
+      // Se não houve erro, o flag já foi resetado pelo navigate (que recarrega a página)
+      // Mas se houve erro, garantimos que o loading seja removido
+      if (erro) setFlagSalvar(false);
+    }
+  }
+
+  if (flagSalvar) {
+    return <Carregando aberto={flagSalvar} />;
+  }
+
+  return (
+    <Modal open={true}>
+      <div style={stilo}>
+        <strong>Personagem criado com Sucesso</strong>
+        {erro && <p style={{ color: 'red' }}>{erro}</p>}
+        <button onClick={salvarEtapas1a4} id="avancar">
+          Encerrar
+        </button>
+      </div>
+    </Modal>
+  );
 }
 
-
+// ------------------------------------------------------------
+// Componente principal do criador
 function CriadorFicha() {
+  const { user } = useUser(); // mantido para referência
   const [texto, setTexto] = useState("");
+
   return (
     <EtapaProvider>
-            <HeaderBase pagina_atual={'claro'} isFixo={true} titulo={texto} 
-      botao_L={<BotaoCancelarCriador />}/>
+      <HeaderBase
+        pagina_atual={'claro'}
+        isFixo={true}
+        titulo={texto}
+        botao_L={<BotaoCancelarCriador />}
+      />
       <ConteudoCriador setHeader={setTexto} />
     </EtapaProvider>
   );

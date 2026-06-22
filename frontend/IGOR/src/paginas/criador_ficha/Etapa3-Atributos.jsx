@@ -57,7 +57,7 @@ function ContainerInputs({ atributos, setAtributos, pontosDistribuir, setPontosD
       {atributos.map((attr) => (
         <InputComBotao
           key={attr.nome}
-          texto={mapeamentoNomes[attr.nome].toUpperCase()} // exibe o nome completo em maiúsculas
+          texto={mapeamentoNomes[attr.nome].toUpperCase()}
           valor={attr.valor}
           aoIncrementar={() => handleIncrementar(attr.nome)}
           aoDecrementar={() => handleDecrementar(attr.nome)}
@@ -80,17 +80,16 @@ function Etapa3() {
   const [atributosTemp, setAtributosTemp] = useState(dadosPadrao);
   const [pontosDistribuir, setPontosDistribuir] = useState(9);
 
-  // Carregar dados salvos ao montar o componente
+  // Carregar dados salvos ao montar o componente (agora usando objeto)
   useEffect(() => {
     // Verifica se há dados salvos (se algum valor é diferente de zero)
-    const temDados = etapa3_dados.some(item => item.valor !== 0);
+    const temDados = Object.values(etapa3_dados).some(valor => valor !== 0);
 
     if (temDados) {
-      // Mapeia os dados salvos (com nomes completos) para os nomes internos
+      // Mapeia os dados salvos (objeto) para o formato interno (array)
       const dadosCarregados = nomesInternos.map((nomeCurto) => {
         const nomeCompleto = mapeamentoNomes[nomeCurto];
-        const itemSalvo = etapa3_dados.find(item => item.nome === nomeCompleto);
-        return { nome: nomeCurto, valor: itemSalvo ? itemSalvo.valor : 0 };
+        return { nome: nomeCurto, valor: etapa3_dados[nomeCompleto] || 0 };
       });
       setAtributosTemp(dadosCarregados);
       // Recalcula os pontos restantes
@@ -101,17 +100,18 @@ function Etapa3() {
 
   const isBotaoAvancarDesabilitado = pontosDistribuir !== 0;
 
-  // Função SalvarEtapa3 – mapeia os valores para a estrutura global com nomes completos
+  // Função SalvarEtapa3 – salva no formato objeto com chave-valor
   const SalvarEtapa3 = () => {
-    // Constrói o array com os nomes completos e valores atuais
-    const dadosParaSalvar = atributosTemp.map((item) => ({
-      nome: mapeamentoNomes[item.nome],
-      valor: item.valor,
-    }));
+    // Constrói o objeto com os nomes completos e valores atuais
+    const dadosParaSalvar = {};
+    atributosTemp.forEach((item) => {
+      const nomeCompleto = mapeamentoNomes[item.nome];
+      dadosParaSalvar[nomeCompleto] = item.valor;
+    });
 
-    // Atualiza o array global
-    etapa3_dados.length = 0; // limpa
-    dadosParaSalvar.forEach(item => etapa3_dados.push(item));
+    // Substitui o conteúdo do objeto global (mantendo a referência)
+    Object.keys(etapa3_dados).forEach(key => delete etapa3_dados[key]);
+    Object.assign(etapa3_dados, dadosParaSalvar);
 
     console.log("Dados da Etapa 3 salvos em etapa3_dados:", etapa3_dados);
   };
