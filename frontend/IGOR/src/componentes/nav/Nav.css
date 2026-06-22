@@ -1,49 +1,164 @@
-nav {
-     background-color: #6E1F1F;
-
-     position: relative;
-
-     grid-column: 1;
-     grid-row: 1/-1;
-     padding: 20px;
-
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-
+.menu-lateral {
+  width: 100%;
+  height: 100%;
+  background-color: #4a1212; 
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 40px 24px;
+  font-family: 'Texto-Ordem';
 }
 
-.container-botoes-laterais {
-     position: absolute;
-     top: 20vh;
-
-     display: flex;
-     flex-direction: column;
-     gap: 50px;
-
+.titulo-menu {
+  font-family: 'Texto-Ordem';
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 60px 0;
 }
 
-.container-botao-perfil {
-     color: whitesmoke;
-     font-size: 18px;
-     display: flex;
-     flex-direction: row;
-     gap: 10px;
-     position: absolute;
-     bottom: 10%;
+.lista-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-
-.foto-perfil {
-     width: 50px;
-     height: 50px;
-     border-radius: 25px;
-     border: 1px solid black;
+.link-item {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  display: block;
+  padding: 10px 16px;
+  border-radius: 8px; /* Cantos suavemente arredondados */
+  background-color: transparent; 
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.nome-perfil {
-     display: flex;
-     align-items: center;
-     justify-content: center;
+.link-item:hover {
+  background-color: #a11b1b; 
+  border-color: #5c2a2a;    
+  color: #ffffff;           
+  cursor: pointer;
+}
+
+.rodape-menu {
+  margin-top: auto; 
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.linha-divisoria {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* Linha fina e suave */
+  margin: 0;
+  width: 100%;
+}
+
+/* Container que agrupa o perfil e o botão lado a lado */
+.perfil-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Empurra o perfil para a esquerda e o botão para a direita */
+  position: relative; /* Crítico para o posicionamento do dropup */
+  width: 100%;
+}
+
+.perfil-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* AVATAR AJUSTADO: Agora cria o círculo perfeito e limita o tamanho */
+.avatar {
+  width: 48px;  /* Define a largura fixa idêntica à de configurações */
+  height: 48px; /* Define a altura fixa idêntica à de configurações */
+  border-radius: 50%; /* Torna o container perfeitamente circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Corta o excesso da foto quadrada externo ao círculo */
+  position: relative;
+  background-color: #2a2a2a; /* Fundo escuro reserva para quando não houver foto */
+}
+
+/* IMAGEM AJUSTADA: Força o preenchimento e o crop proporcional */
+.imagem-foto-perfil-nav {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta proporcionalmente sem distorcer a imagem */
+  display: block;
+}
+
+.texto-ola {
+  font-family: 'Texto-Ordem';
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.nome-destaque {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Botão dos Três Pontinhos (estilo invisível/sutil) */
+.botao-opcoes-perfil {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-family: 'Texto-Ordem', sans-serif;
+}
+
+.botao-opcoes-perfil:hover, 
+.botao-opcoes-perfil.ativo {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* O Menu Dropup (Abre para cima) */
+.dropdown-dropup {
+  position: absolute;
+  bottom: calc(100% + 10px); /* Joga o menu exatamente ACIMA do container */
+  right: 0;
+  width: 160px;
+  background-color: #222222; /* Fundo escuro do menu de opções */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3); /* Sombra projetada para cima */
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  font-family: 'Texto-Ordem', sans-serif;
+}
+
+/* Itens de dentro do Menu */
+.dropdown-item {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Texto-Ordem', sans-serif;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* Destaque vermelho ao passar o mouse em Sair da Conta */
+.dropdown-item.item-sair:hover {
+  background-color: #a11b1b;
+  color: #ffffff;
 }

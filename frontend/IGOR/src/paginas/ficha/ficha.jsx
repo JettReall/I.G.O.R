@@ -36,9 +36,19 @@ function ContainerPericias({ ficha }) {
   return (
     <div className={estilos['container-pericias']}>
       <Pericia dados={headerPericia} isHeader={true} />
-      {ficha.pericias?.map((pericia, index) => (
-        <Pericia key={index} dados={pericia} />
-      ))}
+      {Array.isArray(ficha.pericias) &&
+        ficha.pericias.map((item) => {
+          // Transforma o item no formato esperado pelo componente Pericia
+          const dadosPericia = {
+            nome: item.pericia?.nome || '',
+            atributo: item.pericia?.atributo || '',
+            treino: item.treino || 0,
+            bonus: item.bonus || 0,
+            extra: item.outro || 0,
+            total: ((item.treino * 5) || 0) + (item.bonus || 0) + (item.outro || 0)
+          };
+          return <Pericia key={item.id || index} dados={dadosPericia} />;
+        })}
     </div>
   );
 }
@@ -136,7 +146,7 @@ function ContainerAtaqueRitual({ ficha }) {
 
 function ContainerAtaquesItens({ ficha }) {
   return (
-    <div className={estilos['container-ataques-itens']}>
+    <div className={clsx(estilos['container-ataques-itens'],estilos['bloco-detalhe'])}>
       <ContainerAtaqueRitual ficha={ficha} />
       <strong className={estilos['titulo-inventario']}>Inventário</strong>
       <ContainerItems ficha={ficha} />
@@ -268,44 +278,71 @@ function Ficha() {
     );
   }
 
-  // Monta o objeto dados_persona para o componente InfoPersona
+  // --- 1. CONVERSÃO DOS ATRIBUTOS (objeto -> array) ---
+  const mapeamentoInverso = {
+    forca: "for",
+    agilidade: "agi",
+    vigor: "vig",
+    intelecto: "int",
+    presenca: "pre",
+  };
+
+  const converterAtributos = (atributos) => {
+    if (Array.isArray(atributos)) return atributos;
+    if (atributos && typeof atributos === 'object') {
+      return Object.keys(atributos).map((nomeCompleto) => ({
+        nome: mapeamentoInverso[nomeCompleto] || nomeCompleto,
+        valor: atributos[nomeCompleto] || 0,
+      }));
+    }
+    // fallback
+    return [
+      { nome: "for", valor: 0 },
+      { nome: "agi", valor: 0 },
+      { nome: "vig", valor: 0 },
+      { nome: "int", valor: 0 },
+      { nome: "pre", valor: 0 },
+    ];
+  };
+
+  const atributos = converterAtributos(ficha.atributos);
+
+  // --- 2. DADOS PESSOAIS (infoPersona) ---
+  // Extrai os campos mesmo que sejam objetos (caso venha do backend)
   const dadosPersona = {
-  jogador: ficha.jogador || "",
-  origem: ficha.origem?.nome || "",
-  classe: typeof ficha.classe === 'object' ? ficha.classe?.nome || '' : ficha.classe || '',
-  trilha: typeof ficha.trilha === 'object' ? ficha.trilha?.nome || '' : ficha.trilha || '',
-};
+    persona: ficha.nomePersonagem || "",
+    jogador: ficha.jogador || ficha.nomeJogador || "",
+    origem: typeof ficha.origem === 'object' ? ficha.origem?.nome || "" : ficha.origem || "",
+    classe: typeof ficha.classe === 'object' ? ficha.classe?.nome || "" : ficha.classe || "",
+    trilha: typeof ficha.trilha === 'object' ? ficha.trilha?.nome || "" : ficha.trilha || "",
+  };
 
-  const atributos = Array.isArray(ficha.atributos) ? ficha.atributos : [
-  { nome: "for", valor: 0 },
-  { nome: "agi", valor: 0 },
-  { nome: "vig", valor: 0 },
-  { nome: "int", valor: 0 },
-  { nome: "pre", valor: 0 }
-];
-
+  // --- 3. RENDER ---
   return (
     <>
       <header>
         <HeaderBase
-          titulo={ficha.nomePersonagem || "Agente"}
+          titulo={ficha.nomePersonagem || ficha.nome || "Agente"}
           pagina_atual={"ficha"}
           botao_L={<BotaoRetorno aoClicar={() => navigate(-1)} />}
           botao_R={<BotoesFicha fichaId={ficha.id} />}
         />
       </header>
-      <main className={estilos.corpo}>
-        {/* Atributos recebe a lista diretamente */}
-        <Atributos atributos_lista={atributos} afinidade={ficha.afinidade}/>
+      <main className={estilos['corpo']}>
+        <Atributos atributos_lista={atributos} afinidade={ficha.afinidade} />
 
-        <div className={estilos['container-status-info-persona']}>
-          <InfoPersona dados_persona={dadosPersona} />
-          <ContainerValAtualMax ficha={ficha} />
-          <ContainerDadosSoltos ficha={ficha} />
+        <div className={estilos["coluna-detalhes"]}>
+          <div className={clsx(estilos['bloco-card-info'],estilos['bloco-detalhe'])}>
+            <InfoPersona dados_persona={dadosPersona} />
+            <ContainerValAtualMax ficha={ficha} />
+            <ContainerDadosSoltos ficha={ficha} />
+          </div>
+          <div className={estilos['bloco-detalhe']}>
+            <ContainerPericias ficha={ficha} />
+          </div>
+
+          <ContainerAtaquesItens ficha={ficha} />
         </div>
-
-        <ContainerPericias ficha={ficha} />
-        <ContainerAtaquesItens ficha={ficha} />
       </main>
     </>
   );

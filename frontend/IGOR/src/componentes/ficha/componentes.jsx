@@ -199,11 +199,23 @@ function InfoPersona({dados_persona}) {
      return (
           <div className={estilos['container-persona']}>
                <div className={clsx(estilos['linha'], estilos['classe-trilha-nomes'])}>
-               <strong className={estilos['trilha']}>{dados_persona.trilha}</strong>
+               <strong className={estilos['trilha']}>{dados_persona?.trilha}</strong>
                <strong>{dados_persona.classe}</strong>
                </div>
-               <strong>{dados_persona.origem}</strong>
-               <strong>Jogador: {dados_persona.jogador}</strong>
+               <strong>Origem: {dados_persona.origem}</strong>
+               <div style={{display: 'flex', flexDirection: 'row', 
+                    justifyContent:'space-evenly',
+                    width:'90%'}}>
+                    <div style={{display: 'flex',flexDirection: 'column',placeItems: 'center'}}>
+                         <strong style={{width:'190px'}}>Nome do Agente:</strong>
+                         <strong>{dados_persona.persona}</strong>
+                    </div>
+                    <div style={{display: 'flex',flexDirection: 'column',placeItems: 'center'}}>
+                         <strong>Jogador:</strong>
+                         <strong>{dados_persona.jogador}</strong>
+                    </div>
+               </div>
+               <></>
           </div>
      )
 }

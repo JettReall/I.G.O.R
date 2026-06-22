@@ -92,22 +92,26 @@ function TelaCampanhaAgente() {
   return (
     <div className="corpo">
       <header>
+        
+      </header>
+
+      <nav className="latertal">
+        <Nav usuario={user?.nome || ''} />
+      </nav>
+
+      <main className='main-campanha'>
         <HeaderDeCampanha
           titulo={campanha.nome}
           botao_L={<BotaoRetorno caminho={'/campanhas'}/>}
           pagina_atual={'campanha'}
         />
-      </header>
+        <div className='principal-campanha'>
 
-      <nav className="lateral">
-        <Nav usuario={user?.nome || ''} />
-      </nav>
-
-      <main>
-        <ContainerCampanhas
-          personagens={personagens}
-          aoClicarFicha={handleClickFicha}
-        />
+          <ContainerCampanhas
+            personagens={personagens}
+            aoClicarFicha={handleClickFicha}
+            />
+        </div>
       </main>
 
       <ConfirmarCriar
