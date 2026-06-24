@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import './Login.css';
-import { BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
-import { InputLogin, ErroLogin } from './ComponentesMenores';
+import './Login.css'; // Compartilha a mesma folha de estilos padronizada
+import { BotaoRetorno, BotaoLoginCadastro } from '../../componentes/botoes/Botoes';
+import { InputLogin, ErroLogin } from "./ComponentesMenores";
 import { useNavigate } from 'react-router-dom';
-import Modal from '../../componentes/Modal';
 import axios from 'axios';
 
 function ContainerLogo() {
   return (
     <div className="container-logo">
-      <img src=".\src\assets\imagens\elementos\LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
+      <img src="./src/assets/imagens/elementos/LogoOrdem.png" alt="Logo Ordem" className="logo-ordem" />
       <h3 className="nome-ordem">ORDO REALITAS</h3>
+      <span className="subtitulo-logo">criar conta</span>
     </div>
   );
 }
 
 function ContainerDados() {
+  const navigate = useNavigate();
+  
   const [form, setForm] = useState({
     email: "",
     nome_usuario: "",
@@ -24,11 +26,10 @@ function ContainerDados() {
   });
 
   const [carregando, setCarregando] = useState(false);
-  const [erro, setErro] = useState("");
-  const navigate = useNavigate();
+  const [erro, setErro] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; 
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -38,108 +39,92 @@ function ContainerDados() {
 
   const cadastroValido = todosPreenchidos && form.senha === form.senha_confirmar;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setErro("");
-    setCarregando(true);
+ const handleSubmit = async (event) => {
+  event.preventDefault();
+  setErro("");
+  setCarregando(true);
+  
+  console.log("Tentando enviar o formulário...", form);
 
-
-    // Monta o objeto a ser enviado
-    const envio = {
-      nome: form.nome_usuario,
+  try {
+    
+    await axios.post('api/usuarios', {
       email: form.email,
-      senha: form.senha,
-    };
-
-    try {
-      const response = await axios.post('api/usuarios', envio);
-
-      // Se o cadastro for bem-sucedido (201 Created ou 200 OK)
-      if (response.status === 201 || response.status === 200) {
-          console.log(response.data);
-          
-        navigate('/login'); 
-      } else {
-        // Caso retorne outro status (não esperado)
-        setErro("Erro inesperado ao cadastrar. Tente novamente.");
-      }
-    } catch (error) {
-          if (error.response) {
-          const status = error.response.status;
-          if (status === 409) {
-               setErro("Já existe um usuário com este email ou nome de usuário.");
-          } else if (status === 400) {
-               setErro("Dados inválidos. Verifique os campos.");
-          } else {
-               setErro(`Erro no servidor (${status}). Tente novamente mais tarde.`);
-          }
-          } else if (error.request) {
-          // A requisição foi feita mas não houve resposta
-          setErro("Servidor indisponível. Verifique sua conexão.");
-          } else {
-          // Algo aconteceu na configuração da requisição
-          setErro("Erro ao enviar os dados. Tente novamente.");
-          }
-          console.error("Erro no cadastro:", error);
-    } finally {
-      setCarregando(false);
+      nome_usuario: form.nome_usuario,
+      senha: form.senha
+    });
+    
+    alert("Usuário criado com sucesso!");
+    navigate("/login"); // Se der certo, ele vai para o login aqui
+  } catch (err) {
+    // ESSA LINHA É CRUCIAL: Abre o objeto de erro para ver o que o Spring Boot respondeu!
+    console.error("Erro retornado pela API:", err.response ? err.response.data : err.message);
+    
+    if (err.response && err.response.data) {
+      setErro(typeof err.response.data === 'string' ? err.response.data : "Erro nos dados enviados.");
+    } else {
+      setErro("Não foi possível conectar ao servidor.");
     }
-  };
+  } finally {
+    setCarregando(false);
+  }
+};
 
   return (
     <div className="container-dados">
       <form onSubmit={handleSubmit} id="form-cadastro">
         <InputLogin
-          texto="Digite seu email"
+          texto="Digite seu e-mail"
           placeholder="Exemplo: ElizabethWebber@ordo.com"
-          nome="email"
+          name="email"
           tipo="email"
           valor={form.email}
           mudar={handleChange}
         />
 
-        <InputLogin
-          texto="Digite o Nome de usuário"
-          nome="nome_usuario"
+        <InputLogin 
+          texto="Digite um UserName"
+          placeholder="ex.: ElizabethWebber"
+          name="nome_usuario"
           tipo="text"
           valor={form.nome_usuario}
-          placeholder="Insira um nome de usuário"
           mudar={handleChange}
         />
 
-        <InputLogin
-          texto="Digite sua senha"
-          placeholder="Mínimo 6 caracteres"
-          nome="senha"
-          tipo="text" // alterado para password
+        <InputLogin 
+          texto="Crie uma senha"
+          placeholder=""
+          name="senha"
+          tipo="password"
           valor={form.senha}
           mudar={handleChange}
         />
 
-        <InputLogin
-          texto="Confirme sua senha"
-          placeholder="Digite novamente"
-          nome="senha_confirmar"
-          tipo="text" // alterado para password
+        <InputLogin 
+          texto="Confirmar senha"
+          placeholder=""
+          name="senha_confirmar"
+          tipo="password"
           valor={form.senha_confirmar}
           mudar={handleChange}
         />
 
-        {/* Exibe mensagem de erro, se houver */}
         {erro && <ErroLogin texto={erro} />}
 
         <div className="container-botoes">
-          <button
-            className="botao-envio"
-            type="submit"
-            disabled={!cadastroValido || carregando}
-          >
-            {carregando ? "Criando" : "Criar"}
-          </button>
+          {/* Botão Secundário na Esquerda */}
           <BotaoLoginCadastro
             texto="Entrar em uma conta"
-            aoClicar={() => navigate("/login")}
+            aoClicar={(e) => { e.preventDefault(); navigate("/login"); }}
+            corBotao="claro"
+          />
+
+          {/* Botão Principal na Direita */}
+          <BotaoLoginCadastro
+            texto={carregando ? "Criando..." : "Criar"}
             corBotao="escuro"
+            type="submit"
+            /*disabled={!cadastroValido || carregando}*/
           />
         </div>
       </form>
@@ -149,9 +134,15 @@ function ContainerDados() {
 
 function Container() {
   return (
-    <div className="container-grande">
-      <ContainerLogo />
-      <ContainerDados />
+    <div className="tela-fundo-login">
+      {/* Botão de retorno fixado no canto superior esquerdo */}
+      <div className="posicionar-botao-voltar">
+        <BotaoRetorno texto="‹" />
+      </div>
+      <div className="container-grande">
+        <ContainerLogo />
+        <ContainerDados />
+      </div>
     </div>
   );
 }

@@ -1,30 +1,67 @@
-body {
-     overflow: auto;
-     overflow-x: hidden;
+.wrapper-tela-cheia header,
+.wrapper-tela-cheia :global(header),
+.wrapper-tela-cheia :global(header) > div {
+     background-color: rgba(213, 167, 72, 0.6) !important;
+     padding: 10px !important; 
+     box-sizing: border-box;
+     backdrop-filter: blur(6px); 
+     /*border-bottom: 1px solid rgba(213, 167, 72, 0.2) !important;*/
+}
+
+.wrapper-tela-cheia {
+     width: 100vw;
+     height: 100vh;
+     display: flex;
+     flex-direction: column;
+     overflow: hidden;
 }
 
 .corpo {
-     /* background-image: url(../../assets/imagens/fundos/fundo-morte.png); */
-     
-     background-color: #DDCEAF;
-
-
+     background-image: url(../../assets/imagens/fundos/fundo-morte.png); 
+     background-color: #120f0b; 
      background-position: center;
      background-repeat: no-repeat;
      background-size: cover;
 
-
-
-     overflow: scroll; 
+     flex: 1;
+     overflow-y: auto; 
      overflow-x: hidden;
-     height: auto;  
      width: 100%;
+     padding: 30px;
 
-     display: grid;
-     grid-template-columns: repeat(2,1fr);
-     justify-content: space-around;
-     place-items: center;
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: flex-start;
+     gap: 40px;
+     box-sizing: border-box;
+}
 
+.coluna-atributos {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: sticky; 
+     top: 20px;
+}
+
+.coluna-detalhes {
+     flex: 1;
+     max-width: 650px; 
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+}
+
+.bloco-card-info {
+     width: 100%;
+     max-width: 600px;
+     background-color: rgba(24, 21, 18, 0.8); 
+     border: 1px solid rgba(213, 167, 72, 0.15);
+     border-radius: 6px;
+     padding: 20px; 
+     box-sizing: border-box;
+     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .container-pericias,
@@ -46,75 +83,99 @@ body {
 }
 
 .container-ataques-itens {
-     gap: 5px;
+     gap: 15px;
 }
-
 
 .container-ataque-ritual,
 .container-itens {
      padding-top: 0;
      gap: 10px;
-     height: 350px;
-     width: 90%;
-
-     
-}
-
-.botao-ataque-ritual {
-     height: 50px;
-     width: 20%;
-     font-size: 16px;
-
-     border-top-left-radius: 10px;
-     border-top-right-radius: 10px;
-
-     background-color: #322917;
-     color: snow;
-}
-
-.botao-ataque-ritual:disabled {
-     background-color: #eec36b;
-     color: black;
-     font-weight: 800;
-     font-size: 26px;
-     opacity: 0.9;
+     height: auto; 
+     min-height: 250px;
+     width: 100%;
 }
 
 .container-botao-atk-ritual {
      width: 100%;
      display: flex;
+     gap: 6px;
+}
+
+.botao-ataque-ritual {
+     height: 40px;
+     flex: 1; 
+     font-size: 13px;
+     font-weight: 600;
+     letter-spacing: 0.5px;
+     cursor: pointer;
+     border: 1px solid rgba(213, 167, 72, 0.15);
+     border-bottom: none;
+     border-top-left-radius: 4px;
+     border-top-right-radius: 4px;
+     background-color: rgba(36, 31, 25, 0.9);
+     color: rgba(221, 206, 175, 0.6); /* Texto menos chamativo quando inativo */
+     transition: all 0.2s ease;
+}
+
+.botao-ataque-ritual:disabled {
+     background-color: rgba(213, 167, 72, 0.15); /* Fundo sutil para a aba ativa */
+     color: #d5a748; 
+     font-weight: 700;
+     font-size: 14px; 
+     border-top: 2px solid #d5a748;
+     border-left: 1px solid rgba(213, 167, 72, 0.3);
+     border-right: 1px solid rgba(213, 167, 72, 0.3);
+     opacity: 1;
 }
 
 .titulo-inventario {
-     font-size: 24px;
+     font-size: 14px;
+     font-weight: 700;
+     letter-spacing: 1.5px;
+     text-transform: uppercase;
      width: 100%;
      text-align: center;
+     margin: 15px 0 5px 0; 
+     padding: 10px; 
+     font-family: inherit;
+     /*background-color: transparent;  */
+     color: #d5a748;
+     border: none;
+     border-top: 1px solid rgba(213, 167, 72, 0.2);
+     border-bottom: 1px solid rgba(213, 167, 72, 0.2);
+     border-radius: 0;
+     box-sizing: border-box;
 }
 
 .container-triplo-status {
      display: flex;
-     width: 600px;
-     height: 150px;
-
-     border-radius: 10px;
+     width: 100%;
+     max-width: 600px;
+     min-height: 100px;
+     height: auto; 
+     padding: 15px 10px;
+     border-radius: 6px;
      justify-content: space-evenly;
-
-     background-color: whitesmoke;
-     border-radius: 10px;
+     align-items: center;
+     background-color: #ffe8d38e; 
+     border: 1px solid rgba(0, 0, 0, 0.06);
+     border-top: 2px solid #d5a748; /* Destaque minimalista apenas no topo */
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+     box-sizing: border-box;
+     color: #252525;
 }
 
 .container-status-info-persona {
-
      display: flex;
      flex-direction: column;
-     justify-content: space-evenly;
-
-      gap: 10px;
-     width: 600px;
+     gap: 15px;
+     width: 100%;
+     max-width: 600px;
 }
 
 .botoes-header-ficha {
      display: flex;
      flex-direction: row;
      gap: 10px;
+     align-items: center;
 }

@@ -1,7 +1,16 @@
 package com.example.igor.ficha.entity.personagem;
 
+import java.util.List;
+
 import com.example.igor.ficha.entity.acao.Habilidade;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +30,7 @@ public class Trilha {
     private String nome;
     @ManyToMany
     private List<Habilidade> habilidades;
+    @JsonIgnore
     @ManyToOne
         @JsonIgnore
         private Classe classe;

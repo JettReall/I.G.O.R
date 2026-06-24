@@ -14,7 +14,6 @@ const listaPoderesExemplo = [
 ];
 
  // Número de poderes que podem ser escolhidos (fixo para teste)
-
 function PoderClasse({ poder, isSelected, onSelect }) {
   const handleClick = () => {
     if (isSelected) {
@@ -26,7 +25,7 @@ function PoderClasse({ poder, isSelected, onSelect }) {
 
   return (
     <div className={clsx(estilosNEX['poder-classe'])}>
-      <div className={estilosNEX['coluna'], estilosNEX['dados-poder-classe']}>
+      <div className={`${estilosNEX['coluna']} ${estilosNEX['dados-poder-classe']}`}>
         <strong>{poder.nome}</strong>
         <p>{poder.isAtivo ? "Ativo" : "Passivo"}</p>
       </div>
@@ -61,12 +60,7 @@ function EscolherPoderClasse() {
   };
 
   const desabilitar = selectedId === null;
-
-
   let texto = desabilitar ?  `Escolha um poder de classe` : `Poder escolhido. Clique em avançar para confirmar`;
-
-  
-
 
   return (
       <div className={clsx(estilosNEX['container-principal-nex'], estilosNEX['container-tela-poderes'])}>

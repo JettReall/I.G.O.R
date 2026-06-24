@@ -5,7 +5,7 @@ import { HeaderBase } from '../../componentes/header/headers.jsx'
 import estilos from '../../componentes/campanha/BotaoCampanha.module.css'
 import clsx from 'clsx'
 import { useUser } from '../../UserContext.jsx'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { ConfirmarCriar } from './ConfirmarCriar.jsx'
@@ -23,7 +23,7 @@ function ContainerCampanhas({ campanhas, aoClicarCampanha }) {
         aba_botao={"adicionar"}
         nome_botao={"Adicionar uma campanha"}
         classe={campanhaBotaoAdd}
-        aoClicar={aoClicarCampanha}
+        aoClicar={() => aoClicarCampanha(null)} /* Garante que passa nulo ao clicar em adicionar */
       />
 
       {campanhas?.map((campanha) => (
@@ -33,7 +33,7 @@ function ContainerCampanhas({ campanhas, aoClicarCampanha }) {
           aba_botao={campanha.nome}
           nome_botao={campanha.nome}
           classe={classeCampanha}
-          aoClicar={aoClicarCampanha}
+          aoClicar={() => aoClicarCampanha(campanha.id)} /* Passa o ID correto da campanha */
         />
       ))}
     </div>
@@ -161,8 +161,9 @@ function Campanhas() {
       <ConfirmarCriar
         isAberto={aberto}
         set={setAberto}
-        texto={"Criar uma nova campanha?"}
+        texto="Deseja criar uma nova campanha?"
         isCampanha={true}
+        onCampanhaCriada={handleCampanhaCriada}
       />
     </div>
   )

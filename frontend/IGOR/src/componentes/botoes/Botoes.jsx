@@ -39,8 +39,6 @@ const BotaoLoginCadastro = ( {texto, corBotao, aoClicar} ) => {
      if(!corBotao) { //Black
           corBotao = "claro"
      }
-     
-     const classe = clsx(estilos['login-cadastro'],estilos[corBotao]);
 
      return (
           <button className={classe} onClick={aoClicar}>
@@ -48,8 +46,6 @@ const BotaoLoginCadastro = ( {texto, corBotao, aoClicar} ) => {
           </button>
      )
 }
-
-
 
 export {
      BotaoRetorno,
